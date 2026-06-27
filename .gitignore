@@ -14,11 +14,22 @@ node_modules/
 .DS_Store
 .vscode/settings.json
 
-# Research and project files (not for GitHub)
-research/
-runs/
-data/
-.agents/
-*.md
+# Project-level evidence and metadata (root-relative only)
+# Uses / prefix so src/data/, src/components/, etc. are NOT excluded
+/research/
+/runs/
+/data/
+/.agents/
+
+# Markdown docs at project root only
+/*.md
+# Exceptions (site root level)
 !README.md
 !package.json
+
+# Internal links doc (site-specific, not project-level)
+/internal-links.md
+/url-plan.csv
+/keyword-map.csv
+/SITE-BRIEF.md
+/launch-scope.md
