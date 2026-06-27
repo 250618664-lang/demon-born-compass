@@ -1,0 +1,72 @@
+---
+import ContentLayout from '../layouts/ContentLayout.astro';
+import { SITE_TITLE, GAME_NAME, EVIDENCE_REVIEW_DATE } from '../data/site';
+---
+
+<ContentLayout
+  title="About"
+  description="About Demon Born Compass — an unofficial fan guide for Demon Born Roblox."
+  canonicalUrl="/about/"
+>
+  <h1>About {SITE_TITLE}</h1>
+
+  <p>
+    <strong>{SITE_TITLE}</strong> is an unofficial fan guide for <strong>{GAME_NAME}</strong> on Roblox.
+    It is not affiliated with, endorsed by, or connected to Roblox Corporation, SoraExp, or any
+    Demon Born creators.
+  </p>
+
+  <div class="info-block">
+    <strong>What this site does:</strong>
+    <ul style="margin-top: var(--space-3); margin-bottom: 0">
+      <li>Tracks official source status for wiki, Trello, and codes</li>
+      <li>Publishes only officially confirmed game facts</li>
+      <li>Lists controls directly from the Roblox game description</li>
+      <li>Maintains a full source registry with claim IDs</li>
+    </ul>
+  </div>
+
+  <div class="info-block" style="border-left-color: var(--color-warning-text); background: var(--color-warning-bg)">
+    <strong>What this site does not do:</strong>
+    <ul style="margin-top: var(--space-3); margin-bottom: 0">
+      <li>No tier lists, best builds, best clans, or best breathing styles</li>
+      <li>No codes copied from Pocket Tactics, Destructoid, Beebom, Radio Times, or other third-party sites</li>
+      <li>No claims about official Trello or Discord unless a verified official link is provided</li>
+      <li>No unofficial screenshots, Roblox media, or competitor content</li>
+      <li>No breathing styles, blood demon arts, or clan mechanics (not yet confirmed from official sources)</li>
+    </ul>
+  </div>
+
+  <h2>Why this site exists</h2>
+  <p>
+    Google Trends and SERP observations supplied by the operator show rising interest in
+    <em>Demon Born wiki</em>, <em>Demon Born trello</em>, and <em>Demon Born codes</em>.
+    The current SERP for these queries is mixed — unrelated pages, code aggregators, and one
+    exact-match competitor wiki appear, but no authoritative, evidence-backed hub exists yet.
+  </p>
+  <p>
+    This site fills that gap with a lightweight, official-source-only approach while the game
+    is still in its early (World Cup Beta) stage.
+  </p>
+
+  <h2>Evidence and updates</h2>
+  <p>
+    All game facts are tied to claim IDs that map to source IDs in the
+    <a href="/sources/">Sources registry</a>. Evidence was last reviewed on
+    <strong>{EVIDENCE_REVIEW_DATE}</strong>. Pages are not updated automatically —
+    each change is reviewed and versioned.
+  </p>
+
+  <h2>Contact</h2>
+  <p>
+    To report a factual error, submit a correction, or flag a broken link,
+    use the <a href="/contact/">Contact</a> page. Corrections are reviewed against
+    official sources before any page is updated.
+  </p>
+
+  <h2>Ads and tracking</h2>
+  <p>
+    This site has no advertisements, no analytics scripts, and no tracking cookies.
+    It is currently a static preview deployed to Vercel. No custom domain has been purchased.
+  </p>
+</ContentLayout>

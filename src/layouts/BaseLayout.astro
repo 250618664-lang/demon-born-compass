@@ -1,0 +1,100 @@
+---
+import '../styles/global.css';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import { SITE_URL, SITE_TITLE, SITE_DESCRIPTION, SITE_LANG } from '../data/site';
+
+interface BreadcrumbItem {
+  name: string;
+  url?: string;
+}
+
+interface Props {
+  title: string;
+  description?: string;
+  canonicalUrl?: string;
+  ogType?: string;
+  noindex?: boolean;
+  breadcrumb?: BreadcrumbItem[];
+}
+
+const {
+  title,
+  description = SITE_DESCRIPTION,
+  canonicalUrl,
+  ogType = 'website',
+  noindex = false,
+  breadcrumb = [],
+} = Astro.props;
+
+const pageUrl = canonicalUrl
+  ? `${SITE_URL}${canonicalUrl}`
+  : `${SITE_URL}${Astro.url.pathname}`;
+
+const visibleCrumbs: BreadcrumbItem[] = [
+  { name: 'Home', url: '/' },
+  ...breadcrumb,
+];
+
+const breadcrumbSchema = breadcrumb && breadcrumb.length > 0
+  ? {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": visibleCrumbs.map((item, i) => ({
+        "@type": "ListItem",
+        "position": i + 1,
+        "name": item.name,
+        ...(item.url ? { "item": `${SITE_URL}${item.url}` } : {}),
+      })),
+    }
+  : null;
+---
+
+<!doctype html>
+<html lang={SITE_LANG}>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="generator" content={Astro.generator} />
+
+    <title>{title === SITE_TITLE ? title : `${title} — ${SITE_TITLE}`}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={pageUrl} />
+    {noindex && <meta name="robots" content="noindex, nofollow" />}
+
+    <!-- Open Graph -->
+    <meta property="og:type" content={ogType} />
+    <meta property="og:url" content={pageUrl} />
+    <meta property="og:title" content={title === SITE_TITLE ? title : `${title} — ${SITE_TITLE}`} />
+    <meta property="og:description" content={description} />
+    <meta property="og:site_name" content={SITE_TITLE} />
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+    <!-- Truthful WebSite structured data -->
+    <script type="application/ld+json" is:inline set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "name": SITE_TITLE,
+      "url": SITE_URL,
+      "description": description,
+      "inLanguage": SITE_LANG,
+    })} />
+
+    <!-- BreadcrumbList — only when breadcrumb items are passed -->
+    {breadcrumbSchema && (
+      <script type="application/ld+json" is:inline set:html={JSON.stringify(breadcrumbSchema)} />
+    )}
+  </head>
+  <body>
+    <a href="#main-content" class="skip-link">Skip to content</a>
+    <Header currentPath={Astro.url.pathname} />
+    <main id="main-content">
+      <div class="container">
+        <slot />
+      </div>
+    </main>
+    <Footer />
+  </body>
+</html>

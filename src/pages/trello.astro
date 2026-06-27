@@ -1,0 +1,71 @@
+---
+import ContentLayout from '../layouts/ContentLayout.astro';
+import { GAME_NAME } from '../data/site';
+
+const pageSourceIds = ['DB-SERP-001', 'DB-LEAD-001', 'DB-LEAD-002'];
+---
+
+<ContentLayout
+  title="Trello Status"
+  description="Demon Born Trello board status — no official Trello link has been confirmed."
+  canonicalUrl="/trello/"
+  breadcrumb={[{ label: 'Trello Status', url: '/trello/' }]}
+  evidenceNotes="No official Trello URL confirmed from any official Roblox or creator source"
+  sourceIds={pageSourceIds}
+>
+  <h1>{GAME_NAME} Trello — Status</h1>
+
+  <p class="page-lead">
+    Does an official Trello board exist for {GAME_NAME}?
+    At present, no verified official Trello URL has been confirmed from any official source.
+  </p>
+
+  <div class="info-block" style="border-left-color: var(--color-warning-text); background: var(--color-warning-bg)">
+    <strong>No official Trello board confirmed.</strong>
+    This page does not claim an official Trello exists. Third-party sites mention
+    a Discord channel but no active Trello or wiki. If you have a verified official link,
+    use the <a href="/contact/">correction workflow</a>.
+  </div>
+
+  <h2>SERP observations (2026-06-27)</h2>
+  <p>
+    User-supplied SERP screenshots (<code>DB-SERP-001</code>) show mixed results for
+    <em>Demon Born trello</em> queries:
+  </p>
+  <ul>
+    <li>Unrelated Trello boards (boards for other games or topics) appear for broad queries.</li>
+    <li>Pocket Tactics (<code>DB-LEAD-001</code>) notes that no active Trello or wiki existed at time of writing.</li>
+    <li>Destructoid (<code>DB-LEAD-002</code>) similarly mentions Discord and wiki information but no confirmed Trello.</li>
+    <li>The exact-match competitor wiki (<em>demonbornwiki.wiki</em>) exists but is not a Trello board.</li>
+  </ul>
+
+  <h2>What counts as a verified official Trello</h2>
+  <p>A Trello board is considered officially verified when at least one of these is true:</p>
+  <ul>
+    <li>The link is published on the official Roblox game page or official creator social media.</li>
+    <li>The link is accessible via the official Roblox group page or verified creator channel.</li>
+    <li>The operator confirms the link directly from an official communication.</li>
+  </ul>
+
+  <h2>What this site will not do</h2>
+  <ul>
+    <li>Will not publish a Trello link unless it is verified as official.</li>
+    <li>Will not list a Trello board from a third-party guide site as "official."</li>
+    <li>Will not create a fan Trello or mirror any unofficial board.</li>
+  </ul>
+
+  <h2>Alternatives while no official Trello exists</h2>
+  <ul>
+    <li><a href="/wiki/">Wiki Status</a> — current wiki landscape and official source gaps.</li>
+    <li><a href="/codes/">Codes Status</a> — how to check for active codes from official channels.</li>
+    <li><a href="/beginner-guide/">Beginner Guide</a> — officially confirmed beginner facts.</li>
+    <li><a href="/controls/">Controls</a> — official controls list from the Roblox game description.</li>
+  </ul>
+
+  <h2>If you have an official Trello link</h2>
+  <p>
+    If you can confirm a Trello board is officially associated with {GAME_NAME} or SoraExp,
+    please use the <a href="/contact/">correction workflow</a> with the URL and source.
+    Once verified against an official channel, the Trello Status page will be updated.
+  </p>
+</ContentLayout>

@@ -1,0 +1,12 @@
+page_name,canonical_url,primary_search_intent,keyword_variants,page_type,source_ids,verification_status,gameplay_needed,in_launch_scope,notes
+Home,/,Hub for wiki/codes/trello status,"Demon Born Roblox, Demon Born wiki, Demon Born codes, Demon Born trello",hub,"DB-ROBLOX-001, DB-API-001, DB-TRENDS-001, DB-SERP-001",official-confirmed-limited,NO,YES,"Status-first homepage; no copied code list"
+Wiki Status,/wiki/,Find Demon Born wiki and source status,"Demon Born wiki, Demon Born Roblox wiki, Demon Born wiki guide",status_page,"DB-SERP-001, DB-ROBLOX-001, DB-API-001",serp-gap-confirmed,NO,YES,"Mention mixed SERP and source rules; do not rewrite competitor wiki"
+Trello Status,/trello/,Find Demon Born Trello status,"Demon Born trello, Demon Born Roblox trello, Demon Born official trello",status_page,"DB-SERP-001, DB-LEAD-001, DB-LEAD-002",unverified-official-link,NO,YES,"No official Trello confirmed; third-party snippets are leads only"
+Codes Status,/codes/,Find Demon Born code status,"Demon Born codes, Demon Born Roblox codes, codes Demon Born, Demon Born code",codes_status,"DB-TRENDS-001, DB-SERP-001, DB-LEAD-001, DB-LEAD-002",source-limited,YES,YES,"Do not copy third-party codes; publish official-source requirement and last-checked note"
+Controls,/controls/,Learn official controls,"Demon Born controls, Demon Born keybinds, Demon Born dash, Demon Born breathing key",official_fact_page,"DB-API-001",official-confirmed,NO,YES,"Official controls only"
+Beginner Guide,/beginner-guide/,Start Demon Born with safe facts,"Demon Born beginner guide, Demon Born guide, Demon Born slayer demon, Demon Born stats level",limited_fact_page,"DB-API-001",official-confirmed-limited,YES,YES,"Basic official facts only; no route/walkthrough beyond sources"
+Sources & Corrections,/sources/,Source registry and corrections,"Demon Born sources, Demon Born corrections",trust,"DB-ROBLOX-001, DB-API-001, DB-API-002, DB-API-003, DB-API-004, DB-TRENDS-001, DB-SERP-001",N/A,NO,YES,"Registry of source IDs"
+Editorial Policy,/editorial/,Editorial and testing policy,"Demon Born source policy, Demon Born testing policy",trust,N/A,N/A,NO,YES,"Explain no copied codes and no unverified Trello"
+About,/about/,Unofficial site identity,"About Demon Born Compass",trust,N/A,N/A,NO,YES,"Unofficial fan guide disclaimer"
+Privacy,/privacy/,Privacy statement,"Privacy",trust,N/A,N/A,NO,YES,"No ads/analytics/cookies/forms in preview"
+Contact,/contact/,Corrections entry point,"Demon Born corrections contact",trust,N/A,N/A,NO,YES,"Correction channel placeholder"

@@ -1,0 +1,110 @@
+---
+import ContentLayout from '../layouts/ContentLayout.astro';
+import { GAME_NAME } from '../data/site';
+
+const pageSourceIds = ['DB-TRENDS-001', 'DB-SERP-001', 'DB-LEAD-001', 'DB-LEAD-002'];
+---
+
+<ContentLayout
+  title="Codes Status"
+  description="Demon Born codes status — no official code feed confirmed. How to find active codes safely."
+  canonicalUrl="/codes/"
+  breadcrumb={[{ label: 'Codes Status', url: '/codes/' }]}
+  evidenceNotes="No official code source confirmed — third-party code lists are not copied"
+  sourceIds={pageSourceIds}
+>
+  <h1>{GAME_NAME} Codes — Status</h1>
+
+  <p class="page-lead">
+    Are there active {GAME_NAME} codes? Current status: <strong>no official code source has been confirmed</strong>.
+    This page explains why and how to check safely.
+  </p>
+
+  <div class="info-block" style="border-left-color: var(--color-warning-text); background: var(--color-warning-bg)">
+    <strong>No official codes published on this site.</strong>
+    Codes appearing on third-party sites (Pocket Tactics, Destructoid, Beebom, Radio Times, etc.)
+    are not copied here. No code is published without confirmation from an official Roblox channel
+    or verified in-game redemption UI.
+  </div>
+
+  <h2>Why no codes are published yet</h2>
+  <p>
+    Google Trends data (<code>DB-TRENDS-001</code>) shows <em>Demon Born codes</em> as a rising
+    related query. Third-party code sites (Pocket Tactics, Destructoid — <code>DB-LEAD-001/002</code>)
+    have published code lists. However:
+  </p>
+  <ul>
+    <li>No official Roblox channel (game page, creator Discord, group description) has been
+        confirmed as a code source.</li>
+    <li>Codes on third-party sites cannot be verified as active or accurate without
+        in-game confirmation.</li>
+    <li>Expired or incorrect codes published on aggregators can mislead players.</li>
+  </ul>
+
+  <h2>How to find codes safely</h2>
+  <p>Until an official code source is confirmed, use these verification steps:</p>
+  <ol>
+    <li>Check the official Roblox game page description for any pinned codes.</li>
+    <li>Visit the official SoraExp Roblox group page for announcements.</li>
+    <li>Check the Roblox game description in-game at the main menu.</li>
+    <li>If a creator Discord is confirmed official, check its announcements channel.</li>
+  </ol>
+
+  <h2>What this site tracks</h2>
+  <div class="table-wrapper">
+    <table>
+      <thead>
+        <tr>
+          <th>Item</th>
+          <th>Status</th>
+          <th>Source</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Official code list on Roblox game page</td>
+          <td>Not confirmed</td>
+          <td>DB-API-001 / DB-ROBLOX-001</td>
+        </tr>
+        <tr>
+          <td>Codes pinned in official Discord</td>
+          <td>No official Discord confirmed</td>
+          <td>DB-SERP-001</td>
+        </tr>
+        <tr>
+          <td>Codes in official Twitter/X or social media</td>
+          <td>Not researched</td>
+          <td>—</td>
+        </tr>
+        <tr>
+          <td>In-game code redemption UI</td>
+          <td>Requires hands-on verification</td>
+          <td>—</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h2>How codes will be added</h2>
+  <p>
+    When an official code source is confirmed (official game page, creator channel, or
+    in-game redemption UI), the Codes page will be updated to include:
+  </p>
+  <ul>
+    <li>Active codes with rewards and expiration status</li>
+    <li>Redemption steps</li>
+    <li>Expired codes with last-seen dates</li>
+    <li>Verification source for each code</li>
+  </ul>
+  <p>
+    All codes will be tied to a <code>claim_id</code> and <code>source_id</code> before publication.
+    No codes are added from third-party aggregators.
+  </p>
+
+  <h2>Submit an official code source</h2>
+  <p>
+    If you have verified an official Roblox channel that publishes {GAME_NAME} codes,
+    use the <a href="/contact/">correction workflow</a> with the URL.
+    Once confirmed, the codes page will be updated.
+  </p>
+</ContentLayout>

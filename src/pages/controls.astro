@@ -1,0 +1,118 @@
+---
+import ContentLayout from '../layouts/ContentLayout.astro';
+import { GAME_NAME, CURRENT_VERSION } from '../data/site';
+
+const pageSourceIds = ['DB-API-001'];
+---
+
+<ContentLayout
+  title="Controls"
+  description="Official controls for Demon Born Roblox — from the Roblox game description (source: DB-API-001)."
+  canonicalUrl="/controls/"
+  breadcrumb={[{ label: 'Controls', url: '/controls/' }]}
+  evidenceNotes="Official Roblox game description — DB-API-001"
+  sourceIds={pageSourceIds}
+>
+  <h1>{GAME_NAME} Controls</h1>
+
+  <p class="page-lead">
+    Full control list from the official {GAME_NAME} Roblox game description.
+    Sourced from <code>DB-API-001</code> (Roblox Games API / official game page).
+  </p>
+
+  <div class="info-note">
+    <strong>Version:</strong> {CURRENT_VERSION}.
+    Controls are listed in the official Roblox description for the World Cup Beta.
+    Some controls may change with updates.
+  </div>
+
+  <h2>All Controls</h2>
+  <div class="table-wrapper">
+    <table>
+      <thead>
+        <tr>
+          <th>Key / Action</th>
+          <th>Function</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>Left Click</code></td>
+          <td>Attack</td>
+        </tr>
+        <tr>
+          <td><code>U</code></td>
+          <td>Quest Indicators</td>
+        </tr>
+        <tr>
+          <td><code>Q</code></td>
+          <td>Dash</td>
+        </tr>
+        <tr>
+          <td><code>F</code></td>
+          <td>Defense</td>
+        </tr>
+        <tr>
+          <td><code>ALT</code></td>
+          <td>Lock (target lock)</td>
+        </tr>
+        <tr>
+          <td><code>SHIFT</code></td>
+          <td>Run</td>
+        </tr>
+        <tr>
+          <td><code>B</code></td>
+          <td>Finish (finish move)</td>
+        </tr>
+        <tr>
+          <td><code>H</code></td>
+          <td>Breathing</td>
+        </tr>
+        <tr>
+          <td><code>M</code></td>
+          <td>Menu</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h2>Notes on the control scheme</h2>
+  <ul>
+    <li>
+      <strong>Breathing (H):</strong> The official description mentions a Breathing key,
+      suggesting a breathing mechanic exists in the World Cup Beta. Full details of the
+      breathing system (styles, effects, upgrades) are not yet confirmed from official sources.
+    </li>
+    <li>
+      <strong>Finish (B):</strong> A finish move key is listed, implying combat includes
+      a finisher animation or execution. Specific conditions for triggering a finish move
+      are not yet documented in official sources.
+    </li>
+    <li>
+      <strong>Defense (F) and Dash (Q):</strong> Standard action-RPG defensive options.
+      The specific effects, cooldowns, and interactions are not yet verified from official sources.
+    </li>
+    <li>
+      <strong>Lock (ALT):</strong> Target lock is typical for action RPGs with ranged or
+      directional combat. Specific behavior in {GAME_NAME} is not yet tested.
+    </li>
+  </ul>
+
+  <h2>What is not yet confirmed</h2>
+  <p>
+    The following are not yet documented in official sources and are therefore not published:
+  </p>
+  <ul>
+    <li>Breathing styles (e.g. water, fire, wind breathing) — existence and differences</li>
+    <li>Defense and Dash cooldowns, stamina cost, or i-frames</li>
+    <li>Finish move conditions, damage, or rewards</li>
+    <li>Any class-specific or clan-specific controls</li>
+  </ul>
+
+  <h2>Source</h2>
+  <p>
+    All controls above are quoted directly from the official Roblox game description
+    for <em>[WORLD CUP BETA] Demon Born</em> (source: <code>DB-API-001</code>).
+    Retrieved <strong>2026-06-27</strong>. The description is subject to change in future updates.
+  </p>
+</ContentLayout>

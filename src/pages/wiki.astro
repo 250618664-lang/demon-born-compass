@@ -1,0 +1,109 @@
+---
+import ContentLayout from '../layouts/ContentLayout.astro';
+import { GAME_NAME } from '../data/site';
+
+const pageSourceIds = ['DB-SERP-001', 'DB-ROBLOX-001', 'DB-API-001'];
+---
+
+<ContentLayout
+  title="Wiki Status"
+  description="Demon Born wiki status — what the SERP actually shows and what is still missing."
+  canonicalUrl="/wiki/"
+  breadcrumb={[{ label: 'Wiki Status', url: '/wiki/' }]}
+  evidenceNotes="SERP gap confirmed — no authoritative wiki hub found yet"
+  sourceIds={pageSourceIds}
+>
+  <h1>{GAME_NAME} Wiki — Status</h1>
+
+  <p class="page-lead">
+    Is there a reliable {GAME_NAME} wiki? The current SERP is mixed —
+    here is what actually exists and what is still missing.
+  </p>
+
+  <div class="info-block">
+    <strong>Current status:</strong> No authoritative, official-source-backed wiki hub confirmed.
+    An exact-match competitor (<em>demonbornwiki.wiki</em>) exists but its content has not been
+    verified against official sources.
+  </div>
+
+  <h2>What the SERP shows (2026-06-27)</h2>
+  <div class="table-wrapper">
+    <table>
+      <thead>
+        <tr>
+          <th>Result type</th>
+          <th>Example</th>
+          <th>Assessment</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Exact-match wiki</td>
+          <td>demonbornwiki.wiki</td>
+          <td>Exists but content unverified against official sources</td>
+        </tr>
+        <tr>
+          <td>Unrelated Fandom results</td>
+          <td>Fandom wikis for other games appearing for broad queries</td>
+          <td>Not relevant to Demon Born</td>
+        </tr>
+        <tr>
+          <td>Third-party guide sites</td>
+          <td>Pocket Tactics, Destructoid, treyexgaming</td>
+          <td>Code lists and beginner guides; not full wikis</td>
+        </tr>
+        <tr>
+          <td>Reddit threads</td>
+          <td>Community discussions</td>
+          <td>Useful as leads only; not authoritative</td>
+        </tr>
+        <tr>
+          <td>YouTube videos</td>
+          <td>Gameplay and guide videos</td>
+          <td>Orientation only; not structured reference material</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h2>What official sources confirm</h2>
+  <p>
+    The Roblox Games API and official game page (source: <code>DB-API-001</code>) confirm:
+  </p>
+  <ul>
+    <li>Title: <strong>[WORLD CUP BETA] Demon Born</strong></li>
+    <li>Creator: Roblox group <strong>SoraExp</strong></li>
+    <li>Genre: Action RPG, RPG</li>
+    <li>Description: open world with mysteries, challenging quests and demons</li>
+    <li>Two player routes: become a slayer or embrace the dark side and fight to destroy humanity</li>
+    <li>Controls: Left Click Attack, U Quest Indicators, Q Dash, F Defense, ALT Lock, SHIFT Run, B Finish, H Breathing, M Menu</li>
+  </ul>
+
+  <h2>What is not yet confirmed</h2>
+  <ul>
+    <li>Clan or class system details</li>
+    <li>Breathing styles or blood demon arts mechanics</li>
+    <li>Specific quest names, dungeon locations, or boss names</li>
+    <li>Level progression or stat systems beyond the official description wording</li>
+    <li>Active codes from an official Roblox or creator channel</li>
+  </ul>
+
+  <h2>This site as a wiki alternative</h2>
+  <p>
+    <strong>Demon Born Compass</strong> tracks official source status and publishes only
+    verified facts. It does not replace a full wiki — it fills the gap for the most
+    common queries (controls, beginner facts, codes status) where reliable information
+    is currently absent.
+  </p>
+  <p>
+    As official sources are confirmed or gameplay testing becomes available,
+    additional pages will be added within the <a href="/editorial/">editorial policy</a> boundaries.
+  </p>
+
+  <h2>Contribute</h2>
+  <p>
+    If you have verified official information about {GAME_NAME}, use the
+    <a href="/contact/">correction workflow</a> to submit it.
+    All additions require an official source before publication.
+  </p>
+</ContentLayout>

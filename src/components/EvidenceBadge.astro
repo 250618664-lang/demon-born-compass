@@ -1,0 +1,35 @@
+---
+interface Props {
+  status: string;
+  notes?: string;
+}
+
+const { status, notes } = Astro.props;
+
+const statusLabel =
+  status === 'human_review_required'
+    ? 'Human review required before publication'
+    : status === 'tested'
+    ? 'Hands-on tested'
+    : status === 'official-confirmed'
+    ? 'Reviewed against official sources'
+    : status === 'official-confirmed-limited'
+    ? 'Official sources only — limited content'
+    : status === 'serp-gap-confirmed'
+    ? 'SERP gap confirmed — no verified wiki yet'
+    : status === 'unverified-official-link'
+    ? 'No official link confirmed'
+    : status === 'source-limited'
+    ? 'Source-limited — verification ongoing'
+    : status;
+
+const statusClass =
+  status === 'human_review_required' ? 'strip-warning' : 'strip-ok';
+---
+
+<div class={`evidence-strip-bar ${statusClass}`} role="note" aria-label="Evidence status">
+  <span class="strip-dot" aria-hidden="true"></span>
+  <span>{statusLabel}</span>
+  {notes && <span class="strip-sep" aria-hidden="true">·</span>}
+  {notes && <span class="strip-notes">{notes}</span>}
+</div>

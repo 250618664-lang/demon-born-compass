@@ -1,0 +1,86 @@
+---
+import { SITE_TITLE } from '../data/site';
+
+interface Props {
+  currentPath: string;
+}
+
+const { currentPath } = Astro.props;
+
+const navItems = [
+  { url: '/',              title: 'Home'     },
+  { url: '/wiki/',         title: 'Wiki'     },
+  { url: '/trello/',       title: 'Trello'   },
+  { url: '/codes/',        title: 'Codes'    },
+  { url: '/controls/',     title: 'Controls' },
+  { url: '/beginner-guide/', title: 'Beginner' },
+];
+---
+
+<header class="site-header">
+  <div class="container header-inner">
+    <a href="/" class="site-logo" aria-label={`${SITE_TITLE} — Home`}>
+      <span class="logo-mark" aria-hidden="true">
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <polygon points="7,1 10,5.5 7,13 4,5.5" fill="white"/>
+          <rect x="4" y="4.75" width="6" height="1.5" rx="0.75" fill="white"/>
+        </svg>
+      </span>
+      <span class="logo-text">Demon Born Compass</span>
+    </a>
+
+    <nav aria-label="Primary navigation">
+      <button
+        class="nav-toggle"
+        aria-label="Toggle navigation"
+        aria-expanded="false"
+        aria-controls="primary-nav"
+        id="nav-toggle"
+      >
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+          <rect y="3" width="20" height="2" rx="1" fill="currentColor"/>
+          <rect y="9" width="20" height="2" rx="1" fill="currentColor"/>
+          <rect y="15" width="20" height="2" rx="1" fill="currentColor"/>
+        </svg>
+      </button>
+      <ul class="primary-nav" id="primary-nav" role="list">
+        {navItems.map(item => (
+          <li>
+            <a
+              href={item.url}
+              aria-current={currentPath === item.url ? 'page' : undefined}
+            >
+              {item.title}
+            </a>
+          </li>
+        ))}
+        <li><a href="/about/">About</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<script>
+  const toggle = document.getElementById('nav-toggle');
+  const nav = document.getElementById('primary-nav');
+  if (toggle && nav) {
+    toggle.addEventListener('click', () => {
+      const expanded = toggle.getAttribute('aria-expanded') === 'true';
+      toggle.setAttribute('aria-expanded', String(!expanded));
+      nav.classList.toggle('open');
+    });
+    document.addEventListener('click', (e) => {
+      if (!toggle.contains(e.target as Node) && !nav.contains(e.target as Node)) {
+        toggle.setAttribute('aria-expanded', 'false');
+        nav.classList.remove('open');
+      }
+    });
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && nav.classList.contains('open')) {
+        toggle.setAttribute('aria-expanded', 'false');
+        nav.classList.remove('open');
+        toggle.focus();
+      }
+    });
+  }
+</script>

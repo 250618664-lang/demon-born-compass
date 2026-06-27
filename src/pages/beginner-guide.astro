@@ -1,0 +1,122 @@
+---
+import ContentLayout from '../layouts/ContentLayout.astro';
+import { GAME_NAME, CURRENT_VERSION } from '../data/site';
+
+const pageSourceIds = ['DB-API-001'];
+---
+
+<ContentLayout
+  title="Beginner Guide"
+  description="Beginner guide for Demon Born Roblox — official scope, player routes, and controls overview."
+  canonicalUrl="/beginner-guide/"
+  breadcrumb={[{ label: 'Beginner Guide', url: '/beginner-guide/' }]}
+  evidenceNotes="Official confirmed limited — broad facts verified; detailed steps require hands-on testing"
+  sourceIds={pageSourceIds}
+>
+  <h1>{GAME_NAME} Beginner Guide</h1>
+
+  <p class="page-lead">
+    Getting started with {GAME_NAME} on Roblox — official facts only.
+    Detailed walkthrough steps require hands-on testing and are not yet published.
+  </p>
+
+  <div class="info-note">
+    <strong>Version:</strong> {CURRENT_VERSION}.
+    This page contains only officially confirmed facts. Detailed quest steps,
+    level progression, and combat mechanics require hands-on testing.
+  </div>
+
+  <h2>What the official description says</h2>
+  <p>
+    The Roblox game description for <em>[WORLD CUP BETA] Demon Born</em> (source: <code>DB-API-001</code>)
+    establishes the following:
+  </p>
+
+  <div class="info-block">
+    <strong>Genre:</strong> Action RPG, RPG<br />
+    <strong>Setting:</strong> Open world with mysteries and challenging quests<br />
+    <strong>Theme:</strong> Demons<br />
+    <strong>Player count:</strong> 1 (at time of retrieval — <code>DB-API-001</code>; may change)
+  </div>
+
+  <h2>The two player routes</h2>
+  <p>
+    The official description explicitly offers two player routes:
+  </p>
+  <div class="table-wrapper">
+    <table>
+      <thead>
+        <tr>
+          <th>Route</th>
+          <th>Official wording</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Slayer route</td>
+          <td>Become a slayer — fight demons</td>
+        </tr>
+        <tr>
+          <td>Demon route</td>
+          <td>Embrace the dark side and fight to destroy humanity</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <p>
+    The specific differences between these routes (stat allocations, abilities,
+    quest branching, or endings) are not yet documented in official sources.
+  </p>
+
+  <h2>Controls overview</h2>
+  <p>
+    The official description lists the following controls. See the
+    <a href="/controls/">Controls page</a> for the full table.
+  </p>
+  <ul>
+    <li><strong>Left Click</strong> — Attack</li>
+    <li><strong>Q</strong> — Dash</li>
+    <li><strong>F</strong> — Defense</li>
+    <li><strong>B</strong> — Finish move</li>
+    <li><strong>H</strong> — Breathing</li>
+    <li><strong>U</strong> — Quest Indicators</li>
+    <li><strong>ALT</strong> — Lock</li>
+    <li><strong>SHIFT</strong> — Run</li>
+    <li><strong>M</strong> — Menu</li>
+  </ul>
+
+  <h2>What is not yet confirmed (requires hands-on testing)</h2>
+  <ul>
+    <li>Starting area or tutorial steps</li>
+    <li>How to unlock the slayer or demon route</li>
+    <li>First quest or objective</li>
+    <li>How breathing works as a mechanic (styles, upgrades, effects)</li>
+    <li>Character creation or stat allocation</li>
+    <li>How to earn or spend in-game currency</li>
+    <li>Inventory or equipment system</li>
+    <li>Multiplayer or co-op features (if any)</li>
+  </ul>
+
+  <h2>Official resources</h2>
+  <ul>
+    <li>
+      Official game page:
+      <a href="https://www.roblox.com/games/79833666916700/Demon-Born" rel="noopener noreferrer" target="_blank">
+        roblox.com/games/79833666916700/Demon-Born
+      </a>
+    </li>
+    <li>
+      SoraExp Roblox group:
+      <a href="https://groups.roblox.com/v1/groups/34709042" rel="noopener noreferrer" target="_blank">
+        groups.roblox.com/v1/groups/34709042
+      </a>
+    </li>
+  </ul>
+
+  <h2>Contribute</h2>
+  <p>
+    If you have verified official information or hands-on observations to share,
+    use the <a href="/contact/">correction workflow</a>.
+    All published gameplay facts require either an official source or documented hands-on testing.
+  </p>
+</ContentLayout>

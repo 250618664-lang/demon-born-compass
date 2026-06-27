@@ -1,0 +1,24 @@
+# Build output
+dist/
+.astro/
+
+# Dependencies
+node_modules/
+
+# Environment
+.env
+.env.local
+.env.*.local
+
+# Editor
+.DS_Store
+.vscode/settings.json
+
+# Research and project files (not for GitHub)
+research/
+runs/
+data/
+.agents/
+*.md
+!README.md
+!package.json

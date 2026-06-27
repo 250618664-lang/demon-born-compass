@@ -1,0 +1,77 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { SITE_TITLE, SITE_DESCRIPTION, GAME_NAME, CURRENT_VERSION, EVIDENCE_REVIEW_DATE } from '../data/site';
+---
+
+<BaseLayout
+  title={SITE_TITLE}
+  description={SITE_DESCRIPTION}
+  canonicalUrl="/"
+>
+  <div class="prose-container">
+
+    <div class="info-block" style="margin-bottom: var(--space-6)">
+      <strong>Unofficial fan guide.</strong> Not affiliated with Roblox Corporation, SoraExp, or Demon Born creators.
+      Ads are disabled. No analytics or tracking scripts.
+    </div>
+
+    <p class="page-lead">
+      The fastest way to get accurate facts about <strong>{GAME_NAME}</strong> on Roblox —
+      wiki status, controls, beginner guide, and codes status, all evidence-backed.
+    </p>
+
+    <div class="info-note" style="margin-bottom: var(--space-8)">
+      <strong>Current version:</strong> {CURRENT_VERSION}
+      &nbsp;·&nbsp;
+      <strong>Evidence reviewed:</strong> {EVIDENCE_REVIEW_DATE}
+    </div>
+
+    <h2>Quick Answers</h2>
+    <div class="card-grid">
+      <a href="/wiki/" class="card">
+        <h2>Wiki Status</h2>
+        <p>Is there a Demon Born wiki? What the SERP actually shows — and what is still missing.</p>
+        <span class="card-meta">SERP gap confirmed · DB-SERP-001</span>
+      </a>
+
+      <a href="/trello/" class="card">
+        <h2>Trello Status</h2>
+        <p>Does an official Trello board exist? Current status: no verified official link.</p>
+        <span class="card-meta">Unverified official link · DB-SERP-001</span>
+      </a>
+
+      <a href="/codes/" class="card">
+        <h2>Codes Status</h2>
+        <p>Active codes, expiration, and redemption — all from verified official sources only.</p>
+        <span class="card-meta">Source-limited · DB-TRENDS-001</span>
+      </a>
+
+      <a href="/controls/" class="card">
+        <h2>Controls</h2>
+        <p>Official control list from the Roblox game description: attack, dash, defense, breathing, menu and more.</p>
+        <span class="card-meta">Official confirmed · DB-API-001</span>
+      </a>
+
+      <a href="/beginner-guide/" class="card">
+        <h2>Beginner Guide</h2>
+        <p>Open-world setup, two player routes (slayer or demon), and official control overview.</p>
+        <span class="card-meta">Official confirmed limited · DB-API-001</span>
+      </a>
+    </div>
+
+    <h2>Trust &amp; Methodology</h2>
+    <div class="card-grid">
+      <a href="/sources/" class="card">
+        <h2>Sources &amp; Corrections</h2>
+        <p>Full registry of source IDs and the correction submission process.</p>
+        <span class="card-meta">Transparency</span>
+      </a>
+      <a href="/editorial/" class="card">
+        <h2>Editorial Policy</h2>
+        <p>How facts are verified, what cannot be published, and why third-party codes are not copied.</p>
+        <span class="card-meta">Editorial standards</span>
+      </a>
+    </div>
+
+  </div>
+</BaseLayout>

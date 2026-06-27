@@ -1,0 +1,98 @@
+---
+import ContentLayout from '../layouts/ContentLayout.astro';
+import { SITE_TITLE, EVIDENCE_REVIEW_DATE } from '../data/site';
+---
+
+<ContentLayout
+  title="Sources & Corrections"
+  description="Source registry and correction workflow for Demon Born Compass."
+  canonicalUrl="/sources/"
+>
+  <h1>Sources &amp; Corrections</h1>
+
+  <p>
+    Every factual claim on <strong>{SITE_TITLE}</strong> traces to a registered source ID.
+    This page lists all sources used and explains how to submit a correction.
+  </p>
+
+  <h2>Source registry</h2>
+  <p>
+    Evidence last reviewed: <strong>{EVIDENCE_REVIEW_DATE}</strong>.
+    Sources are stored as IDs (e.g. <code>DB-API-001</code>) — full details are
+    tracked in the project research directory and are not published publicly to avoid
+    misinterpretation.
+  </p>
+
+  <ul class="source-list">
+    <li class="source-item">
+      <code>DB-ROBLOX-001</code> — Official Roblox game page for Demon Born.
+      URL: <a href="https://www.roblox.com/games/79833666916700/Demon-Born" rel="noopener noreferrer" target="_blank">roblox.com/games/79833666916700/Demon-Born</a>.
+      Used for: title, creator, description, controls summary, genre, max players.
+      Access: <code>ALLOW_CRAWL</code>. License: Roblox terms apply.
+    </li>
+    <li class="source-item">
+      <code>DB-API-001</code> — Roblox Games API endpoint for universe 7326773869.
+      URL: <a href="https://games.roblox.com/v1/games?universeIds=7326773869" rel="noopener noreferrer" target="_blank">games.roblox.com/v1/games</a>.
+      Used for: identity, genre, description, controls (full list), open-world scope, player routes.
+      Access: <code>ALLOW_API</code>. License: Roblox API terms apply.
+      Status: volatile snapshot — values change frequently.
+    </li>
+    <li class="source-item">
+      <code>DB-API-002</code> — Roblox Games votes API for universe 7326773869.
+      URL: <a href="https://games.roblox.com/v1/games/votes?universeIds=7326773869" rel="noopener noreferrer" target="_blank">games.roblox.com/v1/games/votes</a>.
+      Used for: upVotes and downVotes counts.
+      Access: <code>ALLOW_API</code>. License: Roblox API terms apply.
+      Status: volatile snapshot.
+    </li>
+    <li class="source-item">
+      <code>DB-API-003</code> — Roblox Groups API for SoraExp (group ID 34709042).
+      URL: <a href="https://groups.roblox.com/v1/groups/34709042" rel="noopener noreferrer" target="_blank">groups.roblox.com/v1/groups/34709042</a>.
+      Used for: creator group member count.
+      Access: <code>ALLOW_API</code>. License: Roblox API terms apply.
+      Status: volatile snapshot.
+    </li>
+    <li class="source-item">
+      <code>DB-API-004</code> — Roblox Badges API for universe 7326773869.
+      URL: <a href="https://badges.roblox.com/v1/universes/7326773869/badges?limit=100&sortOrder=Asc" rel="noopener noreferrer" target="_blank">badges.roblox.com/v1/universes/…</a>.
+      Used for: badge list (returned empty at retrieval time).
+      Access: <code>ALLOW_API</code>. License: Roblox API terms apply.
+    </li>
+    <li class="source-item">
+      <code>DB-TRENDS-001</code> — User-supplied Google Trends screenshots.
+      Used for: trend signal validation (breakout from near-zero, related queries: codes, wiki, trello).
+      Access: <code>MANUAL_REFERENCE_ONLY</code>. License: user-supplied for research only; not published as site media.
+    </li>
+    <li class="source-item">
+      <code>DB-SERP-001</code> — User-supplied Google SERP screenshots for Demon Born wiki and trello.
+      Used for: SERP gap analysis (mixed results, unrelated Fandom/Trello, exact-match competitor wiki).
+      Access: <code>MANUAL_REFERENCE_ONLY</code>. License: user-supplied for research only.
+    </li>
+    <li class="source-item">
+      <code>DB-LEAD-001</code> — Pocket Tactics article: "Demon Born codes June 2026".
+      URL: <a href="https://www.pockettactics.com/demon-born-codes" rel="noopener noreferrer" target="_blank">pockettactics.com/demon-born-codes</a>.
+      Used for: SERP/codes competition lead only.
+      Access: <code>MANUAL_REFERENCE_ONLY</code>. License: third-party; text/tables/codes not copied.
+    </li>
+    <li class="source-item">
+      <code>DB-LEAD-002</code> — Destructoid article: "Demon Born codes (June 2026)".
+      URL: <a href="https://www.destructoid.com/demon-born-codes/" rel="noopener noreferrer" target="_blank">destructoid.com/demon-born-codes/</a>.
+      Used for: SERP/codes competition lead only.
+      Access: <code>MANUAL_REFERENCE_ONLY</code>. License: third-party; text/tables/codes not copied.
+    </li>
+  </ul>
+
+  <h2>Correction workflow</h2>
+  <div class="info-note">
+    To report an error, visit the <a href="/contact/">Contact</a> page.
+    Include the page URL, claim ID if known, and an official source URL for the correction.
+    Corrections are reviewed against official sources before any page update is made.
+  </div>
+
+  <h2>Claim ID format</h2>
+  <p>
+    Each published game fact carries a <code>claim_id</code> (e.g. <code>db-controls-001</code>)
+    that maps to a <code>source_id</code> in this registry. The full claims registry
+    (<code>claims.yaml</code>) is not published in the public repository to avoid
+    incomplete or out-of-context reuse.
+  </p>
+</ContentLayout>
