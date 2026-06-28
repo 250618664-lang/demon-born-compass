@@ -17,6 +17,9 @@ export const CURRENT_VERSION = 'World Cup Beta (no public semantic version)';
 export const EVIDENCE_REVIEW_DATE = '2026-06-27';
 export const EVIDENCE_STATUS = 'official-confirmed';
 
+// Ad toggle — set to false to disable all ads instantly across the entire site
+export const ADS_ENABLED = true;
+
 // Registered source IDs for this site
 export const SOURCE_IDS = [
   'DB-ROBLOX-001',

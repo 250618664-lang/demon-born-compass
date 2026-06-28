@@ -1,0 +1,124 @@
+---
+// Ad component — single source of truth for all ad slots.
+// ADS_ENABLED controls all ads globally. Set to false to disable all ad output.
+// 728x90 is DISABLED by default (commented out in template).
+
+import { ADS_ENABLED } from '../data/site';
+
+interface Props {
+  placement: 'native' | 'rectangle' | 'leaderboard';
+}
+
+const { placement } = Astro.props;
+
+// Adsterra Native Banner config
+const nativeBannerKey = 'd0e48867cccb0152425ba36209e42f4e';
+
+// 300x250 config
+const rectKey = '4f71c0ba82f168ab1c13fe1850ad95b8';
+
+// 728x90 config — DISABLED (uncomment template div to enable)
+const leaderKey = '';
+---
+
+{ADS_ENABLED && (
+  <div class="ad-container" aria-label="Advertisement">
+    <!-- Native Banner — home page Quick Answers下方 -->
+    {placement === 'native' && (
+    <div class="ad-slot ad-native">
+      <span class="ad-label">Advertisement</span>
+      <div id={`container-${nativeBannerKey}`}>
+        <script
+          is:inline
+          async="async"
+          data-cfasync="false"
+          src={`https://pl30111035.effectivecpmnetwork.com/${nativeBannerKey}/invoke.js`}
+        ></script>
+      </div>
+    </div>
+    )}
+
+    <!-- 300x250 — content pages below prose -->
+    {placement === 'rectangle' && (
+    <div class="ad-slot ad-rectangle">
+      <span class="ad-label">Advertisement</span>
+      <div id="container-300x250">
+        <script is:inline define:vars={{ rectKey }}>
+          window.atOptions = {
+            'key': rectKey,
+            'format': 'iframe',
+            'height': 250,
+            'width': 300,
+            'params': {}
+          };
+        </script>
+        <script is:inline src={`https://www.highperformanceformat.com/${rectKey}/invoke.js`}></script>
+      </div>
+    </div>
+    )}
+
+    <!-- 728x90 — DISABLED by default -->
+    {placement === 'leaderboard' && leaderKey && (
+    <div class="ad-slot ad-leaderboard">
+      <span class="ad-label">Advertisement</span>
+      <div id="container-728x90">
+        <script is:inline define:vars={{ leaderKey }}>
+          window.atOptions = {
+            'key': leaderKey,
+            'format': 'iframe',
+            'height': 90,
+            'width': 728,
+            'params': {}
+          };
+        </script>
+        <script is:inline src={`https://www.highperformanceformat.com/${leaderKey}/invoke.js`}></script>
+      </div>
+    </div>
+    )}
+  </div>
+)}
+
+<style>
+.ad-container {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+  margin: var(--space-8) 0;
+  align-items: flex-start;
+}
+
+.ad-slot {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.ad-label {
+  font-size: 0.6875rem;
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  font-weight: 500;
+}
+
+.ad-native {
+  max-width: 100%;
+}
+
+.ad-rectangle {
+  /* 300x250 — centered on prose */
+}
+
+.ad-leaderboard {
+  /* 728x90 — hidden by default; set leaderKey above to enable */
+}
+
+/* Responsive: keep 300x250 from causing horizontal overflow */
+@media (max-width: 360px) {
+  .ad-rectangle iframe,
+  .ad-rectangle #container-300x250 {
+    width: 100% !important;
+    max-width: 300px;
+  }
+}
+</style>

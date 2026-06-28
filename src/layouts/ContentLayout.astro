@@ -2,6 +2,7 @@
 import BaseLayout from './BaseLayout.astro';
 import Breadcrumb from '../components/Breadcrumb.astro';
 import EvidenceBadge from '../components/EvidenceBadge.astro';
+import Ads from '../components/Ads.astro';
 import { EVIDENCE_STATUS } from '../data/site';
 
 interface Props {
@@ -59,6 +60,9 @@ const baseLayoutBreadcrumb = breadcrumb
         <a href="/sources/">Sources &amp; Corrections</a>
       </p>
     </div>
+
+    <!-- 300x250 ad slot below content -->
+    <Ads placement="rectangle" />
   </div>
 </BaseLayout>
 

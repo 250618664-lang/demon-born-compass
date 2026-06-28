@@ -1,5 +1,5 @@
 ---
-import { SITE_TITLE } from '../data/site';
+import { SITE_TITLE, ADS_ENABLED } from '../data/site';
 ---
 
 <footer class="site-footer">
@@ -24,7 +24,9 @@ import { SITE_TITLE } from '../data/site';
         the <a href="/sources/">Sources registry</a>. No official game assets are published on this site.
       </p>
       <p class="mt-0">
-        Ads are disabled. No analytics or tracking scripts are installed.
+        {ADS_ENABLED
+          ? 'This site may display third-party ads.'
+          : 'Ads are disabled. No analytics or tracking scripts are installed.'}
       </p>
     </div>
   </div>
