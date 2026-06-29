@@ -1,16 +1,16 @@
 ---
 import ContentLayout from '../layouts/ContentLayout.astro';
-import { GAME_NAME } from '../data/site';
+import { GAME_NAME, EVIDENCE_REVIEW_DATE } from '../data/site';
 
-const pageSourceIds = ['DB-SERP-001', 'DB-ROBLOX-001', 'DB-API-001'];
+const pageSourceIds = ['DB-SERP-001', 'DB-SERP-002', 'DB-ROBLOX-001', 'DB-API-001', 'DB-API-009', 'DB-API-010', 'DB-API-011'];
 ---
 
 <ContentLayout
   title="Wiki Status"
-  description="Demon Born wiki status — what the SERP actually shows and how to spot fake wiki links."
+  description="Demon Born wiki status — official vs third-party wiki verification, blocked endpoints, and how to spot fake wiki links."
   canonicalUrl="/wiki/"
   breadcrumb={[{ label: 'Wiki Status', url: '/wiki/' }]}
-  evidenceNotes="SERP gap confirmed — no authoritative wiki hub found yet"
+  evidenceNotes="No official wiki confirmed; social endpoints blocked/empty; third-party wiki labeled as community"
   sourceIds={pageSourceIds}
 >
   <h1>{GAME_NAME} Wiki — Status</h1>
@@ -24,9 +24,77 @@ const pageSourceIds = ['DB-SERP-001', 'DB-ROBLOX-001', 'DB-API-001'];
       </svg>
     </div>
     <div class="verdict-body">
-      <strong>No authoritative wiki hub confirmed.</strong>
-      An exact-match competitor (<em>demonbornwiki.wiki</em>) exists but its content has not been verified against official sources. No wiki is linked from the official Roblox game page.
+      <strong>No official wiki link confirmed from public official sources.</strong>
+      Roblox game social links and group social links endpoints are blocked by authentication. The community wiki <em>demonbornwiki.wiki</em> exists but is labeled third-party/community, not official.
     </div>
+  </div>
+
+  <!-- Last checked -->
+  <div class="last-checked-strip">
+    <span class="strip-item">
+      <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true">
+        <circle cx="6" cy="6" r="5" stroke="currentColor" stroke-width="1.2"/>
+        <path d="M6 3.5v2.5l1.5 1" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
+      </svg>
+      Last checked: {EVIDENCE_REVIEW_DATE}
+    </span>
+  </div>
+
+  <!-- Official link verifier -->
+  <h2>Official link verifier — 2026-06-29</h2>
+  <p>
+    This table shows the result of checking official Roblox API endpoints for wiki, Trello, or community links
+    associated with Demon Born or SoraExp.
+  </p>
+  <div class="table-wrapper">
+    <table>
+      <thead>
+        <tr>
+          <th>Endpoint / channel</th>
+          <th>URL</th>
+          <th>Result</th>
+          <th>Verdict</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Roblox game page</td>
+          <td><code>roblox.com/games/79833666916700</code></td>
+          <td>No wiki/Trello link in description</td>
+          <td><span class="verdict-tbd">No wiki linked</span></td>
+        </tr>
+        <tr>
+          <td>Roblox game social links API</td>
+          <td><code>games.roblox.com/v1/games/7326773869/social-links/list</code></td>
+          <td>401 — Authentication token is missing</td>
+          <td><span class="verdict-blocked">✗ Blocked (do not bypass)</span></td>
+        </tr>
+        <tr>
+          <td>SoraExp group page</td>
+          <td><code>groups.roblox.com/v1/groups/34709042</code></td>
+          <td>Group metadata only; no wiki/Trello links</td>
+          <td><span class="verdict-tbd">No wiki linked</span></td>
+        </tr>
+        <tr>
+          <td>SoraExp group social links API</td>
+          <td><code>groups.roblox.com/v1/groups/34709042/social-links</code></td>
+          <td>401 — Authentication token is missing</td>
+          <td><span class="verdict-blocked">✗ Blocked (do not bypass)</span></td>
+        </tr>
+        <tr>
+          <td>SoraExp community links API</td>
+          <td><code>apis.roblox.com/community-links/v1/groups/34709042/community</code></td>
+          <td>Returned empty string</td>
+          <td><span class="verdict-empty">— Empty (no link confirmed)</span></td>
+        </tr>
+        <tr>
+          <td>Third-party wiki: demonbornwiki.wiki</td>
+          <td><code>demonbornwiki.wiki</code></td>
+          <td>Exact-match wiki exists; not linked from any official channel</td>
+          <td><span class="verdict-thirdparty">Third-party / community</span></td>
+        </tr>
+      </tbody>
+    </table>
   </div>
 
   <!-- What official sources confirm -->
@@ -51,7 +119,7 @@ const pageSourceIds = ['DB-SERP-001', 'DB-ROBLOX-001', 'DB-API-001'];
   </div>
 
   <!-- SERP results table -->
-  <h2>What the search results show</h2>
+  <h2>What search results show ({EVIDENCE_REVIEW_DATE})</h2>
   <div class="table-wrapper">
     <table>
       <thead>
@@ -65,7 +133,7 @@ const pageSourceIds = ['DB-SERP-001', 'DB-ROBLOX-001', 'DB-API-001'];
         <tr>
           <td>demonbornwiki.wiki</td>
           <td>Exact-match wiki</td>
-          <td><span class="verdict-tbd">Unverified</span> — content not confirmed official</td>
+          <td><span class="verdict-thirdparty">Third-party / community lead</span> — content not confirmed official</td>
         </tr>
         <tr>
           <td>.fandom.com results</td>
@@ -91,26 +159,26 @@ const pageSourceIds = ['DB-SERP-001', 'DB-ROBLOX-001', 'DB-API-001'];
     </table>
   </div>
 
-  <!-- How to spot fake wiki links -->
+  <!-- How to identify a real wiki link -->
   <h2>How to identify a real wiki link</h2>
   <ul class="link-check-list">
     <li>
       <span class="check-icon check-fail" aria-hidden="true">
         <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 2l10 10M12 2L2 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
       </span>
-      <span><strong>Do NOT trust:</strong> Domains ending in <code>.wiki</code>, <code>.fandom.com</code>, or generic <code>roblox.fandom.com</code> unless they are clearly linked from an official Roblox game page.</span>
+      <span><strong>Do NOT trust:</strong> Domains ending in <code>.wiki</code>, <code>.fandom.com</code>, or generic <code>roblox.fandom.com</code> unless they are clearly linked from an official Roblox game page or verified creator channel.</span>
     </li>
     <li>
       <span class="check-icon check-pass" aria-hidden="true">
         <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 7l4 4 6-7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
       </span>
-      <span><strong>Look for:</strong> Links published on the official Roblox game page description or the official SoraExp Roblox group page.</span>
+      <span><strong>Look for:</strong> Links published on the official Roblox game page description or the verified SoraExp Roblox group page.</span>
     </li>
     <li>
       <span class="check-icon check-pass" aria-hidden="true">
         <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 7l4 4 6-7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
       </span>
-      <span><strong>Check the URL:</strong> Does it match the official creator's branding? Does the Roblox group ID in the URL (<code>groups.roblox.com/v1/groups/&lt;id&gt;</code>) match SoraExp's verified group ID?</span>
+      <span><strong>Check the URL:</strong> Does it match the official creator's branding? Does the Roblox group ID in the URL match SoraExp's verified group ID (<code>34709042</code>)?</span>
     </li>
     <li>
       <span class="check-icon check-fail" aria-hidden="true">
@@ -128,6 +196,7 @@ const pageSourceIds = ['DB-SERP-001', 'DB-ROBLOX-001', 'DB-API-001'];
     <li>Specific quest names, dungeon locations, or boss names</li>
     <li>Level progression or stat systems beyond official description wording</li>
     <li>Active codes from an official Roblox or creator channel</li>
+    <li>Official wiki or Trello linked from any official Roblox channel</li>
   </ul>
 
   <p>
@@ -137,92 +206,110 @@ const pageSourceIds = ['DB-SERP-001', 'DB-ROBLOX-001', 'DB-API-001'];
 </ContentLayout>
 
 <style>
-.verdict-card {
-  display: flex;
-  align-items: flex-start;
-  gap: var(--space-4);
-  padding: var(--space-5);
-  border-radius: 8px;
-  margin-bottom: var(--space-5);
-  border: 1px solid;
-}
-.verdict-warn {
-  background: var(--color-warning-bg);
-  border-color: var(--color-warning-border);
-  color: var(--color-text);
-}
-.verdict-icon {
-  color: var(--color-warning-text);
-  flex-shrink: 0;
-  margin-top: 1px;
-}
-.verdict-body {
-  font-size: 0.9375rem;
-  line-height: 1.55;
-}
+  .verdict-card {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-4);
+    padding: var(--space-5);
+    border-radius: 8px;
+    margin-bottom: var(--space-5);
+    border: 1px solid;
+  }
+  .verdict-warn {
+    background: var(--color-warning-bg);
+    border-color: var(--color-warning-border);
+    color: var(--color-text);
+  }
+  .verdict-icon {
+    color: var(--color-warning-text);
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+  .verdict-body {
+    font-size: 0.9375rem;
+    line-height: 1.55;
+  }
 
-.source-confirm-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(12rem, 1fr));
-  gap: var(--space-3);
-  margin-bottom: var(--space-8);
-}
-.source-chip {
-  background: var(--color-surface);
-  border: 1px solid var(--color-border);
-  border-radius: 6px;
-  padding: var(--space-3) var(--space-4);
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-}
-.chip-label {
-  font-size: 0.6875rem;
-  color: var(--color-text-muted);
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
-  font-weight: 500;
-}
-.chip-value {
-  font-size: 0.875rem;
-  font-weight: 600;
-  color: var(--color-text);
-}
+  .last-checked-strip {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    font-size: 0.8125rem;
+    color: var(--color-text-muted);
+    margin-bottom: var(--space-8);
+    flex-wrap: wrap;
+  }
+  .strip-item {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
 
-.verdict-tbd { color: var(--color-warning-text); font-weight: 600; }
-.verdict-fake { color: #e05555; font-weight: 600; }
+  .verdict-tbd { color: var(--color-warning-text); font-weight: 600; }
+  .verdict-fake { color: #e05555; font-weight: 600; }
+  .verdict-blocked { color: #e05555; font-weight: 700; }
+  .verdict-empty { color: var(--color-text-muted); font-weight: 600; }
+  .verdict-thirdparty { color: #7070e0; font-weight: 600; }
 
-.link-check-list {
-  list-style: none;
-  padding: 0;
-  margin-bottom: var(--space-8);
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-3);
-}
-.link-check-list li {
-  display: flex;
-  align-items: flex-start;
-  gap: var(--space-3);
-  font-size: 0.9rem;
-  line-height: 1.55;
-}
-.check-icon {
-  width: 1.25rem;
-  height: 1.25rem;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-  margin-top: 2px;
-}
-.check-pass {
-  background: rgba(76, 175, 80, 0.15);
-  color: #4caf50;
-}
-.check-fail {
-  background: rgba(224, 85, 85, 0.15);
-  color: #e05555;
-}
+  .source-confirm-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(12rem, 1fr));
+    gap: var(--space-3);
+    margin-bottom: var(--space-8);
+  }
+  .source-chip {
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: 6px;
+    padding: var(--space-3) var(--space-4);
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+  .chip-label {
+    font-size: 0.6875rem;
+    color: var(--color-text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    font-weight: 500;
+  }
+  .chip-value {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--color-text);
+  }
+
+  .link-check-list {
+    list-style: none;
+    padding: 0;
+    margin-bottom: var(--space-8);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+  }
+  .link-check-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-3);
+    font-size: 0.9rem;
+    line-height: 1.55;
+  }
+  .check-icon {
+    width: 1.25rem;
+    height: 1.25rem;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+  .check-pass {
+    background: rgba(76, 175, 80, 0.15);
+    color: #4caf50;
+  }
+  .check-fail {
+    background: rgba(224, 85, 85, 0.15);
+    color: #e05555;
+  }
 </style>

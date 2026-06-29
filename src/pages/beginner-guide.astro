@@ -1,19 +1,33 @@
 ---
 import ContentLayout from '../layouts/ContentLayout.astro';
-import { GAME_NAME, CURRENT_VERSION } from '../data/site';
+import { GAME_NAME, CURRENT_VERSION, EVIDENCE_REVIEW_DATE } from '../data/site';
 
-const pageSourceIds = ['DB-API-001'];
+const pageSourceIds = ['DB-API-001', 'DB-API-005'];
 ---
 
 <ContentLayout
   title="Beginner Guide"
-  description="Beginner guide for Demon Born Roblox — official scope, player routes, and controls overview."
+  description="Demon Born starter facts and pre-play checklist — official facts only, no full walkthrough."
   canonicalUrl="/beginner-guide/"
   breadcrumb={[{ label: 'Beginner Guide', url: '/beginner-guide/' }]}
-  evidenceNotes="Official confirmed limited — broad facts verified; detailed steps require hands-on testing"
+  evidenceNotes="Official confirmed limited — starter facts only; no first quest, stat allocation, or route unlock method published"
   sourceIds={pageSourceIds}
 >
-  <h1>{GAME_NAME} Beginner Guide</h1>
+  <h1>Starter Facts &amp; Pre-Play Checklist</h1>
+
+  <!-- Verdict card -->
+  <div class="verdict-card verdict-limited">
+    <div class="verdict-icon" aria-hidden="true">
+      <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="10" cy="10" r="8.5" stroke="currentColor" stroke-width="1.5"/>
+        <path d="M10 6v5M10 13.5v.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+      </svg>
+    </div>
+    <div class="verdict-body">
+      <strong>Starter facts only. No full walkthrough, no first quest, no stat allocation, no route unlock method.</strong>
+      All confirmed facts come from the official Roblox game description. Detailed gameplay steps, progression systems, and route-specific mechanics are not published until hands-on testing or official documentation is available.
+    </div>
+  </div>
 
   <!-- Quick status -->
   <div class="guide-meta">
@@ -31,75 +45,103 @@ const pageSourceIds = ['DB-API-001'];
       </svg>
       Detailed steps require hands-on testing
     </span>
+    <span class="meta-chip">
+      <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true">
+        <circle cx="6" cy="6" r="5" stroke="currentColor" stroke-width="1.2"/>
+        <path d="M6 3.5v2.5l1.5 1" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
+      </svg>
+      Last checked: {EVIDENCE_REVIEW_DATE}
+    </span>
   </div>
 
-  <!-- Checklist -->
-  <h2>Getting started (official facts)</h2>
+  <!-- Pre-play checklist -->
+  <h2>Pre-play checklist — confirmed facts</h2>
+  <p>Use this checklist before or during your first session. Each item is confirmed from official sources.</p>
   <ol class="checklist">
     <li class="checklist-item">
       <span class="check-num">1</span>
       <div class="check-body">
-        <strong>Open the game on Roblox</strong>
-        Launch <em>[WORLD CUP BETA] Demon Born</em> from the official Roblox game page. Ensure you are signed in to a Roblox account.
+        <strong>Game title and platform</strong>
+        <em>[WORLD CUP BETA] Demon Born</em> — available on Roblox. No separate client or download required.
       </div>
     </li>
     <li class="checklist-item">
       <span class="check-num">2</span>
       <div class="check-body">
-        <strong>Choose your route: Slayer or Demon</strong>
-        The official game description offers two distinct routes: become a <strong>Slayer</strong> (fight demons) or <strong>Demon</strong> (embrace the dark side and fight to destroy humanity). The specific differences between routes — stat allocations, abilities, quest branching, endings — are not yet documented in official sources.
+        <strong>Creator</strong>
+        SoraExp (Roblox group). Group ID: <code>34709042</code>. Not affiliated with Bandai Namco or the Demon Slayer IP.
       </div>
     </li>
     <li class="checklist-item">
       <span class="check-num">3</span>
       <div class="check-body">
-        <strong>Learn the controls</strong>
-        Key controls confirmed from the official Roblox description: <kbd>Left Click</kbd> Attack · <kbd>Q</kbd> Dash · <kbd>F</kbd> Defense · <kbd>ALT</kbd> Lock · <kbd>B</kbd> Finish · <kbd>H</kbd> Breathing · <kbd>U</kbd> Quest Indicators · <kbd>M</kbd> Menu · <kbd>SHIFT</kbd> Run. See the <a href="/controls/">full Controls page</a> for details.
+        <strong>Genre</strong>
+        Action RPG. Open-world setting with mysteries and challenging quests — confirmed from official Roblox description.
       </div>
     </li>
     <li class="checklist-item">
       <span class="check-num">4</span>
       <div class="check-body">
-        <strong>Explore the open world</strong>
-        The official description describes an open-world setting with mysteries and challenging quests. Specific starting areas, quest names, or objectives are not yet confirmed from official sources.
+        <strong>Two player routes exist</strong>
+        Official wording: become a <strong>Slayer</strong> (fight demons) or <strong>Demon</strong> (embrace the dark side and fight to destroy humanity). Specific route differences — stat allocations, abilities, quest branching, endings — are not documented in official sources yet.
+      </div>
+    </li>
+    <li class="checklist-item">
+      <span class="check-num">5</span>
+      <div class="check-body">
+        <strong>Controls — key labels confirmed</strong>
+        9 keys confirmed from official description: <kbd>Left Click</kbd> Attack · <kbd>Q</kbd> Dash · <kbd>F</kbd> Defense · <kbd>ALT</kbd> Lock · <kbd>B</kbd> Finish · <kbd>H</kbd> Breathing · <kbd>U</kbd> Quest Indicators · <kbd>M</kbd> Menu · <kbd>SHIFT</kbd> Run.
+        <br/>
+        <a href="/controls/">See full Controls page</a> — mechanics (cooldowns, stamina, style effects) are not yet verified.
       </div>
     </li>
     <li class="checklist-item checklist-partial">
-      <span class="check-num">5</span>
+      <span class="check-num">6</span>
       <div class="check-body">
-        <strong>Check for active codes (when available)</strong>
-        No official codes are currently confirmed. When an official code source is verified, active codes and redemption steps will be published on the <a href="/codes/">Codes Status page</a>.
+        <strong>Codes — not confirmed yet</strong>
+        No official code source is confirmed. Active codes and redemption details will be published only after an official source is verified.
+        <a href="/codes/">See Codes Source Checker</a>
+      </div>
+    </li>
+    <li class="checklist-item checklist-partial">
+      <span class="check-num">7</span>
+      <div class="check-body">
+        <strong>Wiki and Trello — not confirmed</strong>
+        No official wiki or Trello board is linked from any verified official Roblox channel. See <a href="/wiki/">Wiki Status</a> and <a href="/trello/">Trello Status</a> for the full API verification results.
       </div>
     </li>
   </ol>
 
-  <!-- Two routes card -->
-  <h2>The two official routes</h2>
-  <div class="routes-grid">
-    <div class="route-card route-slayer">
-      <div class="route-badge">Slayer</div>
-      <p>Official wording: <em>"Become a slayer — fight demons."</em></p>
-      <p class="route-unknown">Specific abilities, stats, and progression for this route are not yet documented in official sources.</p>
+  <!-- Asset readiness summary -->
+  <h2>What is ready and what is not</h2>
+  <div class="readiness-grid">
+    <div class="readiness-card readiness-now">
+      <div class="readiness-label">Available now</div>
+      <ul>
+        <li>Identity, title, creator</li>
+        <li>Official control keys</li>
+        <li>Genre and setting (open world)</li>
+        <li>Two-route premise (slayer / demon)</li>
+        <li>Wiki and Trello status verification</li>
+        <li>Codes source checker</li>
+      </ul>
     </div>
-    <div class="route-card route-demon">
-      <div class="route-badge">Demon</div>
-      <p>Official wording: <em>"Embrace the dark side and fight to destroy humanity."</em></p>
-      <p class="route-unknown">Specific abilities, stats, and progression for this route are not yet documented in official sources.</p>
+    <div class="readiness-card readiness-hold">
+      <div class="readiness-label">Not yet available</div>
+      <ul>
+        <li>First quest or tutorial steps</li>
+        <li>Stat allocation system</li>
+        <li>Route unlock method</li>
+        <li>Character creation details</li>
+        <li>Breathing styles and demon arts</li>
+        <li>Clans or class system</li>
+        <li>Crafting, mining, fishing</li>
+        <li>Specific locations or map</li>
+        <li>Active codes</li>
+        <li>Tier list or best build</li>
+      </ul>
     </div>
   </div>
-
-  <!-- What is not confirmed -->
-  <h2>What is not yet confirmed (requires hands-on testing)</h2>
-  <ul class="not-confirmed-list">
-    <li>Starting area or tutorial steps</li>
-    <li>How to unlock the slayer or demon route</li>
-    <li>First quest or objective</li>
-    <li>How breathing works (styles, upgrades, effects)</li>
-    <li>Character creation or stat allocation</li>
-    <li>How to earn or spend in-game currency</li>
-    <li>Inventory or equipment system</li>
-    <li>Multiplayer or co-op features</li>
-  </ul>
 
   <!-- Official resources -->
   <h2>Official resources</h2>
@@ -132,132 +174,155 @@ const pageSourceIds = ['DB-API-001'];
 </ContentLayout>
 
 <style>
-.guide-meta {
-  display: flex;
-  align-items: center;
-  gap: var(--space-3);
-  margin-bottom: var(--space-8);
-  flex-wrap: wrap;
-}
-.meta-chip {
-  display: inline-flex;
-  align-items: center;
-  gap: 5px;
-  background: var(--color-surface-raised);
-  border: 1px solid var(--color-border);
-  border-radius: 6px;
-  padding: 4px 10px;
-  font-size: 0.8125rem;
-  font-weight: 600;
-  color: var(--color-text);
-}
-.meta-warn {
-  color: var(--color-warning-text);
-  border-color: var(--color-warning-border);
-  background: var(--color-warning-bg);
-}
+  .verdict-card {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-4);
+    padding: var(--space-5);
+    border-radius: 8px;
+    margin-bottom: var(--space-5);
+    border: 1px solid;
+  }
+  .verdict-limited {
+    background: var(--color-warning-bg);
+    border-color: var(--color-warning-border);
+    color: var(--color-text);
+  }
+  .verdict-icon {
+    color: var(--color-warning-text);
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+  .verdict-body {
+    font-size: 0.9375rem;
+    line-height: 1.55;
+  }
 
-.checklist {
-  list-style: none;
-  padding: 0;
-  margin-bottom: var(--space-10);
-  display: flex;
-  flex-direction: column;
-  gap: 0;
-  counter-reset: none;
-}
-.checklist-item {
-  display: flex;
-  align-items: flex-start;
-  gap: var(--space-4);
-  padding: var(--space-4) 0;
-  border-bottom: 1px solid var(--color-border);
-}
-.checklist-item:last-child { border-bottom: none; }
-.check-num {
-  width: 1.75rem;
-  height: 1.75rem;
-  border-radius: 50%;
-  background: var(--color-accent);
-  color: #fff;
-  font-size: 0.8125rem;
-  font-weight: 700;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-  margin-top: 2px;
-}
-.checklist-partial .check-num {
-  background: var(--color-warning-text);
-}
-.check-body {
-  font-size: 0.9375rem;
-  line-height: 1.6;
-  padding-top: 3px;
-}
-.check-body strong { color: var(--color-text); }
+  .guide-meta {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    margin-bottom: var(--space-8);
+    flex-wrap: wrap;
+  }
+  .meta-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    background: var(--color-surface-raised);
+    border: 1px solid var(--color-border);
+    border-radius: 6px;
+    padding: 4px 10px;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: var(--color-text);
+  }
+  .meta-warn {
+    color: var(--color-warning-text);
+    border-color: var(--color-warning-border);
+    background: var(--color-warning-bg);
+  }
 
-kbd {
-  display: inline-block;
-  padding: 1px 5px;
-  border: 1px solid var(--color-border);
-  border-radius: 4px;
-  background: var(--color-surface-raised);
-  font-family: var(--font-mono);
-  font-size: 0.8125rem;
-  color: var(--color-text);
-}
+  .checklist {
+    list-style: none;
+    padding: 0;
+    margin-bottom: var(--space-10);
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+  .checklist-item {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-4);
+    padding: var(--space-4) 0;
+    border-bottom: 1px solid var(--color-border);
+  }
+  .checklist-item:last-child { border-bottom: none; }
+  .check-num {
+    width: 1.75rem;
+    height: 1.75rem;
+    border-radius: 50%;
+    background: var(--color-accent);
+    color: #fff;
+    font-size: 0.8125rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+  .checklist-partial .check-num {
+    background: var(--color-warning-text);
+  }
+  .check-body {
+    font-size: 0.9375rem;
+    line-height: 1.6;
+    padding-top: 3px;
+  }
+  .check-body strong { color: var(--color-text); }
+  .check-body em { color: var(--color-text); font-style: normal; }
 
-.routes-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(14rem, 1fr));
-  gap: var(--space-4);
-  margin-bottom: var(--space-8);
-}
-.route-card {
-  background: var(--color-surface);
-  border: 1px solid var(--color-border);
-  border-radius: 8px;
-  padding: var(--space-5);
-}
-.route-badge {
-  font-size: 0.75rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  padding: 2px 8px;
-  border-radius: 4px;
-  display: inline-block;
-  margin-bottom: var(--space-3);
-}
-.route-slayer .route-badge {
-  background: rgba(76, 175, 80, 0.15);
-  color: #4caf50;
-  border: 1px solid rgba(76, 175, 80, 0.3);
-}
-.route-demon .route-badge {
-  background: rgba(224, 85, 85, 0.15);
-  color: #e05555;
-  border: 1px solid rgba(224, 85, 85, 0.3);
-}
-.route-card p {
-  font-size: 0.875rem;
-  color: var(--color-text-muted);
-  margin-bottom: var(--space-3);
-}
-.route-card em { color: var(--color-text); font-style: normal; }
-.route-unknown {
-  font-size: 0.8125rem !important;
-  color: var(--color-text-muted) !important;
-  opacity: 0.7;
-}
+  kbd {
+    display: inline-block;
+    padding: 1px 5px;
+    border: 1px solid var(--color-border);
+    border-radius: 4px;
+    background: var(--color-surface-raised);
+    font-family: var(--font-mono);
+    font-size: 0.8125rem;
+    color: var(--color-text);
+  }
 
-.not-confirmed-list {
-  columns: 2;
-  column-gap: var(--space-8);
-}
-@media (max-width: 600px) {
-  .not-confirmed-list { columns: 1; }
-}
+  /* Readiness grid */
+  .readiness-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(14rem, 1fr));
+    gap: var(--space-4);
+    margin-bottom: var(--space-8);
+  }
+  .readiness-card {
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+    padding: var(--space-5);
+    border-left-width: 3px;
+  }
+  .readiness-now {
+    border-left-color: #4caf50;
+  }
+  .readiness-hold {
+    border-left-color: var(--color-warning-text);
+  }
+  .readiness-label {
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: var(--space-3);
+  }
+  .readiness-now .readiness-label { color: #4caf50; }
+  .readiness-hold .readiness-label { color: var(--color-warning-text); }
+  .readiness-card ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  .readiness-card ul li {
+    font-size: 0.8125rem;
+    color: var(--color-text-muted);
+    padding-left: 0.875rem;
+    position: relative;
+    margin: 0;
+  }
+  .readiness-card ul li::before {
+    content: '–';
+    position: absolute;
+    left: 0;
+    color: var(--color-border);
+  }
 </style>

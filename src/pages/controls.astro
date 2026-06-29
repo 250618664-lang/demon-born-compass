@@ -1,20 +1,19 @@
 ---
 import ContentLayout from '../layouts/ContentLayout.astro';
-import { GAME_NAME, CURRENT_VERSION } from '../data/site';
+import { GAME_NAME, CURRENT_VERSION, EVIDENCE_REVIEW_DATE } from '../data/site';
 
-const pageSourceIds = ['DB-API-001'];
+const pageSourceIds = ['DB-API-001', 'DB-API-005'];
 
-// Group controls by category
 const controls = [
-  { key: 'Left Click', action: 'Attack', group: 'Combat' },
-  { key: 'Q', action: 'Dash', group: 'Combat' },
-  { key: 'F', action: 'Defense', group: 'Combat' },
-  { key: 'B', action: 'Finish', group: 'Combat', note: 'Finish move' },
-  { key: 'ALT', action: 'Lock', group: 'Combat', note: 'Target lock' },
-  { key: 'H', action: 'Breathing', group: 'Combat', note: 'Breathing mechanic' },
-  { key: 'U', action: 'Quest Indicators', group: 'Navigation' },
-  { key: 'M', action: 'Menu', group: 'Navigation' },
-  { key: 'SHIFT', action: 'Run', group: 'Movement' },
+  { key: 'Left Click', action: 'Attack', group: 'Combat', note: 'Key label confirmed official.' },
+  { key: 'Q', action: 'Dash', group: 'Combat', note: 'Key label confirmed official. Behavior (cooldown, stamina) not verified.' },
+  { key: 'F', action: 'Defense', group: 'Combat', note: 'Key label confirmed official. Effect not verified.' },
+  { key: 'B', action: 'Finish', group: 'Combat', note: 'Key label confirmed official. Trigger conditions not verified.' },
+  { key: 'ALT', action: 'Lock', group: 'Combat', note: 'Key label confirmed official. Lock behavior not verified.' },
+  { key: 'H', action: 'Breathing', group: 'Combat', note: 'Key label confirmed official. Breathing system details (styles, upgrades, effects) not verified.' },
+  { key: 'U', action: 'Quest Indicators', group: 'Navigation', note: 'Key label confirmed official.' },
+  { key: 'M', action: 'Menu', group: 'Navigation', note: 'Key label confirmed official.' },
+  { key: 'SHIFT', action: 'Run', group: 'Movement', note: 'Key label confirmed official.' },
 ];
 
 const groups = ['Combat', 'Movement', 'Navigation'];
@@ -22,14 +21,29 @@ const groups = ['Combat', 'Movement', 'Navigation'];
 
 <ContentLayout
   title="Controls"
-  description="Official controls for Demon Born Roblox — from the Roblox game description (source: DB-API-001)."
+  description="Official controls for Demon Born Roblox — key labels confirmed from Roblox game description; mechanics not verified."
   canonicalUrl="/controls/"
   breadcrumb={[{ label: 'Controls', url: '/controls/' }]}
-  evidenceNotes="Official Roblox game description — DB-API-001"
+  evidenceNotes="Keys confirmed official; mechanics unverified — no cooldowns, iframes, style effects, or route-specific controls published"
   sourceIds={pageSourceIds}
 >
   <h1>{GAME_NAME} Controls</h1>
 
+  <!-- Verdict card -->
+  <div class="verdict-card verdict-confirmed">
+    <div class="verdict-icon" aria-hidden="true">
+      <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="10" cy="10" r="8.5" stroke="currentColor" stroke-width="1.5"/>
+        <path d="M6.5 10l2.5 2.5 5-5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </div>
+    <div class="verdict-body">
+      <strong>Key labels are official-confirmed. Mechanics are not verified.</strong>
+      All 9 keys listed here come from the official Roblox game description. Behaviors, cooldowns, stamina costs, style effects, and class-specific controls have not been confirmed from official sources.
+    </div>
+  </div>
+
+  <!-- Controls intro strip -->
   <div class="controls-intro">
     <span class="version-badge">
       <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true">
@@ -38,7 +52,9 @@ const groups = ['Combat', 'Movement', 'Navigation'];
       </svg>
       {CURRENT_VERSION}
     </span>
-    <span class="source-ref">Sourced from official Roblox game description · DB-API-001</span>
+    <span class="source-ref">
+      Sourced from official Roblox game description · DB-API-001 · Refreshed {EVIDENCE_REVIEW_DATE}
+    </span>
   </div>
 
   {groups.map(group => (
@@ -50,7 +66,8 @@ const groups = ['Combat', 'Movement', 'Navigation'];
             <tr>
               <th>Key</th>
               <th>Action</th>
-              <th>Note</th>
+              <th>Confirmed</th>
+              <th>Unverified</th>
             </tr>
           </thead>
           <tbody>
@@ -60,7 +77,8 @@ const groups = ['Combat', 'Movement', 'Navigation'];
                 <tr>
                   <td><kbd>{c.key}</kbd></td>
                   <td>{c.action}</td>
-                  <td class="note-cell">{c.note ? c.note : '—'}</td>
+                  <td class="note-confirmed">Key label</td>
+                  <td class="note-unverified">{c.note}</td>
                 </tr>
               ))}
           </tbody>
@@ -69,88 +87,123 @@ const groups = ['Combat', 'Movement', 'Navigation'];
     </div>
   ))}
 
-  <h2>Notes</h2>
+  <h2>What is not confirmed</h2>
   <ul>
-    <li>
-      <strong>Breathing (H):</strong> The official description mentions a Breathing key. Full details
-      of the breathing system — styles, effects, upgrades — are not yet confirmed from official sources.
-    </li>
-    <li>
-      <strong>Finish (B):</strong> A finish move key is listed. Specific conditions for triggering
-      a finish move are not yet documented in official sources.
-    </li>
-    <li>
-      <strong>Defense (F) and Dash (Q):</strong> The keys are officially listed.
-      Specific effects, cooldowns, and interactions are not yet verified from official sources.
-    </li>
-    <li>
-      <strong>Lock (ALT):</strong> The official description lists a lock key.
-      Specific lock behavior in {GAME_NAME} is not yet tested.
-    </li>
+    <li>Breathing system details — existence and differences between breathing types are unconfirmed</li>
+    <li>Defense and Dash cooldowns, stamina cost, or i-frames</li>
+    <li>Finish move trigger conditions, damage, or rewards</li>
+    <li>Lock behavior and target-switching rules</li>
+    <li>Any class-specific, clan-specific, or route-specific controls</li>
   </ul>
 
-  <h2>What is not yet confirmed</h2>
-  <ul>
-    <li>Breathing styles (water, fire, wind breathing) — existence and differences</li>
-    <li>Defense and Dash cooldowns, stamina cost, or i-frames</li>
-    <li>Finish move conditions, damage, or rewards</li>
-    <li>Any class-specific or clan-specific controls</li>
-  </ul>
+  <h2>Evidence and update history</h2>
+  <div class="table-wrapper">
+    <table>
+      <thead>
+        <tr>
+          <th>Date</th>
+          <th>Event</th>
+          <th>Source</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>2026-06-27</td>
+          <td>Initial controls confirmed from Roblox API</td>
+          <td><code>DB-API-001</code></td>
+        </tr>
+        <tr>
+          <td>2026-06-29</td>
+          <td>API refresh — same controls list confirmed</td>
+          <td><code>DB-API-005</code></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 </ContentLayout>
 
 <style>
-.controls-intro {
-  display: flex;
-  align-items: center;
-  gap: var(--space-4);
-  margin-bottom: var(--space-8);
-  flex-wrap: wrap;
-}
-.version-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 5px;
-  background: var(--color-surface-raised);
-  border: 1px solid var(--color-border);
-  border-radius: 6px;
-  padding: 4px 10px;
-  font-size: 0.8125rem;
-  font-weight: 600;
-  color: var(--color-text);
-}
-.source-ref {
-  font-size: 0.8125rem;
-  color: var(--color-text-muted);
-}
+  .verdict-card {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-4);
+    padding: var(--space-5);
+    border-radius: 8px;
+    margin-bottom: var(--space-5);
+    border: 1px solid;
+  }
+  .verdict-confirmed {
+    background: rgba(76, 175, 80, 0.1);
+    border-color: rgba(76, 175, 80, 0.3);
+    color: var(--color-text);
+  }
+  .verdict-icon {
+    color: #4caf50;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+  .verdict-body {
+    font-size: 0.9375rem;
+    line-height: 1.55;
+  }
 
-.control-group {
-  margin-bottom: var(--space-4);
-}
-.control-group h2 {
-  margin-top: 0;
-  font-size: 0.875rem;
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
-  color: var(--color-text-muted);
-  border-bottom: 1px solid var(--color-border);
-  padding-bottom: var(--space-2);
-}
+  .controls-intro {
+    display: flex;
+    align-items: center;
+    gap: var(--space-4);
+    margin-bottom: var(--space-8);
+    flex-wrap: wrap;
+  }
+  .version-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    background: var(--color-surface-raised);
+    border: 1px solid var(--color-border);
+    border-radius: 6px;
+    padding: 4px 10px;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: var(--color-text);
+  }
+  .source-ref {
+    font-size: 0.8125rem;
+    color: var(--color-text-muted);
+  }
 
-kbd {
-  display: inline-block;
-  padding: 2px 8px;
-  border: 1px solid var(--color-border);
-  border-radius: 4px;
-  background: var(--color-surface-raised);
-  font-family: var(--font-mono);
-  font-size: 0.875rem;
-  font-weight: 600;
-  color: var(--color-accent);
-  white-space: nowrap;
-}
+  .control-group {
+    margin-bottom: var(--space-4);
+  }
+  .control-group h2 {
+    margin-top: 0;
+    font-size: 0.875rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--color-text-muted);
+    border-bottom: 1px solid var(--color-border);
+    padding-bottom: var(--space-2);
+  }
 
-.note-cell {
-  color: var(--color-text-muted);
-  font-size: 0.875rem;
-}
+  kbd {
+    display: inline-block;
+    padding: 2px 8px;
+    border: 1px solid var(--color-border);
+    border-radius: 4px;
+    background: var(--color-surface-raised);
+    font-family: var(--font-mono);
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--color-accent);
+    white-space: nowrap;
+  }
+
+  .note-confirmed {
+    color: #4caf50;
+    font-size: 0.8125rem;
+    white-space: nowrap;
+  }
+  .note-unverified {
+    color: var(--color-text-muted);
+    font-size: 0.8125rem;
+  }
 </style>

@@ -1,16 +1,16 @@
 ---
 import ContentLayout from '../layouts/ContentLayout.astro';
-import { GAME_NAME } from '../data/site';
+import { GAME_NAME, EVIDENCE_REVIEW_DATE } from '../data/site';
 
-const pageSourceIds = ['DB-SERP-001', 'DB-LEAD-001', 'DB-LEAD-002'];
+const pageSourceIds = ['DB-SERP-001', 'DB-SERP-002', 'DB-API-009', 'DB-API-010', 'DB-API-011', 'DB-LEAD-001', 'DB-LEAD-002'];
 ---
 
 <ContentLayout
   title="Trello Status"
-  description="Demon Born Trello board status — no official Trello link has been confirmed."
+  description="Demon Born Trello board status — no official Trello URL confirmed; social endpoints blocked/empty."
   canonicalUrl="/trello/"
   breadcrumb={[{ label: 'Trello Status', url: '/trello/' }]}
-  evidenceNotes="No official Trello URL confirmed from any official Roblox or creator source"
+  evidenceNotes="No official Trello URL confirmed; blocked/empty API checks on record"
   sourceIds={pageSourceIds}
 >
   <h1>{GAME_NAME} Trello — Status</h1>
@@ -24,42 +24,75 @@ const pageSourceIds = ['DB-SERP-001', 'DB-LEAD-001', 'DB-LEAD-002'];
       </svg>
     </div>
     <div class="verdict-body">
-      <strong>No official Trello board confirmed.</strong>
-      No verified official Trello URL has been found from the Roblox game page, creator social media, or official Roblox group. This page does not publish any unverified Trello link.
+      <strong>No official Trello board confirmed from public official sources.</strong>
+      Roblox game social links and SoraExp group social links endpoints are blocked by authentication (401).
+      The group community endpoint returned an empty string. This page does not publish any unverified Trello link.
     </div>
   </div>
 
-  <!-- What search results show -->
-  <h2>What search results show (2026-06-27)</h2>
+  <!-- Last checked -->
+  <div class="last-checked-strip">
+    <span class="strip-item">
+      <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true">
+        <circle cx="6" cy="6" r="5" stroke="currentColor" stroke-width="1.2"/>
+        <path d="M6 3.5v2.5l1.5 1" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
+      </svg>
+      Last checked: {EVIDENCE_REVIEW_DATE}
+    </span>
+  </div>
+
+  <!-- Official link verifier -->
+  <h2>Official link verifier — 2026-06-29</h2>
+  <p>
+    This table shows the result of checking official Roblox API endpoints for Trello or community links
+    associated with Demon Born or SoraExp.
+  </p>
   <div class="table-wrapper">
     <table>
       <thead>
         <tr>
+          <th>Endpoint / channel</th>
+          <th>URL</th>
           <th>Result</th>
-          <th>Assessment</th>
           <th>Verdict</th>
         </tr>
       </thead>
       <tbody>
         <tr>
-          <td>Unrelated Trello boards</td>
-          <td>Other game boards appearing for broad queries</td>
-          <td><span class="verdict-fake">Not relevant</span></td>
+          <td>Roblox game page</td>
+          <td><code>roblox.com/games/79833666916700</code></td>
+          <td>No Trello link in description</td>
+          <td><span class="verdict-tbd">No Trello linked</span></td>
         </tr>
         <tr>
-          <td>demonbornwiki.wiki (not Trello)</td>
-          <td>A wiki, not a Trello board</td>
-          <td><span class="verdict-fake">Wrong type</span></td>
+          <td>Roblox game social links API</td>
+          <td><code>games.roblox.com/v1/games/7326773869/social-links/list</code></td>
+          <td>401 — Authentication token is missing</td>
+          <td><span class="verdict-blocked">✗ Blocked (do not bypass)</span></td>
+        </tr>
+        <tr>
+          <td>SoraExp group page</td>
+          <td><code>groups.roblox.com/v1/groups/34709042</code></td>
+          <td>Group metadata only; no Trello links</td>
+          <td><span class="verdict-tbd">No Trello linked</span></td>
+        </tr>
+        <tr>
+          <td>SoraExp group social links API</td>
+          <td><code>groups.roblox.com/v1/groups/34709042/social-links</code></td>
+          <td>401 — Authentication token is missing</td>
+          <td><span class="verdict-blocked">✗ Blocked (do not bypass)</span></td>
+        </tr>
+        <tr>
+          <td>SoraExp community links API</td>
+          <td><code>apis.roblox.com/community-links/v1/groups/34709042/community</code></td>
+          <td>Returned empty string</td>
+          <td><span class="verdict-empty">— Empty (no link confirmed)</span></td>
         </tr>
         <tr>
           <td>Pocket Tactics article</td>
-          <td>Mentions no active Trello at time of writing</td>
-          <td><span class="verdict-tbd">Out of date</span></td>
-        </tr>
-        <tr>
-          <td>Destructoid article</td>
-          <td>Mentions Discord/wiki, no confirmed Trello</td>
-          <td><span class="verdict-tbd">Out of date</span></td>
+          <td><code>pockettactics.com</code></td>
+          <td>Mentions "no active Trello board or wiki yet" at time of writing</td>
+          <td><span class="verdict-tbd">Out of date / lead only</span></td>
         </tr>
       </tbody>
     </table>
@@ -92,6 +125,12 @@ const pageSourceIds = ['DB-SERP-001', 'DB-LEAD-001', 'DB-LEAD-002'];
       </span>
       <span><strong>Red flag:</strong> A Trello board that claims to be "official" but is not linked from any verified official Roblox channel.</span>
     </li>
+    <li>
+      <span class="check-icon check-fail" aria-hidden="true">
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 2l10 10M12 2L2 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+      </span>
+      <span><strong>Do not attempt to bypass authentication</strong> on Roblox API endpoints. Blocked endpoints return 401 because they require a login session — this is intentional and must be respected.</span>
+    </li>
   </ul>
 
   <!-- What this site will not do -->
@@ -100,6 +139,7 @@ const pageSourceIds = ['DB-SERP-001', 'DB-LEAD-001', 'DB-LEAD-002'];
     <li>Will not publish a Trello link unless verified as official by an official Roblox or creator channel.</li>
     <li>Will not list a third-party Trello board as "official."</li>
     <li>Will not create or mirror any fan Trello board.</li>
+    <li>Will not attempt to bypass Roblox authentication requirements.</li>
   </ul>
 
   <!-- Alternatives -->
@@ -110,7 +150,7 @@ const pageSourceIds = ['DB-SERP-001', 'DB-LEAD-001', 'DB-LEAD-002'];
       <p>Current wiki landscape and official source gaps.</p>
     </a>
     <a href="/codes/" class="card">
-      <h2>Codes Status</h2>
+      <h2>Codes Checker</h2>
       <p>How to check for active codes from official channels.</p>
     </a>
     <a href="/controls/" class="card">
@@ -127,64 +167,80 @@ const pageSourceIds = ['DB-SERP-001', 'DB-LEAD-001', 'DB-LEAD-002'];
 </ContentLayout>
 
 <style>
-.verdict-card {
-  display: flex;
-  align-items: flex-start;
-  gap: var(--space-4);
-  padding: var(--space-5);
-  border-radius: 8px;
-  margin-bottom: var(--space-5);
-  border: 1px solid;
-}
-.verdict-warn {
-  background: var(--color-warning-bg);
-  border-color: var(--color-warning-border);
-  color: var(--color-text);
-}
-.verdict-icon {
-  color: var(--color-warning-text);
-  flex-shrink: 0;
-  margin-top: 1px;
-}
-.verdict-body {
-  font-size: 0.9375rem;
-  line-height: 1.55;
-}
+  .verdict-card {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-4);
+    padding: var(--space-5);
+    border-radius: 8px;
+    margin-bottom: var(--space-5);
+    border: 1px solid;
+  }
+  .verdict-warn {
+    background: var(--color-warning-bg);
+    border-color: var(--color-warning-border);
+    color: var(--color-text);
+  }
+  .verdict-icon {
+    color: var(--color-warning-text);
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+  .verdict-body {
+    font-size: 0.9375rem;
+    line-height: 1.55;
+  }
 
-.verdict-tbd { color: var(--color-warning-text); font-weight: 600; }
-.verdict-fake { color: #e05555; font-weight: 600; }
+  .last-checked-strip {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    font-size: 0.8125rem;
+    color: var(--color-text-muted);
+    margin-bottom: var(--space-8);
+    flex-wrap: wrap;
+  }
+  .strip-item {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
 
-.link-check-list {
-  list-style: none;
-  padding: 0;
-  margin-bottom: var(--space-8);
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-3);
-}
-.link-check-list li {
-  display: flex;
-  align-items: flex-start;
-  gap: var(--space-3);
-  font-size: 0.9rem;
-  line-height: 1.55;
-}
-.check-icon {
-  width: 1.25rem;
-  height: 1.25rem;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-  margin-top: 2px;
-}
-.check-pass {
-  background: rgba(76, 175, 80, 0.15);
-  color: #4caf50;
-}
-.check-fail {
-  background: rgba(224, 85, 85, 0.15);
-  color: #e05555;
-}
+  .verdict-tbd { color: var(--color-warning-text); font-weight: 600; }
+  .verdict-blocked { color: #e05555; font-weight: 700; }
+  .verdict-empty { color: var(--color-text-muted); font-weight: 600; }
+
+  .link-check-list {
+    list-style: none;
+    padding: 0;
+    margin-bottom: var(--space-8);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+  }
+  .link-check-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-3);
+    font-size: 0.9rem;
+    line-height: 1.55;
+  }
+  .check-icon {
+    width: 1.25rem;
+    height: 1.25rem;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+  .check-pass {
+    background: rgba(76, 175, 80, 0.15);
+    color: #4caf50;
+  }
+  .check-fail {
+    background: rgba(224, 85, 85, 0.15);
+    color: #e05555;
+  }
 </style>

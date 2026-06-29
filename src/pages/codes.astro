@@ -1,19 +1,19 @@
 ---
 import ContentLayout from '../layouts/ContentLayout.astro';
-import { GAME_NAME } from '../data/site';
+import { GAME_NAME, EVIDENCE_REVIEW_DATE } from '../data/site';
 
-const pageSourceIds = ['DB-TRENDS-001', 'DB-SERP-001', 'DB-LEAD-001', 'DB-LEAD-002'];
+const pageSourceIds = ['DB-SERP-002', 'DB-LEAD-005', 'DB-LEAD-006', 'DB-LEAD-007', 'DB-LEAD-008', 'DB-LEAD-010', 'DB-AUTO-001'];
 ---
 
 <ContentLayout
   title="Codes Status"
-  description="Demon Born codes status — no official code feed confirmed. How to find active codes safely."
+  description="Demon Born codes — source checker. No official code feed confirmed; third-party lists conflict; redemption flow unverified."
   canonicalUrl="/codes/"
   breadcrumb={[{ label: 'Codes Status', url: '/codes/' }]}
-  evidenceNotes="No official code source confirmed — third-party code lists are not copied"
+  evidenceNotes="Active codes not published — no official source confirmed; third-party lists disagree"
   sourceIds={pageSourceIds}
 >
-  <h1>{GAME_NAME} Codes</h1>
+  <h1>{GAME_NAME} Codes — Source Checker</h1>
 
   <!-- Verdict card -->
   <div class="verdict-card verdict-warn">
@@ -24,8 +24,8 @@ const pageSourceIds = ['DB-TRENDS-001', 'DB-SERP-001', 'DB-LEAD-001', 'DB-LEAD-0
       </svg>
     </div>
     <div class="verdict-body">
-      <strong>No official code feed confirmed.</strong>
-      No active codes are published here because no official Roblox or creator channel has been verified as a code source. Third-party code lists are not copied.
+      <strong>No public official code feed confirmed.</strong>
+      Active codes are not published here. No official Roblox channel, creator social, or in-game menu has been verified as a code source. Third-party code lists are not copied because they disagree on active/expired codes and redemption flow.
     </div>
   </div>
 
@@ -36,7 +36,7 @@ const pageSourceIds = ['DB-TRENDS-001', 'DB-SERP-001', 'DB-LEAD-001', 'DB-LEAD-0
         <circle cx="6" cy="6" r="5" stroke="currentColor" stroke-width="1.2"/>
         <path d="M6 3.5v2.5l1.5 1" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
       </svg>
-      Last checked: 2026-06-27
+      Last checked: {EVIDENCE_REVIEW_DATE}
     </span>
     <span class="strip-sep">·</span>
     <span class="strip-item">
@@ -47,194 +47,251 @@ const pageSourceIds = ['DB-TRENDS-001', 'DB-SERP-001', 'DB-LEAD-001', 'DB-LEAD-0
     </span>
   </div>
 
-  <!-- Redemption status -->
-  <h2>Code redemption status</h2>
+  <!-- Code source checker -->
+  <h2>Code source checker</h2>
   <p>
-    No official code feed or in-game redemption flow has been verified yet. The steps below
-    are a safe checklist to use only if an official code source or in-game code menu is confirmed.
+    Use this table to evaluate any code source you find. No source = no codes published here.
   </p>
-  <ol class="redeem-steps">
-    <li>
-      <span class="step-num">1</span>
-      <div class="step-body">
-        <strong>Open the game</strong>
-        Launch <em>[WORLD CUP BETA] Demon Born</em> on Roblox.
-      </div>
-    </li>
-    <li>
-      <span class="step-num">2</span>
-      <div class="step-body">
-        <strong>Find the Menu</strong>
-        Press <kbd>M</kbd> to open the in-game menu.
-      </div>
-    </li>
-    <li>
-      <span class="step-num">3</span>
-      <div class="step-body">
-        <strong>Look for a Codes or Settings option</strong>
-        Check whether the menu contains a Codes or Settings option. This location has not been hands-on verified.
-      </div>
-    </li>
-    <li>
-      <span class="step-num">4</span>
-      <div class="step-body">
-        <strong>Enter your code</strong>
-        Only enter codes from a verified official source. Do not copy codes from unverified aggregators.
-      </div>
-    </li>
-    <li>
-      <span class="step-num">5</span>
-      <div class="step-body">
-        <strong>Confirm reward</strong>
-        If a redemption flow is confirmed later, this page will document the exact reward confirmation behavior.
-      </div>
-    </li>
-  </ol>
-
-  <!-- Why no codes yet -->
-  <h2>Why no codes are published here</h2>
   <div class="table-wrapper">
     <table>
       <thead>
         <tr>
-          <th>Source</th>
-          <th>Status</th>
-          <th>Verified?</th>
+          <th>Source channel</th>
+          <th>Status as of {EVIDENCE_REVIEW_DATE}</th>
+          <th>Verdict</th>
         </tr>
       </thead>
       <tbody>
         <tr>
           <td>Roblox game page description</td>
-          <td>No codes listed</td>
-          <td><span class="tick">✓</span></td>
+          <td>No codes listed at check time</td>
+          <td><span class="tick">✓ Official</span></td>
         </tr>
         <tr>
-          <td>Official Discord or group</td>
-          <td>No official Discord confirmed</td>
-          <td>—</td>
+          <td>Creator Discord or announcements</td>
+          <td>No public URL confirmed; social endpoint blocked (401 auth)</td>
+          <td><span class="blocked">✗ Blocked</span></td>
         </tr>
         <tr>
-          <td>Creator Twitter/X or social</td>
-          <td>Not yet researched</td>
-          <td>—</td>
+          <td>Official Twitter/X or social link</td>
+          <td>No public URL confirmed; game social endpoint blocked (401 auth)</td>
+          <td><span class="blocked">✗ Blocked</span></td>
         </tr>
         <tr>
-          <td>In-game redemption UI</td>
-          <td>Requires hands-on play</td>
-          <td>—</td>
+          <td>SoraExp Roblox group</td>
+          <td>Group social links endpoint blocked (401 auth); community endpoint returned empty string</td>
+          <td><span class="blocked">✗ Blocked / empty</span></td>
+        </tr>
+        <tr>
+          <td>In-game code redemption UI</td>
+          <td>Requires hands-on play to confirm menu path and field labels</td>
+          <td><span class="unknown">— Needs testing</span></td>
         </tr>
         <tr>
           <td>Third-party aggregator sites</td>
-          <td>Not verified; not copied</td>
-          <td><span class="cross">✗</span></td>
+          <td>Multiple pages found; active/expired lists and rewards disagree across sources</td>
+          <td><span class="conflict">⚠ Conflict</span></td>
         </tr>
       </tbody>
     </table>
   </div>
 
-  <h2>How to find codes safely</h2>
-  <ul>
-    <li>Check the official Roblox game page description for any pinned codes.</li>
-    <li>Visit the official SoraExp Roblox group page for announcements.</li>
-    <li>Check the Roblox game description in-game at the main menu.</li>
-    <li>If a creator Discord is confirmed official, check its announcements channel.</li>
+  <!-- Conflict panel -->
+  <h2>Third-party code list conflicts</h2>
+  <div class="conflict-panel">
+    <div class="conflict-header">
+      <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+        <path d="M7 1.5L12.5 11.5H1.5L7 1.5Z" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round"/>
+        <path d="M7 5.5v3M7 10v.5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
+      </svg>
+      Active codes disputed across third-party sources
+    </div>
+    <ul class="conflict-list">
+      <li><strong>Multiple code aggregator pages</strong> (June 2026) — lists of active and expired codes differ in which codes are included, which are marked expired, and what rewards are listed.</li>
+      <li><strong>Redeeming codes</strong> — third-party sources describe different menu paths: some cite <kbd>M</kbd> key + "Codes" button; others describe a character creation flow; no single path is confirmed as official.</li>
+      <li><strong>Active vs expired</strong> — the same code is listed as active on some aggregator pages and expired on others as of the same month.</li>
+    </ul>
+    <div class="conflict-resolution">
+      <strong>Resolution condition:</strong> A verified official Roblox channel, creator post, or documented in-game verification must confirm the active code list and redemption path before anything is published here.
+    </div>
+  </div>
+
+  <!-- Safe checklist -->
+  <h2>Safe code-checking checklist</h2>
+  <ul class="safe-checklist">
+    <li>
+      <span class="check-icon check-pass" aria-hidden="true">
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 7l4 4 6-7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </span>
+      <span>Check the <strong>official Roblox game page description</strong> for pinned codes first.</span>
+    </li>
+    <li>
+      <span class="check-icon check-pass" aria-hidden="true">
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 7l4 4 6-7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </span>
+      <span>Check the <strong>SoraExp Roblox group</strong> announcements if the group page is accessible.</span>
+    </li>
+    <li>
+      <span class="check-icon check-warn" aria-hidden="true">
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M7 2v5M7 9v.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><circle cx="7" cy="7" r="6" stroke="currentColor" stroke-width="1.2"/></svg>
+      </span>
+      <span><strong>Third-party code sites:</strong> treat as unverified leads only. Different pages give different active/expired lists.</span>
+    </li>
+    <li>
+      <span class="check-icon check-fail" aria-hidden="true">
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 2l10 10M12 2L2 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+      </span>
+      <span><strong>Never enter a code</strong> from a site you cannot verify as official. Check the URL domain against the creator's known channels.</span>
+    </li>
   </ul>
 
+  <!-- Submit official source -->
   <h2>Submit an official code source</h2>
   <p>
     If you have verified an official Roblox channel that publishes {GAME_NAME} codes,
-    use the <a href="/contact/">correction workflow</a> with the URL.
-    Once confirmed, the codes page will be updated with active codes and redemption details.
+    use the <a href="/contact/">correction workflow</a> with the URL and a screenshot of the code announcement.
+    Once confirmed against official sources, the codes page will be updated.
   </p>
 </ContentLayout>
 
 <style>
-.verdict-card {
-  display: flex;
-  align-items: flex-start;
-  gap: var(--space-4);
-  padding: var(--space-5);
-  border-radius: 8px;
-  margin-bottom: var(--space-5);
-  border: 1px solid;
-}
-.verdict-warn {
-  background: var(--color-warning-bg);
-  border-color: var(--color-warning-border);
-  color: var(--color-text);
-}
-.verdict-icon {
-  color: var(--color-warning-text);
-  flex-shrink: 0;
-  margin-top: 1px;
-}
-.verdict-body {
-  font-size: 0.9375rem;
-  line-height: 1.55;
-}
+  .verdict-card {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-4);
+    padding: var(--space-5);
+    border-radius: 8px;
+    margin-bottom: var(--space-5);
+    border: 1px solid;
+  }
+  .verdict-warn {
+    background: var(--color-warning-bg);
+    border-color: var(--color-warning-border);
+    color: var(--color-text);
+  }
+  .verdict-icon {
+    color: var(--color-warning-text);
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+  .verdict-body {
+    font-size: 0.9375rem;
+    line-height: 1.55;
+  }
 
-.last-checked-strip {
-  display: flex;
-  align-items: center;
-  gap: var(--space-3);
-  font-size: 0.8125rem;
-  color: var(--color-text-muted);
-  margin-bottom: var(--space-8);
-  flex-wrap: wrap;
-}
-.strip-item {
-  display: flex;
-  align-items: center;
-  gap: 5px;
-}
-.strip-sep { opacity: 0.5; }
+  .last-checked-strip {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    font-size: 0.8125rem;
+    color: var(--color-text-muted);
+    margin-bottom: var(--space-8);
+    flex-wrap: wrap;
+  }
+  .strip-item {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+  .strip-sep { opacity: 0.5; }
 
-.redeem-steps {
-  list-style: none;
-  padding: 0;
-  margin-bottom: var(--space-8);
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-3);
-}
-.redeem-steps li {
-  display: flex;
-  align-items: flex-start;
-  gap: var(--space-4);
-  margin-bottom: 0;
-}
-.step-num {
-  width: 1.75rem;
-  height: 1.75rem;
-  border-radius: 50%;
-  background: var(--color-accent);
-  color: #fff;
-  font-size: 0.8125rem;
-  font-weight: 700;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-  margin-top: 2px;
-}
-.step-body {
-  font-size: 0.9375rem;
-  line-height: 1.55;
-  padding-top: 3px;
-}
-.step-body strong { color: var(--color-text); }
+  .tick { color: #4caf50; font-weight: 700; }
+  .blocked { color: #e05555; font-weight: 700; }
+  .unknown { color: var(--color-text-muted); font-weight: 600; }
+  .conflict { color: var(--color-warning-text); font-weight: 700; }
 
-kbd {
-  display: inline-block;
-  padding: 1px 5px;
-  border: 1px solid var(--color-border);
-  border-radius: 4px;
-  background: var(--color-surface-raised);
-  font-family: var(--font-mono);
-  font-size: 0.8125rem;
-  color: var(--color-text);
-}
+  /* Conflict panel */
+  .conflict-panel {
+    background: var(--color-surface);
+    border: 1px solid var(--color-warning-border);
+    border-radius: 8px;
+    padding: var(--space-5);
+    margin-bottom: var(--space-8);
+  }
+  .conflict-header {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    font-size: 0.8125rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--color-warning-text);
+    margin-bottom: var(--space-4);
+  }
+  .conflict-list {
+    list-style: none;
+    padding: 0;
+    margin-bottom: var(--space-4);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+  }
+  .conflict-list li {
+    font-size: 0.875rem;
+    color: var(--color-text-muted);
+    padding-left: var(--space-4);
+    border-left: 2px solid var(--color-warning-border);
+    margin: 0;
+  }
+  .conflict-list li strong { color: var(--color-text); }
+  .conflict-resolution {
+    background: var(--color-warning-bg);
+    border: 1px solid var(--color-warning-border);
+    border-radius: 6px;
+    padding: var(--space-3) var(--space-4);
+    font-size: 0.875rem;
+    color: var(--color-text);
+  }
 
-.tick { color: #4caf50; font-weight: 700; }
-.cross { color: #e05555; font-weight: 700; }
+  /* Safe checklist */
+  .safe-checklist {
+    list-style: none;
+    padding: 0;
+    margin-bottom: var(--space-8);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+  }
+  .safe-checklist li {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-3);
+    font-size: 0.9rem;
+    line-height: 1.55;
+    margin: 0;
+  }
+  .check-icon {
+    width: 1.25rem;
+    height: 1.25rem;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+  .check-pass {
+    background: rgba(76, 175, 80, 0.15);
+    color: #4caf50;
+  }
+  .check-warn {
+    background: rgba(201, 137, 10, 0.15);
+    color: var(--color-warning-text);
+  }
+  .check-fail {
+    background: rgba(224, 85, 85, 0.15);
+    color: #e05555;
+  }
+
+  kbd {
+    display: inline-block;
+    padding: 1px 5px;
+    border: 1px solid var(--color-border);
+    border-radius: 4px;
+    background: var(--color-surface-raised);
+    font-family: var(--font-mono);
+    font-size: 0.8125rem;
+    color: var(--color-text);
+  }
 </style>

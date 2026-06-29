@@ -1,10 +1,82 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import Ads from '../components/Ads.astro';
-import { SITE_TITLE, SITE_DESCRIPTION, GAME_NAME, CURRENT_VERSION, EVIDENCE_REVIEW_DATE, ADS_ENABLED, EVIDENCE_STATUS } from '../data/site';
+import { SITE_TITLE, SITE_DESCRIPTION, GAME_NAME, CURRENT_VERSION, EVIDENCE_REVIEW_DATE, ADS_ENABLED } from '../data/site';
 
-const statusLabel = EVIDENCE_STATUS === 'official-confirmed' ? 'Official Sources' : EVIDENCE_STATUS;
-const statusOk = EVIDENCE_STATUS === 'official-confirmed';
+// NOW / HOLD / BLOCKED counts from 2026-06-29 evidence pass
+const counts = {
+  now: 9,   // identity, controls, wiki status, trello status, codes source status, limited beginner facts, sources, about, editorial, privacy, contact
+  hold: 12, // active codes, redemption flow, Discord, clans, breathing styles, blood demon arts, crafting, mining, fishing, locations, patch details, builds/tier
+  blocked: 2, // game social-links endpoint, group social-links endpoint
+};
+
+const lastChecked = EVIDENCE_REVIEW_DATE;
+
+// Asset map: grouped by player task area
+const assetGroups = [
+  {
+    group: 'Identity',
+    status: 'NOW',
+    items: ['Title & creator', 'Genre & platform', 'Beta status'],
+    statusClass: 'asset-now',
+  },
+  {
+    group: 'Controls',
+    status: 'NOW',
+    items: ['9 official keys listed', 'No mechanics verified'],
+    statusClass: 'asset-now',
+  },
+  {
+    group: 'Codes',
+    status: 'HOLD',
+    items: ['Active codes — not published', 'Redemption flow — unconfirmed'],
+    statusClass: 'asset-hold',
+  },
+  {
+    group: 'Wiki / Trello',
+    status: 'NOW',
+    items: ['Official links — not confirmed', 'Social endpoints blocked/empty'],
+    statusClass: 'asset-now',
+  },
+  {
+    group: 'Classes / Clans',
+    status: 'HOLD',
+    items: ['No official data confirmed'],
+    statusClass: 'asset-hold',
+  },
+  {
+    group: 'Breathing / Demon Arts',
+    status: 'HOLD',
+    items: ['H key confirmed; styles/unlocks unconfirmed'],
+    statusClass: 'asset-hold',
+  },
+  {
+    group: 'Crafting / Mining / Fishing',
+    status: 'NEEDS_MORE_EVIDENCE',
+    items: ['C-level leads only; no official data'],
+    statusClass: 'asset-evidence',
+  },
+  {
+    group: 'Locations / Map',
+    status: 'HOLD',
+    items: ['No official map or location data confirmed'],
+    statusClass: 'asset-hold',
+  },
+  {
+    group: 'Tier / Builds',
+    status: 'REJECT',
+    items: ['No official data; not published'],
+    statusClass: 'asset-reject',
+  },
+];
+
+const quickLinks = [
+  { href: '/wiki/', label: 'Wiki Status', desc: 'Official vs third-party wiki verification' },
+  { href: '/trello/', label: 'Trello Status', desc: 'No official Trello confirmed' },
+  { href: '/codes/', label: 'Codes Checker', desc: 'Source status and conflict report' },
+  { href: '/controls/', label: 'Controls', desc: '9 official keys — mechanics unverified' },
+  { href: '/beginner-guide/', label: 'Starter Facts', desc: 'Pre-play checklist, not a walkthrough' },
+  { href: '/sources/', label: 'Source Matrix', desc: 'All evidence channels, blocked endpoints, and timeline' },
+];
 ---
 
 <BaseLayout
@@ -15,121 +87,104 @@ const statusOk = EVIDENCE_STATUS === 'official-confirmed';
   <div class="prose-container">
 
     <div class="info-block" style="margin-bottom: var(--space-4)">
-      <strong>Unofficial fan guide.</strong> Not affiliated with Roblox Corporation, SoraExp, or Demon Born creators.
+      <strong>Unofficial evidence-backed workstation.</strong>
+      Not affiliated with Roblox Corporation, SoraExp, or Demon Born creators.
       {ADS_ENABLED ? 'This site displays third-party ads.' : 'Ads are disabled. No analytics or tracking scripts.'}
     </div>
 
-    <!-- Game Status Dashboard -->
-    <div class="status-dashboard">
-      <div class="dash-item">
-        <span class="dash-icon" aria-hidden="true">
-          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <circle cx="8" cy="8" r="6.5" stroke="currentColor" stroke-width="1.5"/>
-            <path d="M8 4.5v3.5l2.5 1.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-          </svg>
-        </span>
-        <div class="dash-text">
-          <span class="dash-label">Version</span>
-          <span class="dash-value">{CURRENT_VERSION}</span>
-        </div>
+    <!-- Core Problem -->
+    <div class="core-problem-card">
+      <div class="core-problem-label">Core question</div>
+      <p class="core-problem-text">
+        Which Demon Born information can I trust right now,
+        and what should I avoid until official or tested evidence exists?
+      </p>
+    </div>
+
+    <!-- NOW / HOLD / BLOCKED counts bar -->
+    <div class="counts-bar">
+      <div class="count-block count-now">
+        <span class="count-num">{counts.now}</span>
+        <span class="count-label">NOW</span>
+        <span class="count-desc">publishable facts</span>
       </div>
-
-      <div class="dash-sep" aria-hidden="true"></div>
-
-      <div class="dash-item">
-        <span class="dash-icon" aria-hidden="true">
-          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M3 8l3 3 7-7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-        </span>
-        <div class="dash-text">
-          <span class="dash-label">Evidence</span>
-          <span class={`dash-value dash-badge ${statusOk ? 'badge-ok' : 'badge-warn'}`}>{statusLabel}</span>
-        </div>
+      <div class="count-sep" aria-hidden="true"></div>
+      <div class="count-block count-hold">
+        <span class="count-num">{counts.hold}</span>
+        <span class="count-label">HOLD</span>
+        <span class="count-desc">awaiting evidence</span>
       </div>
-
-      <div class="dash-sep" aria-hidden="true"></div>
-
-      <div class="dash-item">
-        <span class="dash-icon" aria-hidden="true">
-          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <rect x="2" y="3" width="12" height="10" rx="1.5" stroke="currentColor" stroke-width="1.5"/>
-            <path d="M5 6h6M5 9h4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-          </svg>
-        </span>
-        <div class="dash-text">
-          <span class="dash-label">Pages</span>
-          <span class="dash-value">6 answers</span>
-        </div>
+      <div class="count-sep" aria-hidden="true"></div>
+      <div class="count-block count-blocked">
+        <span class="count-num">{counts.blocked}</span>
+        <span class="count-label">BLOCKED</span>
+        <span class="count-desc">endpoints inaccessible</span>
       </div>
-
-      <div class="dash-sep" aria-hidden="true"></div>
-
-      <div class="dash-item">
-        <span class="dash-icon" aria-hidden="true">
-          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <circle cx="8" cy="8" r="6.5" stroke="currentColor" stroke-width="1.5"/>
-            <path d="M8 5v3.5l2 2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-          </svg>
-        </span>
-        <div class="dash-text">
-          <span class="dash-label">Last checked</span>
-          <span class="dash-value">{EVIDENCE_REVIEW_DATE}</span>
-        </div>
+      <div class="count-sep" aria-hidden="true"></div>
+      <div class="count-block count-meta">
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+          <circle cx="7" cy="7" r="6" stroke="currentColor" stroke-width="1.2"/>
+          <path d="M7 4v3.5l2 1.5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
+        </svg>
+        <span class="count-label">Last checked</span>
+        <span class="count-desc">{lastChecked}</span>
       </div>
     </div>
 
-    <p class="page-lead">
-      The fastest way to get accurate facts about <strong>{GAME_NAME}</strong> on Roblox —
-      wiki status, controls, beginner guide, and codes status, all evidence-backed.
+    <!-- Asset Map -->
+    <h2 class="section-heading">Evidence map</h2>
+    <p class="section-lead">
+      What this site currently covers — and what is intentionally not published yet.
     </p>
-
-    <h2>Quick Answers</h2>
-    <div class="card-grid">
-      <a href="/wiki/" class="card">
-        <h2>Wiki Status</h2>
-        <p>Is there a Demon Born wiki? What the SERP actually shows — and what is still missing.</p>
-        <span class="card-meta">SERP gap confirmed · DB-SERP-001</span>
-      </a>
-
-      <a href="/trello/" class="card">
-        <h2>Trello Status</h2>
-        <p>Does an official Trello board exist? Current status: no verified official link.</p>
-        <span class="card-meta">Unverified official link · DB-SERP-001</span>
-      </a>
-
-      <a href="/codes/" class="card">
-        <h2>Codes Status</h2>
-        <p>Active codes, expiration, and redemption — all from verified official sources only.</p>
-        <span class="card-meta">Source-limited · DB-TRENDS-001</span>
-      </a>
-
-      <a href="/controls/" class="card">
-        <h2>Controls</h2>
-        <p>Official control list from the Roblox game description: attack, dash, defense, breathing, menu and more.</p>
-        <span class="card-meta">Official confirmed · DB-API-001</span>
-      </a>
-
-      <a href="/beginner-guide/" class="card">
-        <h2>Beginner Guide</h2>
-        <p>Open-world setup, two player routes (slayer or demon), and official control overview.</p>
-        <span class="card-meta">Official confirmed limited · DB-API-001</span>
-      </a>
+    <div class="asset-board">
+      {assetGroups.map(g => (
+        <div class={`asset-card ${g.statusClass}`}>
+          <div class="asset-header">
+            <span class="asset-group-name">{g.group}</span>
+            <span class={`asset-badge asset-badge-${g.statusClass}`}>{g.status}</span>
+          </div>
+          <ul class="asset-items">
+            {g.items.map(item => (
+              <li>{item}</li>
+            ))}
+          </ul>
+        </div>
+      ))}
     </div>
 
-    <Ads placement="native" />
+    <!-- Quick navigation -->
+    <h2 class="section-heading">Quick access</h2>
+    <div class="card-grid">
+      {quickLinks.map(link => (
+        <a href={link.href} class="card">
+          <h2>{link.label}</h2>
+          <p>{link.desc}</p>
+        </a>
+      ))}
+    </div>
 
-    <h2>Trust &amp; Methodology</h2>
+    <!-- Trust & methodology -->
+    <h2 class="section-heading">Trust &amp; methodology</h2>
     <div class="card-grid">
       <a href="/sources/" class="card">
         <h2>Sources &amp; Corrections</h2>
-        <p>Full registry of source IDs and the correction submission process.</p>
-        <span class="card-meta">Transparency</span>
+        <p>Public source matrix, blocked endpoints, update timeline.</p>
+        <span class="card-meta">Evidence transparency</span>
       </a>
       <a href="/editorial/" class="card">
         <h2>Editorial Policy</h2>
-        <p>How facts are verified, what cannot be published, and why third-party codes are not copied.</p>
+        <p>What is verified, what is not published, and why third-party codes are never copied.</p>
         <span class="card-meta">Editorial standards</span>
+      </a>
+      <a href="/about/" class="card">
+        <h2>About</h2>
+        <p>Unofficial fan guide — not affiliated with Roblox Corporation or SoraExp.</p>
+        <span class="card-meta">Identity &amp; disclaimers</span>
+      </a>
+      <a href="/contact/" class="card">
+        <h2>Contact</h2>
+        <p>Corrections and verified official source submissions.</p>
+        <span class="card-meta">Corrections workflow</span>
       </a>
     </div>
 
@@ -137,7 +192,32 @@ const statusOk = EVIDENCE_STATUS === 'official-confirmed';
 </BaseLayout>
 
 <style>
-  .status-dashboard {
+  /* Core problem card */
+  .core-problem-card {
+    background: var(--color-surface);
+    border: 1px solid var(--color-accent);
+    border-left-width: 3px;
+    border-radius: 8px;
+    padding: var(--space-5);
+    margin-bottom: var(--space-5);
+  }
+  .core-problem-label {
+    font-size: 0.6875rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--color-accent);
+    font-weight: 700;
+    margin-bottom: var(--space-2);
+  }
+  .core-problem-text {
+    font-size: 1rem;
+    color: var(--color-text);
+    line-height: 1.6;
+    margin: 0;
+  }
+
+  /* Counts bar */
+  .counts-bar {
     display: flex;
     align-items: center;
     gap: 0;
@@ -145,83 +225,158 @@ const statusOk = EVIDENCE_STATUS === 'official-confirmed';
     border: 1px solid var(--color-border);
     border-radius: 8px;
     padding: var(--space-4) var(--space-5);
-    margin-bottom: var(--space-6);
+    margin-bottom: var(--space-10);
     flex-wrap: wrap;
     row-gap: var(--space-3);
   }
-
-  .dash-item {
-    display: flex;
-    align-items: center;
-    gap: var(--space-3);
-    flex: 1;
-    min-width: 120px;
-  }
-
-  .dash-icon {
-    color: var(--color-accent);
-    flex-shrink: 0;
-    display: flex;
-    align-items: center;
-  }
-
-  .dash-text {
+  .count-block {
     display: flex;
     flex-direction: column;
+    align-items: center;
     gap: 1px;
+    flex: 1;
+    min-width: 5rem;
   }
-
-  .dash-label {
+  .count-num {
+    font-size: 1.75rem;
+    font-weight: 700;
+    line-height: 1;
+    font-family: var(--font-mono);
+  }
+  .count-label {
+    font-size: 0.6875rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-weight: 700;
+  }
+  .count-desc {
     font-size: 0.6875rem;
     color: var(--color-text-muted);
-    text-transform: uppercase;
-    letter-spacing: 0.06em;
-    font-weight: 500;
   }
-
-  .dash-value {
-    font-size: 0.8125rem;
-    font-weight: 600;
-    color: var(--color-text);
+  .count-now .count-num { color: #4caf50; }
+  .count-now .count-label { color: #4caf50; }
+  .count-hold .count-num { color: var(--color-warning-text); }
+  .count-hold .count-label { color: var(--color-warning-text); }
+  .count-blocked .count-num { color: #e05555; }
+  .count-blocked .count-label { color: #e05555; }
+  .count-meta {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+    color: var(--color-text-muted);
+    flex: 1;
+    min-width: 5rem;
   }
-
-  .dash-badge {
-    display: inline-block;
-    padding: 1px 6px;
-    border-radius: 4px;
-    font-size: 0.75rem;
-    font-weight: 600;
-  }
-  .badge-ok {
-    background: rgba(76, 175, 80, 0.15);
-    color: #4caf50;
-    border: 1px solid rgba(76, 175, 80, 0.3);
-  }
-  .badge-warn {
-    background: var(--color-warning-bg);
-    color: var(--color-warning-text);
-    border: 1px solid var(--color-warning-border);
-  }
-
-  .dash-sep {
+  .count-meta svg { color: var(--color-text-muted); }
+  .count-sep {
     width: 1px;
-    height: 2rem;
+    height: 2.5rem;
     background: var(--color-border);
     flex-shrink: 0;
   }
 
+  /* Section headings */
+  .section-heading {
+    margin-top: var(--space-10);
+    margin-bottom: var(--space-3);
+  }
+  .section-lead {
+    color: var(--color-text-muted);
+    font-size: 0.9375rem;
+    margin-bottom: var(--space-5);
+  }
+
+  /* Asset board */
+  .asset-board {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(13rem, 1fr));
+    gap: var(--space-3);
+    margin-bottom: var(--space-8);
+  }
+  .asset-card {
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+    padding: var(--space-4);
+    border-left-width: 3px;
+  }
+  .asset-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-2);
+    margin-bottom: var(--space-3);
+  }
+  .asset-group-name {
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: var(--color-text);
+  }
+  .asset-items {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  .asset-items li {
+    font-size: 0.75rem;
+    color: var(--color-text-muted);
+    padding-left: 0.75rem;
+    position: relative;
+    margin: 0;
+  }
+  .asset-items li::before {
+    content: '–';
+    position: absolute;
+    left: 0;
+    color: var(--color-border);
+  }
+
+  /* Asset status badges */
+  .asset-badge {
+    font-size: 0.625rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    padding: 2px 6px;
+    border-radius: 4px;
+    white-space: nowrap;
+  }
+  .asset-badge-asset-now { background: rgba(76,175,80,0.15); color: #4caf50; border: 1px solid rgba(76,175,80,0.3); }
+  .asset-badge-asset-hold { background: rgba(201,137,10,0.15); color: var(--color-warning-text); border: 1px solid rgba(201,137,10,0.3); }
+  .asset-badge-asset-evidence { background: rgba(100,100,220,0.15); color: #7070e0; border: 1px solid rgba(100,100,220,0.3); }
+  .asset-badge-asset-reject { background: rgba(224,85,85,0.15); color: #e05555; border: 1px solid rgba(224,85,85,0.3); }
+
+  /* Asset card left border colors */
+  .asset-now { border-left-color: #4caf50; }
+  .asset-hold { border-left-color: var(--color-warning-text); }
+  .asset-evidence { border-left-color: #7070e0; }
+  .asset-reject { border-left-color: #e05555; }
+
+  /* Mobile */
   @media (max-width: 600px) {
-    .status-dashboard {
+    .counts-bar {
       flex-direction: column;
-      align-items: flex-start;
       gap: var(--space-3);
     }
-    .dash-sep {
-      display: none;
-    }
-    .dash-item {
+    .count-sep { display: none; }
+    .count-block, .count-meta {
+      flex-direction: row;
+      gap: var(--space-2);
+      align-items: center;
       min-width: unset;
       width: 100%;
+    }
+    .asset-board {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+  @media (max-width: 400px) {
+    .asset-board {
+      grid-template-columns: 1fr;
     }
   }
 </style>

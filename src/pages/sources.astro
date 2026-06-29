@@ -1,98 +1,320 @@
 ---
 import ContentLayout from '../layouts/ContentLayout.astro';
 import { SITE_TITLE, EVIDENCE_REVIEW_DATE } from '../data/site';
+
+const lastChecked = EVIDENCE_REVIEW_DATE;
+
+// Source type categories with badge color
+const sourceGroups = [
+  {
+    type: 'Official / API',
+    badgeClass: 'badge-official',
+    badgeIcon: '✓',
+    sources: [
+      { id: 'DB-ROBLOX-001', title: '[WORLD CUP BETA] Demon Born Roblox game page', url: 'roblox.com/games/79833666916700', use: 'Title, creator, description, controls, genre, max players', access: 'ALLOW_CRAWL' },
+      { id: 'DB-API-001', title: 'Roblox Games API — universe 7326773869', url: 'games.roblox.com/v1/games', use: 'Identity, genre, description, controls, open-world scope, player routes', access: 'ALLOW_API' },
+      { id: 'DB-API-002', title: 'Roblox Votes API — universe 7326773869', url: 'games.roblox.com/v1/games/votes', use: 'upVotes and downVotes counts', access: 'ALLOW_API' },
+      { id: 'DB-API-003', title: 'SoraExp Roblox Group API — group 34709042', url: 'groups.roblox.com/v1/groups/34709042', use: 'Creator group metadata, member count', access: 'ALLOW_API' },
+      { id: 'DB-API-004', title: 'Roblox Badges API — universe 7326773869', url: 'badges.roblox.com/v1/universes/…', use: 'Badge list (returned empty at check time)', access: 'ALLOW_API' },
+      { id: 'DB-API-005', title: 'Roblox Games API refresh — 2026-06-29', url: 'games.roblox.com/v1/games', use: 'Same data confirmed; updated timestamp noted', access: 'ALLOW_API' },
+      { id: 'DB-API-006', title: 'Roblox Votes API refresh — 2026-06-29', url: 'games.roblox.com/v1/games/votes', use: 'Vote counts refreshed', access: 'ALLOW_API' },
+      { id: 'DB-API-007', title: 'SoraExp Group API refresh — 2026-06-29', url: 'groups.roblox.com/v1/groups/34709042', use: 'Member count refreshed; publicEntryAllowed confirmed', access: 'ALLOW_API' },
+      { id: 'DB-API-008', title: 'Roblox Badges API refresh — 2026-06-29', url: 'badges.roblox.com/v1/universes/…', use: 'Badge list still empty', access: 'ALLOW_API' },
+      { id: 'DB-API-011', title: 'SoraExp community links API', url: 'apis.roblox.com/community-links/v1/groups/34709042/community', use: 'Returned empty string; no official community link confirmed', access: 'ALLOW_API' },
+      { id: 'DB-AUTO-001', title: 'Google Autocomplete probes — 2026-06-29', url: 'suggestqueries.google.com', use: 'Root query returned "demon born roblox"; modifier probes did not expand', access: 'MANUAL_REFERENCE_ONLY' },
+    ],
+  },
+  {
+    type: 'Search / SERP',
+    badgeClass: 'badge-serp',
+    badgeIcon: '◉',
+    sources: [
+      { id: 'DB-SERP-001', title: 'Google SERP — Demon Born wiki and trello (user-supplied)', url: 'local-screenshots', use: 'SERP gap analysis: mixed results, unrelated Fandom/Trello, exact-match competitor wiki', access: 'MANUAL_REFERENCE_ONLY' },
+      { id: 'DB-SERP-002', title: 'Google SERP manual refresh — 2026-06-29', url: 'google-search-manual', use: 'Code pages dominate; third-party code lists conflict; no new official links found', access: 'MANUAL_REFERENCE_ONLY' },
+      { id: 'DB-TRENDS-001', title: 'Google Trends — Demon Born Roblox (user-supplied)', url: 'local-screenshots', use: 'Breakout from near-zero baseline; related queries: codes, wiki, trello', access: 'MANUAL_REFERENCE_ONLY' },
+    ],
+  },
+  {
+    type: 'Third-party Leads',
+    badgeClass: 'badge-lead',
+    badgeIcon: '→',
+    sources: [
+      { id: 'DB-LEAD-001', title: 'Pocket Tactics — Demon Born codes June 2026', url: 'pockettactics.com/demon-born-codes', use: 'Code competition lead; snippet notes no active Trello/wiki yet', access: 'MANUAL_REFERENCE_ONLY' },
+      { id: 'DB-LEAD-002', title: 'Destructoid — Demon Born codes June 2026', url: 'destructoid.com/demon-born-codes/', use: 'Code competition lead; wiki/Trello/Discord mentions', access: 'MANUAL_REFERENCE_ONLY' },
+      { id: 'DB-LEAD-005', title: 'Beebom — Demon Born codes June 2026', url: 'beebom.com/demon-born-codes/', use: 'Code competition lead; freshness and conflict analysis only', access: 'MANUAL_REFERENCE_ONLY' },
+      { id: 'DB-LEAD-006', title: 'Pro Game Guides — Demon Born codes June 2026', url: 'progameguides.com/roblox/demon-born-codes/', use: 'Code count lead; conflicts with other third-party lists', access: 'MANUAL_REFERENCE_ONLY' },
+      { id: 'DB-LEAD-007', title: 'PCGamesN — Demon Born codes June 2026', url: 'pcgamesn.com/demon-born/codes', use: 'Mentions Discord/update-log workflow as a lead only', access: 'MANUAL_REFERENCE_ONLY' },
+      { id: 'DB-LEAD-008', title: 'RadioTimes — Demon Born codes', url: 'radiotimes.com/technology/gaming/roblox-demon-born-codes/', use: 'Active-code list conflicts with other third-party pages', access: 'MANUAL_REFERENCE_ONLY' },
+      { id: 'DB-LEAD-009', title: 'YouTube — Demon Born guide video', url: 'youtube.com/watch?v=Wq2wInXO_R8', use: 'Crafting, mining, beginner tasks lead; requires direct testing', access: 'MANUAL_REFERENCE_ONLY' },
+      { id: 'DB-LEAD-010', title: 'GameRant — Demon Born codes', url: 'gamerant.com/demon-born-codes-roblox/', use: 'Mentions Roblox group and Discord as update/code locations; needs official confirmation', access: 'MANUAL_REFERENCE_ONLY' },
+      { id: 'DB-LEAD-011', title: 'demonbornwiki.site — Ores & Mining Guide', url: 'demonbornwiki.site/guide/ores-mining/', use: 'Mining/location lead; for player demand awareness only', access: 'MANUAL_REFERENCE_ONLY' },
+      { id: 'DB-LEAD-012', title: 'YouTube — Crafting Mining and Fishing Guide', url: 'youtube.com/watch?v=eQdvKsIw1nw', use: 'Crafting/mining/fishing lead; not for route or item details', access: 'MANUAL_REFERENCE_ONLY' },
+      { id: 'DB-LEAD-013', title: 'YouTube — Best Breathing Styles and Demon Arts', url: 'youtube.com/watch?v=KlJOBSlCSyc', use: 'Breathing/art/tier-list lead; not usable for "best" or ranking claims', access: 'MANUAL_REFERENCE_ONLY' },
+      { id: 'DB-LEAD-014', title: 'Reddit — Beginner Guide Trello & Wiki, Stats, Level', url: 'reddit.com/r/Theclashify/comments/1uda5pm/', use: 'C-level lead only; not treated as factual confirmation', access: 'MANUAL_REFERENCE_ONLY' },
+    ],
+  },
+  {
+    type: 'Blocked Endpoints',
+    badgeClass: 'badge-blocked',
+    badgeIcon: '✗',
+    sources: [
+      { id: 'DB-API-009', title: 'SoraExp group social links endpoint', url: 'groups.roblox.com/v1/groups/34709042/social-links', use: '401 — Authentication token missing. Do not bypass login. Cannot confirm Discord/Trello/wiki.', access: 'BLOCKED' },
+      { id: 'DB-API-010', title: 'Demon Born game social links endpoint', url: 'games.roblox.com/v1/games/7326773869/social-links/list', use: '401 — Authentication token missing. Do not bypass login. Cannot confirm Discord/Trello/wiki.', access: 'BLOCKED' },
+    ],
+  },
+];
+
+const timeline = [
+  { date: '2026-06-27', event: 'Initial evidence pack assembled', detail: 'DB-API-001 through DB-API-004, DB-ROBLOX-001, DB-TRENDS-001, DB-SERP-001, DB-LEAD-001, DB-LEAD-002 confirmed.', type: 'evidence' },
+  { date: '2026-06-29', event: 'Roblox API refresh', detail: 'DB-API-005 through DB-API-008 confirmed same controls list and metadata; votes and member count updated.', type: 'api_refresh' },
+  { date: '2026-06-29', event: 'Social endpoints checked — blocked/empty', detail: 'DB-API-009 (group social links) and DB-API-010 (game social links) returned 401. DB-API-011 (community endpoint) returned empty string. No bypass attempted.', type: 'blocked' },
+  { date: '2026-06-29', event: 'Code SERP conflict observed', detail: 'DB-SERP-002 confirmed multiple third-party code pages with differing active/expired lists and redemption-flow descriptions. Active codes remain unpublished.', type: 'conflict' },
+  { date: '2026-06-29', event: 'Google Autocomplete probes', detail: 'DB-AUTO-001: root query returned "demon born roblox"; codes/wiki/trello modifier probes did not expand in this run.', type: 'serp' },
+];
 ---
 
 <ContentLayout
   title="Sources & Corrections"
-  description="Source registry and correction workflow for Demon Born Compass."
+  description="Public source matrix, blocked endpoints, and update timeline for Demon Born Compass."
   canonicalUrl="/sources/"
 >
   <h1>Sources &amp; Corrections</h1>
 
   <p>
     Every factual claim on <strong>{SITE_TITLE}</strong> traces to a registered source ID.
-    This page lists all sources used and explains how to submit a correction.
+    This page shows the public source matrix, update timeline, and how to submit corrections.
+    Full research notes, screenshots, and project methodology are not published publicly.
   </p>
 
-  <h2>Source registry</h2>
-  <p>
-    Evidence last reviewed: <strong>{EVIDENCE_REVIEW_DATE}</strong>.
-    Sources are stored as IDs (e.g. <code>DB-API-001</code>) — full details are
-    tracked in the project research directory and are not published publicly to avoid
-    misinterpretation.
-  </p>
-
-  <ul class="source-list">
-    <li class="source-item">
-      <code>DB-ROBLOX-001</code> — Official Roblox game page for Demon Born.
-      URL: <a href="https://www.roblox.com/games/79833666916700/Demon-Born" rel="noopener noreferrer" target="_blank">roblox.com/games/79833666916700/Demon-Born</a>.
-      Used for: title, creator, description, controls summary, genre, max players.
-      Access: <code>ALLOW_CRAWL</code>. License: Roblox terms apply.
-    </li>
-    <li class="source-item">
-      <code>DB-API-001</code> — Roblox Games API endpoint for universe 7326773869.
-      URL: <a href="https://games.roblox.com/v1/games?universeIds=7326773869" rel="noopener noreferrer" target="_blank">games.roblox.com/v1/games</a>.
-      Used for: identity, genre, description, controls (full list), open-world scope, player routes.
-      Access: <code>ALLOW_API</code>. License: Roblox API terms apply.
-      Status: volatile snapshot — values change frequently.
-    </li>
-    <li class="source-item">
-      <code>DB-API-002</code> — Roblox Games votes API for universe 7326773869.
-      URL: <a href="https://games.roblox.com/v1/games/votes?universeIds=7326773869" rel="noopener noreferrer" target="_blank">games.roblox.com/v1/games/votes</a>.
-      Used for: upVotes and downVotes counts.
-      Access: <code>ALLOW_API</code>. License: Roblox API terms apply.
-      Status: volatile snapshot.
-    </li>
-    <li class="source-item">
-      <code>DB-API-003</code> — Roblox Groups API for SoraExp (group ID 34709042).
-      URL: <a href="https://groups.roblox.com/v1/groups/34709042" rel="noopener noreferrer" target="_blank">groups.roblox.com/v1/groups/34709042</a>.
-      Used for: creator group member count.
-      Access: <code>ALLOW_API</code>. License: Roblox API terms apply.
-      Status: volatile snapshot.
-    </li>
-    <li class="source-item">
-      <code>DB-API-004</code> — Roblox Badges API for universe 7326773869.
-      URL: <a href="https://badges.roblox.com/v1/universes/7326773869/badges?limit=100&sortOrder=Asc" rel="noopener noreferrer" target="_blank">badges.roblox.com/v1/universes/…</a>.
-      Used for: badge list (returned empty at retrieval time).
-      Access: <code>ALLOW_API</code>. License: Roblox API terms apply.
-    </li>
-    <li class="source-item">
-      <code>DB-TRENDS-001</code> — User-supplied Google Trends screenshots.
-      Used for: trend signal validation (breakout from near-zero, related queries: codes, wiki, trello).
-      Access: <code>MANUAL_REFERENCE_ONLY</code>. License: user-supplied for research only; not published as site media.
-    </li>
-    <li class="source-item">
-      <code>DB-SERP-001</code> — User-supplied Google SERP screenshots for Demon Born wiki and trello.
-      Used for: SERP gap analysis (mixed results, unrelated Fandom/Trello, exact-match competitor wiki).
-      Access: <code>MANUAL_REFERENCE_ONLY</code>. License: user-supplied for research only.
-    </li>
-    <li class="source-item">
-      <code>DB-LEAD-001</code> — Pocket Tactics article: "Demon Born codes June 2026".
-      URL: <a href="https://www.pockettactics.com/demon-born-codes" rel="noopener noreferrer" target="_blank">pockettactics.com/demon-born-codes</a>.
-      Used for: SERP/codes competition lead only.
-      Access: <code>MANUAL_REFERENCE_ONLY</code>. License: third-party; text/tables/codes not copied.
-    </li>
-    <li class="source-item">
-      <code>DB-LEAD-002</code> — Destructoid article: "Demon Born codes (June 2026)".
-      URL: <a href="https://www.destructoid.com/demon-born-codes/" rel="noopener noreferrer" target="_blank">destructoid.com/demon-born-codes/</a>.
-      Used for: SERP/codes competition lead only.
-      Access: <code>MANUAL_REFERENCE_ONLY</code>. License: third-party; text/tables/codes not copied.
-    </li>
-  </ul>
-
-  <h2>Correction workflow</h2>
-  <div class="info-note">
-    To report an error, visit the <a href="/contact/">Contact</a> page.
-    Include the page URL, claim ID if known, and an official source URL for the correction.
-    Corrections are reviewed against official sources before any page update is made.
+  <!-- Update timeline -->
+  <h2>Update timeline</h2>
+  <div class="timeline">
+    {timeline.map(item => (
+      <div class={`timeline-item timeline-${item.type}`}>
+        <div class="timeline-date">{item.date}</div>
+        <div class="timeline-body">
+          <div class="timeline-event">{item.event}</div>
+          <div class="timeline-detail">{item.detail}</div>
+        </div>
+      </div>
+    ))}
   </div>
 
-  <h2>Claim ID format</h2>
+  <!-- Public Source Matrix -->
+  <h2>Public source matrix — {lastChecked}</h2>
+  <div class="matrix-legend">
+    <span class="legend-item"><span class={`badge badge-official`}>✓ Official/API</span> Confirmed from Roblox platform or official creator channel.</div>
+    <span class="legend-item"><span class={`badge badge-serp`}>◉ Search/SERP</span> Google signals used for demand/supply awareness only.</div>
+    <span class="legend-item"><span class={`badge badge-lead`}>→ Third-party Lead</span> C-level leads — not published as facts; used for gap analysis.</div>
+    <span class="legend-item"><span class={`badge badge-blocked`}>✗ Blocked</span> Endpoint inaccessible — no bypass attempted; auth required.</div>
+  </div>
+
+  {sourceGroups.map(group => (
+    <div class="source-group">
+      <h3 class="source-group-heading">
+        <span class={`badge ${group.badgeClass}`}>{group.badgeIcon} {group.type}</span>
+        <span class="source-group-count">{group.sources.length} source{group.sources.length !== 1 ? 's' : ''}</span>
+      </h3>
+      <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th>Source ID</th>
+              <th>Title</th>
+              <th>What it is used for</th>
+              <th>Access</th>
+            </tr>
+          </thead>
+          <tbody>
+            {group.sources.map(s => (
+              <tr>
+                <td><code>{s.id}</code></td>
+                <td>{s.url.startsWith('http') ? <a href={s.url} rel="noopener noreferrer" target="_blank">{s.title}</a> : s.title}</td>
+                <td class="use-cell">{s.use}</td>
+                <td><span class={`access-badge access-${s.access.toLowerCase().replace('_', '-')}`}>{s.access}</span></td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  ))}
+
+  <!-- Correction workflow -->
+  <h2>Correction workflow</h2>
+  <div class="corrections-info">
+    <ol class="correction-steps">
+      <li>Visit the <a href="/contact/">Contact</a> page.</li>
+      <li>Include the page URL and claim ID if known.</li>
+      <li>Provide an official source URL for the correction (Roblox game page, official API, creator post).</li>
+      <li>Corrections are reviewed against official sources before any page update is made.</li>
+    </ol>
+  </div>
+
+  <!-- What is not published -->
+  <h2>What is not published here</h2>
+  <ul>
+    <li>Full research notes, claim registries, or working documents.</li>
+    <li>Screenshots or media from private or third-party sources.</li>
+    <li>Active codes from third-party aggregators.</li>
+    <li>Walkthrough steps, stat allocations, or route-specific details without official or hands-on verification.</li>
+    <li>Tier lists, best builds, or best choices.</li>
+  </ul>
+
   <p>
-    Each published game fact carries a <code>claim_id</code> (e.g. <code>db-controls-001</code>)
-    that maps to a <code>source_id</code> in this registry. The full claims registry
-    (<code>claims.yaml</code>) is not published in the public repository to avoid
-    incomplete or out-of-context reuse.
+    The full claims registry (<code>claims.yaml</code>) and source log (<code>source-log.csv</code>)
+    are not published in the public repository. They are used internally to ensure every published
+    fact is traceable to an approved source.
   </p>
 </ContentLayout>
+
+<style>
+  /* Timeline */
+  .timeline {
+    border-left: 2px solid var(--color-border);
+    padding-left: var(--space-6);
+    margin-bottom: var(--space-10);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+  }
+  .timeline-item {
+    display: flex;
+    gap: var(--space-4);
+    align-items: flex-start;
+    position: relative;
+  }
+  .timeline-item::before {
+    content: '';
+    position: absolute;
+    left: calc(-1 * var(--space-6) - 5px);
+    top: 6px;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    border: 2px solid var(--color-border);
+    background: var(--color-bg);
+  }
+  .timeline-evidence::before { border-color: #4caf50; background: rgba(76,175,80,0.2); }
+  .timeline-api_refresh::before { border-color: #7070e0; background: rgba(112,112,224,0.2); }
+  .timeline-blocked::before { border-color: #e05555; background: rgba(224,85,85,0.2); }
+  .timeline-conflict::before { border-color: var(--color-warning-text); background: rgba(201,137,10,0.2); }
+  .timeline-serp::before { border-color: var(--color-text-muted); background: rgba(139,144,168,0.2); }
+
+  .timeline-date {
+    font-size: 0.75rem;
+    font-family: var(--font-mono);
+    color: var(--color-text-muted);
+    white-space: nowrap;
+    padding-top: 2px;
+    min-width: 6.5rem;
+  }
+  .timeline-body {
+    font-size: 0.875rem;
+  }
+  .timeline-event {
+    font-weight: 600;
+    color: var(--color-text);
+    margin-bottom: 2px;
+  }
+  .timeline-detail {
+    color: var(--color-text-muted);
+    line-height: 1.5;
+  }
+
+  /* Legend */
+  .matrix-legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-3);
+    margin-bottom: var(--space-8);
+    padding: var(--space-4);
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+  }
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    font-size: 0.8125rem;
+    color: var(--color-text-muted);
+  }
+
+  /* Badges */
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    white-space: nowrap;
+  }
+  .badge-official {
+    background: rgba(76,175,80,0.15);
+    color: #4caf50;
+    border: 1px solid rgba(76,175,80,0.3);
+  }
+  .badge-serp {
+    background: rgba(100,100,220,0.15);
+    color: #7070e0;
+    border: 1px solid rgba(100,100,220,0.3);
+  }
+  .badge-lead {
+    background: rgba(139,144,168,0.15);
+    color: var(--color-text-muted);
+    border: 1px solid rgba(139,144,168,0.3);
+  }
+  .badge-blocked {
+    background: rgba(224,85,85,0.15);
+    color: #e05555;
+    border: 1px solid rgba(224,85,85,0.3);
+  }
+
+  /* Source groups */
+  .source-group {
+    margin-bottom: var(--space-8);
+  }
+  .source-group-heading {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    margin-top: 0;
+    margin-bottom: var(--space-4);
+  }
+  .source-group-count {
+    font-size: 0.75rem;
+    color: var(--color-text-muted);
+    font-weight: 400;
+  }
+
+  .use-cell {
+    font-size: 0.8125rem;
+    color: var(--color-text-muted);
+  }
+
+  /* Access badges */
+  .access-badge {
+    font-size: 0.6875rem;
+    font-weight: 600;
+    padding: 1px 5px;
+    border-radius: 3px;
+    white-space: nowrap;
+    font-family: var(--font-mono);
+  }
+  .access-allow-crawl { background: rgba(76,175,80,0.15); color: #4caf50; }
+  .access-allow-api { background: rgba(76,175,80,0.15); color: #4caf50; }
+  .access-manual-reference-only { background: rgba(100,100,220,0.15); color: #7070e0; }
+  .access-blocked { background: rgba(224,85,85,0.15); color: #e05555; }
+
+  /* Correction steps */
+  .correction-steps {
+    padding-left: var(--space-6);
+  }
+  .correction-steps li {
+    margin-bottom: var(--space-2);
+    font-size: 0.9375rem;
+  }
+</style>
