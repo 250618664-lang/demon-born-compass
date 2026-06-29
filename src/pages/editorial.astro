@@ -1,97 +1,171 @@
 ---
 import ContentLayout from '../layouts/ContentLayout.astro';
-import { SITE_TITLE, GAME_NAME } from '../data/site';
 ---
 
 <ContentLayout
-  title="Editorial Policy"
+  title="Editorial & Testing Policy"
   description="Editorial and testing policy for Demon Born Compass — how facts are verified."
   canonicalUrl="/editorial/"
 >
-  <h1>Editorial &amp; Testing Policy</h1>
+  <div class="workstation-container">
+    <h1>Editorial &amp; Testing Policy</h1>
 
-  <p>
-    <strong>{SITE_TITLE}</strong> is an evidence-backed, unofficial fan guide for {GAME_NAME} on Roblox.
-    This page explains how facts are selected, verified, and published — and what this site will
-    never claim.
-  </p>
+    <!-- Quick Answer -->
+    <div class="quick-answer-panel">
+      <div class="qap-label">
+        <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true">
+          <circle cx="6" cy="6" r="5" stroke="currentColor" stroke-width="1.2"/>
+          <path d="M6 3.5v2.5l1.5 1" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
+        </svg>
+        Quick Answer
+      </div>
+      <p class="qap-body">
+        Every published fact traces to an official Roblox source or is clearly labeled as unverified.
+        No AI fabrication. No codes from third-party aggregators. No tier lists or unverified builds.
+      </p>
+    </div>
 
-  <h2>Source hierarchy</h2>
-  <p>Every published game fact must trace to one of the following, in priority order:</p>
-  <ol>
-    <li><strong>Official Roblox API or game page</strong> — the Roblox Games API, official game description, or official creator channel.</li>
-    <li><strong>Two or more independent community sources</strong> — only when official sources are unavailable, and only for orientation rather than specific numbers or mechanics.</li>
-    <li><strong>Operator observation</strong> — noted as <em>community-reported</em> and subject to revision.</li>
-  </ol>
-  <p>No single third-party guide site, Reddit post, or YouTube video is sufficient on its own to establish a published fact.</p>
+    <!-- Policy pillars -->
+    <div class="card-grid" style="margin-top: 22px">
+      <div class="info-card">
+        <div class="info-card-icon" aria-hidden="true">
+          <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M9 2l7 3.5v4c0 3.5-3 6-7 7.5C5 16 2 13.5 2 10V5.5L9 2z" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/></svg>
+        </div>
+        <div>
+          <strong>Source hierarchy</strong>
+          <p>Official Roblox API first, then two+ independent community sources, then operator observation labeled as community-reported.</p>
+        </div>
+      </div>
+      <div class="info-card">
+        <div class="info-card-icon" aria-hidden="true">
+          <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M2 7l5 5 9-9" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <div>
+          <strong>No AI fabrication</strong>
+          <p>No game fact, numeric value, version, code, or mechanic is invented by AI. All claims trace to registered sources.</p>
+        </div>
+      </div>
+      <div class="info-card">
+        <div class="info-card-icon" aria-hidden="true">
+          <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M3 9h12M9 3l6 6-6 6" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <div>
+          <strong>Manual review only</strong>
+          <p>Pages are not auto-corrected. Every change goes through human review against official sources before publishing.</p>
+        </div>
+      </div>
+    </div>
 
-  <h2>What this site publishes</h2>
-  <ul>
-    <li>Official controls listed on the Roblox game description page (source: DB-API-001)</li>
-    <li>Official game scope and player route wording from the Roblox description (source: DB-API-001)</li>
-    <li>Identity, creator, and genre metadata from the Roblox Games API (source: DB-API-001/002/003)</li>
-    <li>SERP and trend gap observations from user-supplied screenshots (source: DB-SERP-001, DB-TRENDS-001)</li>
-    <li>Wiki, Trello, and codes status pages that clearly state when no official source is confirmed</li>
-  </ul>
+    <!-- Verification statuses table -->
+    <h2>Verification statuses used on this site</h2>
+    <div class="table-wrapper">
+      <table>
+        <thead>
+          <tr>
+            <th>Status</th>
+            <th>Meaning</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><code>official-confirmed</code></td>
+            <td>Verified against official Roblox API or game description</td>
+          </tr>
+          <tr>
+            <td><code>official-confirmed-limited</code></td>
+            <td>Broad scope confirmed; detailed mechanics still unverified</td>
+          </tr>
+          <tr>
+            <td><code>volatile-snapshot</code></td>
+            <td>Metric may have changed since retrieval (e.g. player count, votes)</td>
+          </tr>
+          <tr>
+            <td><code>serp-gap-confirmed</code></td>
+            <td>No authoritative result exists for this query yet</td>
+          </tr>
+          <tr>
+            <td><code>unverified-official-link</code></td>
+            <td>No official URL confirmed; third-party leads noted as leads only</td>
+          </tr>
+          <tr>
+            <td><code>source-limited</code></td>
+            <td>Official source not yet available; page states what is needed</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
 
-  <h2>What this site will not publish</h2>
-  <ul>
-    <li><strong>Codes copied from third-party sites</strong> — Pocket Tactics, Destructoid, Beebom, Radio Times, or any other code aggregator. Codes are only published when confirmed from an official Roblox channel or in-game redemption UI.</li>
-    <li><strong>Tier lists or best build recommendations</strong> — no methodology or tested data exists yet.</li>
-    <li><strong>Best clan, best breathing style, or blood demon arts guides</strong> — no official source confirms these mechanics yet.</li>
-    <li><strong>Official Trello or Discord confirmation</strong> — unless a verified official Roblox or creator link is provided.</li>
-    <li><strong>Unverified walkthroughs, boss guides, or quest steps</strong> — requires hands-on testing or official documentation.</li>
-    <li><strong>Third-party screenshots or Roblox media</strong> — no image republication license has been verified.</li>
-  </ul>
-
-  <h2>Verification statuses used on this site</h2>
-  <div class="table-wrapper">
-    <table>
-      <thead>
-        <tr>
-          <th>Status</th>
-          <th>Meaning</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td><code>official-confirmed</code></td>
-          <td>Fact verified against official Roblox API or game description</td>
-        </tr>
-        <tr>
-          <td><code>official-confirmed-limited</code></td>
-          <td>Official sources confirm the broad scope but detailed steps/mechanics are unverified</td>
-        </tr>
-        <tr>
-          <td><code>volatile-snapshot</code></td>
-          <td>Metric from Roblox API that may have changed since retrieval (e.g. player count, votes)</td>
-        </tr>
-        <tr>
-          <td><code>serp-gap-confirmed</code></td>
-          <td>SERP analysis shows no authoritative result exists for this query yet</td>
-        </tr>
-        <tr>
-          <td><code>unverified-official-link</code></td>
-          <td>No official URL confirmed for this resource; third-party leads noted</td>
-        </tr>
-        <tr>
-          <td><code>source-limited</code></td>
-          <td>Official source not yet available; page states what is needed before facts can be published</td>
-        </tr>
-      </tbody>
-    </table>
+    <!-- What we publish -->
+    <h2>What this site publishes</h2>
+    <div class="can-cannot">
+      <div class="can-col">
+        <div class="col-heading">Published</div>
+        <ul class="col-list">
+          <li>Official controls from Roblox game description (DB-API-001)</li>
+          <li>Game scope and route wording from Roblox description</li>
+          <li>Identity, creator, genre from Roblox Games API</li>
+          <li>SERP and trend gap observations (DB-SERP-001, DB-TRENDS-001)</li>
+          <li>Wiki, Trello, and codes status pages with evidence boundaries</li>
+        </ul>
+      </div>
+      <div class="cannot-col">
+        <div class="col-heading">Never published</div>
+        <ul class="col-list">
+          <li>Codes from Pocket Tactics, Destructoid, Beebom, or other aggregators</li>
+          <li>Tier lists, best builds, best clan or breathing style guides</li>
+          <li>Official Trello or Discord unless verified official link provided</li>
+          <li>Unverified walkthroughs, boss guides, or quest steps</li>
+          <li>Third-party screenshots or Roblox media</li>
+        </ul>
+      </div>
+    </div>
   </div>
-
-  <h2>No AI fabrication rule</h2>
-  <p>
-    No game fact, numeric value, version number, code, or mechanic is invented by AI.
-    All published claims are either (a) extracted from registered official sources, or (b)
-    marked with a status that clearly communicates they are unverified.
-  </p>
-
-  <h2>Updates and version changes</h2>
-  <p>
-    When Roblox publishes an update that changes a published fact, a new issue is created
-    and the relevant page is flagged. Pages are not auto-corrected without human review.
-  </p>
 </ContentLayout>
+
+<style>
+  .info-card {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-4);
+    padding: var(--space-5);
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+  }
+  .info-card-icon {
+    width: 36px;
+    height: 36px;
+    flex-shrink: 0;
+    display: grid;
+    place-items: center;
+    background: var(--color-surface-raised);
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+    color: var(--color-accent);
+  }
+  .info-card strong {
+    display: block;
+    font-size: 0.9375rem;
+    margin-bottom: 4px;
+  }
+  .info-card p {
+    font-size: 0.875rem;
+    color: var(--color-text-muted);
+    margin: 0;
+    line-height: 1.5;
+  }
+  h2 {
+    margin-top: var(--space-10);
+    margin-bottom: var(--space-4);
+  }
+  kbd {
+    display: inline-block;
+    padding: 1px 5px;
+    border: 1px solid var(--color-border);
+    border-radius: 4px;
+    background: var(--color-surface-raised);
+    font-family: var(--font-mono);
+    font-size: 0.8125rem;
+    color: var(--color-text);
+  }
+</style>

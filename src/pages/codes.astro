@@ -26,7 +26,7 @@ const pageSourceIds = ['DB-SERP-002', 'DB-LEAD-005', 'DB-LEAD-006', 'DB-LEAD-007
     </div>
 
     <!-- Status cards -->
-    <div class="three-grid" style="margin-top: 22px; grid-template-columns: repeat(3, 1fr);">
+    <div class="three-grid" style="margin-top: 22px;">
       <div class="status-card good">
         <strong>Official source</strong>
         <p>No public official code feed is visible in this state.</p>
@@ -272,5 +272,17 @@ const pageSourceIds = ['DB-SERP-002', 'DB-LEAD-005', 'DB-LEAD-006', 'DB-LEAD-007
   .three-grid {
     display: grid;
     gap: 12px;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .code-token {
+    overflow-wrap: anywhere;
+    word-break: break-all;
+  }
+
+  @media (max-width: 560px) {
+    .three-grid {
+      grid-template-columns: 1fr;
+    }
   }
 </style>

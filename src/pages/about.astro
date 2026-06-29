@@ -8,65 +8,144 @@ import { SITE_TITLE, GAME_NAME, EVIDENCE_REVIEW_DATE } from '../data/site';
   description="About Demon Born Compass — an unofficial fan guide for Demon Born Roblox."
   canonicalUrl="/about/"
 >
-  <h1>About {SITE_TITLE}</h1>
+  <div class="workstation-container">
+    <h1>About {SITE_TITLE}</h1>
 
-  <p>
-    <strong>{SITE_TITLE}</strong> is an unofficial fan guide for <strong>{GAME_NAME}</strong> on Roblox.
-    It is not affiliated with, endorsed by, or connected to Roblox Corporation, SoraExp, or any
-    Demon Born creators.
-  </p>
+    <!-- Quick Answer -->
+    <div class="quick-answer-panel">
+      <div class="qap-label">
+        <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true">
+          <circle cx="6" cy="6" r="5" stroke="currentColor" stroke-width="1.2"/>
+          <path d="M6 3.5v2.5l1.5 1" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
+        </svg>
+        Quick Answer
+      </div>
+      <p class="qap-body">
+        <strong>{SITE_TITLE}</strong> is an unofficial fan guide for <strong>{GAME_NAME}</strong> on Roblox.
+        Not affiliated with Roblox Corporation or SoraExp. Publishes only officially confirmed facts.
+      </p>
+    </div>
 
-  <div class="info-block">
-    <strong>What this site does:</strong>
-    <ul style="margin-top: var(--space-3); margin-bottom: 0">
-      <li>Tracks official source status for wiki, Trello, and codes</li>
-      <li>Publishes only officially confirmed game facts</li>
-      <li>Lists controls directly from the Roblox game description</li>
-      <li>Maintains a full source registry with claim IDs</li>
-    </ul>
+    <!-- Info cards row -->
+    <div class="card-grid" style="margin-top: 22px">
+      <div class="info-card">
+        <div class="info-card-icon" aria-hidden="true">
+          <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><circle cx="9" cy="9" r="8" stroke="currentColor" stroke-width="1.3"/><path d="M9 5.5v4l2.5 1.5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
+        </div>
+        <div>
+          <strong>Evidence-backed</strong>
+          <p>Every published fact traces to an official Roblox source or clearly labeled unverified lead. No AI fabrication.</p>
+        </div>
+      </div>
+      <div class="info-card">
+        <div class="info-card-icon" aria-hidden="true">
+          <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M3 9h12M9 3l6 6-6 6" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <div>
+          <strong>What we track</strong>
+          <p>Official wiki, Trello, and codes status. Controls confirmed from Roblox description. No tier lists or unverified builds.</p>
+        </div>
+      </div>
+      <div class="info-card">
+        <div class="info-card-icon" aria-hidden="true">
+          <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M2 2l14 14M16 2L2 16" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
+        </div>
+        <div>
+          <strong>No ads or tracking</strong>
+          <p>No advertisements, analytics scripts, or tracking cookies. Static site deployed to Vercel.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- What we do / don't do -->
+    <div class="can-cannot" style="margin-top: 28px">
+      <div class="can-col">
+        <div class="col-heading">In scope</div>
+        <ul class="col-list">
+          <li>Official controls from Roblox description</li>
+          <li>Wiki / Trello / codes status and gaps</li>
+          <li>Full source registry with claim IDs</li>
+          <li>Corrections reviewed against official sources</li>
+        </ul>
+      </div>
+      <div class="cannot-col">
+        <div class="col-heading">Out of scope</div>
+        <ul class="col-list">
+          <li>Codes copied from third-party aggregators</li>
+          <li>Tier lists, best builds, best breathing styles</li>
+          <li>Unverified wiki or Trello links as official</li>
+          <li>Unofficial screenshots or Roblox media</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Why this exists -->
+    <h2>Why this site exists</h2>
+    <p>
+      Google Trends and SERP observations show rising interest in <em>Demon Born wiki</em>,
+      <em>Trello</em>, and <em>codes</em>. The current SERP is mixed — no authoritative,
+      evidence-backed hub exists yet. This site fills that gap with an official-source-only approach
+      while the game is in early beta.
+    </p>
+
+    <!-- Evidence footer -->
+    <div class="evidence-footer">
+      <p class="evidence-footer-meta">
+        Evidence last reviewed {EVIDENCE_REVIEW_DATE} ·
+        <a href="/sources/">Sources registry</a> ·
+        <a href="/editorial/">Editorial policy</a>
+      </p>
+    </div>
   </div>
-
-  <div class="info-block" style="border-left-color: var(--color-warning-text); background: var(--color-warning-bg)">
-    <strong>What this site does not do:</strong>
-    <ul style="margin-top: var(--space-3); margin-bottom: 0">
-      <li>No tier lists, best builds, best clans, or best breathing styles</li>
-      <li>No codes copied from Pocket Tactics, Destructoid, Beebom, Radio Times, or other third-party sites</li>
-      <li>No claims about official Trello or Discord unless a verified official link is provided</li>
-      <li>No unofficial screenshots, Roblox media, or competitor content</li>
-      <li>No breathing styles, blood demon arts, or clan mechanics (not yet confirmed from official sources)</li>
-    </ul>
-  </div>
-
-  <h2>Why this site exists</h2>
-  <p>
-    Google Trends and SERP observations supplied by the operator show rising interest in
-    <em>Demon Born wiki</em>, <em>Demon Born trello</em>, and <em>Demon Born codes</em>.
-    The current SERP for these queries is mixed — unrelated pages, code aggregators, and one
-    exact-match competitor wiki appear, but no authoritative, evidence-backed hub exists yet.
-  </p>
-  <p>
-    This site fills that gap with a lightweight, official-source-only approach while the game
-    is still in its early (World Cup Beta) stage.
-  </p>
-
-  <h2>Evidence and updates</h2>
-  <p>
-    All game facts are tied to claim IDs that map to source IDs in the
-    <a href="/sources/">Sources registry</a>. Evidence was last reviewed on
-    <strong>{EVIDENCE_REVIEW_DATE}</strong>. Pages are not updated automatically —
-    each change is reviewed and versioned.
-  </p>
-
-  <h2>Contact</h2>
-  <p>
-    To report a factual error, submit a correction, or flag a broken link,
-    use the <a href="/contact/">Contact</a> page. Corrections are reviewed against
-    official sources before any page is updated.
-  </p>
-
-  <h2>Ads and tracking</h2>
-  <p>
-    This site has no advertisements, no analytics scripts, and no tracking cookies.
-    It is currently a static preview deployed to Vercel. No custom domain has been purchased.
-  </p>
 </ContentLayout>
+
+<style>
+  .info-card {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-4);
+    padding: var(--space-5);
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+  }
+  .info-card-icon {
+    width: 36px;
+    height: 36px;
+    flex-shrink: 0;
+    display: grid;
+    place-items: center;
+    background: var(--color-surface-raised);
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+    color: var(--color-accent);
+  }
+  .info-card strong {
+    display: block;
+    font-size: 0.9375rem;
+    margin-bottom: 4px;
+  }
+  .info-card p {
+    font-size: 0.875rem;
+    color: var(--color-text-muted);
+    margin: 0;
+    line-height: 1.5;
+  }
+  h2 {
+    margin-top: var(--space-10);
+    margin-bottom: var(--space-4);
+  }
+  .evidence-footer {
+    margin-top: var(--space-10);
+    padding-top: var(--space-6);
+    border-top: 1px solid var(--color-border);
+  }
+  .evidence-footer-meta {
+    font-size: 0.8125rem;
+    color: var(--color-text-muted);
+    margin: 0;
+  }
+  .evidence-footer-meta a {
+    color: var(--color-accent);
+  }
+</style>

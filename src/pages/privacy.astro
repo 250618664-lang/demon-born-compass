@@ -8,47 +8,144 @@ import { SITE_TITLE } from '../data/site';
   description="Privacy statement for Demon Born Compass — no ads, no analytics, no tracking."
   canonicalUrl="/privacy/"
 >
-  <h1>Privacy</h1>
+  <div class="workstation-container">
+    <h1>Privacy</h1>
 
-  <p>
-    <strong>{SITE_TITLE}</strong> is a static informational site. It does not collect,
-    store, or share any personal data.
-  </p>
+    <!-- Quick Answer -->
+    <div class="quick-answer-panel">
+      <div class="qap-label">
+        <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true">
+          <circle cx="6" cy="6" r="5" stroke="currentColor" stroke-width="1.2"/>
+          <path d="M6 3.5v2.5l1.5 1" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
+        </svg>
+        Quick Answer
+      </div>
+      <p class="qap-body">
+        <strong>{SITE_TITLE}</strong> is a static informational site. It does not collect,
+        store, or share any personal data. No ads, no analytics, no cookies.
+      </p>
+    </div>
 
-  <h2>What this site does not use</h2>
-  <ul>
-    <li>No first-party analytics or tracking scripts</li>
-    <li>No cookies or local storage for tracking</li>
-    <li>No third-party advertising</li>
-    <li>No contact forms that submit to third-party services</li>
-    <li>No user accounts, login, or session data</li>
-  </ul>
+    <!-- Privacy cards -->
+    <div class="card-grid" style="margin-top: 22px">
+      <div class="info-card">
+        <div class="info-card-icon" aria-hidden="true">
+          <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M9 2l7 3.5v4c0 3.5-3 6-7 7.5C5 16 2 13.5 2 10V5.5L9 2z" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/></svg>
+        </div>
+        <div>
+          <strong>No data collection</strong>
+          <p>No analytics scripts, cookies, or tracking of any kind. Your visit leaves no trace on this site.</p>
+        </div>
+      </div>
+      <div class="info-card">
+        <div class="info-card-icon" aria-hidden="true">
+          <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><circle cx="9" cy="9" r="2" stroke="currentColor" stroke-width="1.3"/><path d="M9 1v2M9 15v2M1 9h2M15 9h2M3.2 3.2l1.4 1.4M13.4 13.4l1.4 1.4M3.2 14.8l1.4-1.4M13.4 4.6l1.4-1.4" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
+        </div>
+        <div>
+          <strong>No third-party services</strong>
+          <p>No advertising networks, no contact form submissions to third parties, no external tracking pixels.</p>
+        </div>
+      </div>
+      <div class="info-card">
+        <div class="info-card-icon" aria-hidden="true">
+          <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M2 9h14M9 2l7 7-7 7" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <div>
+          <strong>External links only</strong>
+          <p>Links to Roblox and public sources are subject to their own privacy policies when you follow them.</p>
+        </div>
+      </div>
+    </div>
 
-  <h2>External links</h2>
-  <p>
-    This site links to official Roblox pages and public source URLs. Following those links
-    is subject to Roblox Corporation's own privacy policy and terms of service.
-  </p>
+    <!-- Detail sections -->
+    <div class="section-stack" style="margin-top: 28px">
+      <div class="detail-block">
+        <h2>Corrections submissions</h2>
+        <p>
+          The <a href="/contact/">Contact</a> page provides a corrections workflow.
+          Any submitted information is used only to verify and correct factual claims on this site
+          and is not shared with any third party.
+        </p>
+      </div>
 
-  <h2>Corrections submissions</h2>
-  <p>
-    The <a href="/contact/">Contact</a> page provides a corrections workflow.
-    Any submitted information is used only to verify and correct factual claims on this site
-    and is not shared with any third party.
-  </p>
+      <div class="detail-block">
+        <h2>Children's privacy</h2>
+        <p>
+          Demon Born is a Roblox experience. This site does not knowingly collect information
+          from children under 13. If you believe a child has submitted correction data,
+          contact the operator via the <a href="/contact/">Contact</a> page.
+        </p>
+      </div>
 
-  <h2>Children's privacy</h2>
-  <p>
-    Demon Born is a Roblox experience. This site complies with applicable privacy laws
-    and does not knowingly collect information from children under the age of 13.
-    If you believe a child has submitted correction data through this site, contact the
-    operator via the <a href="/contact/">Contact</a> page.
-  </p>
-
-  <h2>Changes to this policy</h2>
-  <p>
-    This privacy statement is reviewed whenever site content is updated.
-    The current version reflects the site's launch configuration with no advertising,
-    no analytics, and no tracking cookies.
-  </p>
+      <div class="detail-block">
+        <h2>Policy changes</h2>
+        <p>
+          This privacy statement is reviewed when site content is updated.
+          The current version reflects the launch configuration: no advertising, no analytics,
+          no tracking cookies.
+        </p>
+      </div>
+    </div>
+  </div>
 </ContentLayout>
+
+<style>
+  .info-card {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-4);
+    padding: var(--space-5);
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+  }
+  .info-card-icon {
+    width: 36px;
+    height: 36px;
+    flex-shrink: 0;
+    display: grid;
+    place-items: center;
+    background: var(--color-surface-raised);
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+    color: var(--color-accent);
+  }
+  .info-card strong {
+    display: block;
+    font-size: 0.9375rem;
+    margin-bottom: 4px;
+  }
+  .info-card p {
+    font-size: 0.875rem;
+    color: var(--color-text-muted);
+    margin: 0;
+    line-height: 1.5;
+  }
+  .section-stack {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-6);
+  }
+  .detail-block {
+    padding: var(--space-5);
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+  }
+  .detail-block h2 {
+    margin: 0 0 var(--space-3) 0;
+    font-size: 0.875rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--color-text-muted);
+  }
+  .detail-block p {
+    font-size: 0.9375rem;
+    color: var(--color-text-muted);
+    margin: 0;
+    line-height: 1.6;
+  }
+  .detail-block a {
+    color: var(--color-accent);
+  }
+</style>

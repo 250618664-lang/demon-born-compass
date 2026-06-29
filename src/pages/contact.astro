@@ -1,61 +1,125 @@
 ---
 import ContentLayout from '../layouts/ContentLayout.astro';
-import { SITE_TITLE } from '../data/site';
 ---
 
 <ContentLayout
-  title="Contact"
+  title="Contact & Corrections"
   description="Corrections and contact information for Demon Born Compass."
   canonicalUrl="/contact/"
 >
-  <h1>Contact &amp; Corrections</h1>
+  <div class="workstation-container">
+    <h1>Contact &amp; Corrections</h1>
 
-  <p>
-    To report a factual error, flag outdated information, or suggest a correction
-    to any page on <strong>{SITE_TITLE}</strong>, follow the process below.
-  </p>
+    <!-- Quick Answer -->
+    <div class="quick-answer-panel">
+      <div class="qap-label">
+        <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true">
+          <circle cx="6" cy="6" r="5" stroke="currentColor" stroke-width="1.2"/>
+          <path d="M6 3.5v2.5l1.5 1" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
+        </svg>
+        Quick Answer
+      </div>
+      <p class="qap-body">
+        Use corrections to report factual errors — not to request codes, game support, or tier lists.
+        All corrections are reviewed against official sources before any page is updated.
+      </p>
+    </div>
 
-  <div class="corrections-info">
-    <h2>Correction submission process</h2>
-    <ol>
-      <li>Identify the specific claim ID and page URL (found in the Sources registry or page source).</li>
-      <li>Provide the official source that contradicts or updates the claim — patch notes, Roblox API data, or official developer statement are preferred.</li>
-      <li>Describe the correction briefly — do not submit personal data or speculation.</li>
-      <li>Submit via the contact channel provided at deployment. All corrections are reviewed against official sources before any page is updated.</li>
-    </ol>
-    <p style="margin-bottom: 0">
-      <strong>Note:</strong> Corrections involving game mechanics, clan/breathing/class data,
-      or active codes require official source evidence before any page will be updated.
-      Community reports alone are not sufficient to change published facts.
-    </p>
-  </div>
+    <!-- Correction steps cards -->
+    <div class="card-grid" style="margin-top: 22px">
+      <div class="step-card">
+        <div class="step-num">1</div>
+        <div class="step-body">
+          <strong>Find the claim ID</strong>
+          <p style="color: var(--color-text-muted); font-size: 0.875rem; margin: 4px 0 0">
+            Locate the specific claim ID and page URL from the Sources registry or page source.
+          </p>
+        </div>
+      </div>
+      <div class="step-card">
+        <div class="step-num">2</div>
+        <div class="step-body">
+          <strong>Provide an official source</strong>
+          <p style="color: var(--color-text-muted); font-size: 0.875rem; margin: 4px 0 0">
+            Roblox API data, official game page, or verified creator statement is preferred.
+          </p>
+        </div>
+      </div>
+      <div class="step-card">
+        <div class="step-num">3</div>
+        <div class="step-body">
+          <strong>Describe the correction</strong>
+          <p style="color: var(--color-text-muted); font-size: 0.875rem; margin: 4px 0 0">
+            Briefly state what is wrong and what the official source says. No personal data or speculation.
+          </p>
+        </div>
+      </div>
+    </div>
 
-  <h2>What to include in a correction</h2>
-  <ul>
-    <li>Page URL and claim ID (if known)</li>
-    <li>Current claim as written on the site</li>
-    <li>Official source URL or description of the official source</li>
-    <li>Proposed correction with explanation</li>
-  </ul>
+    <!-- What we handle / don't handle -->
+    <div class="can-cannot" style="margin-top: 28px">
+      <div class="can-col">
+        <div class="col-heading">We handle</div>
+        <ul class="col-list">
+          <li>Factual errors with an official source</li>
+          <li>Outdated controls or game description claims</li>
+          <li>Broken official links</li>
+          <li>Wiki / Trello / codes status corrections</li>
+        </ul>
+      </div>
+      <div class="cannot-col">
+        <div class="col-heading">We do not handle</div>
+        <ul class="col-list">
+          <li>Game support requests — contact Roblox or developer</li>
+          <li>Account issues, bans, or in-game purchases</li>
+          <li>Requests to add codes from third-party sites</li>
+          <li>Tier lists, best builds, or breathing style guides</li>
+        </ul>
+      </div>
+    </div>
 
-  <h2>What this site does not handle</h2>
-  <ul>
-    <li>Game support requests — contact Roblox or the game developer directly</li>
-    <li>Account issues, bans, or in-game purchases</li>
-    <li>Requests to add codes from third-party sites (codes are only added from verified official sources)</li>
-    <li>Requests to add tier lists, best builds, or breathing style guides (not in launch scope)</li>
-  </ul>
-
-  <h2>Response time</h2>
-  <p>
-    Corrections are reviewed during the operator's regular work hours (weekday evenings, UTC).
-    Expect a response within 2–5 business days. Pages are not updated automatically —
-    every change goes through a manual review against official sources.
-  </p>
-
-  <div class="info-note">
-    <strong>No direct email is published here</strong> to avoid scraping.
-    All correction workflows are handled through the deployment platform's built-in
-    feedback channels at the preview URL.
+    <!-- Note -->
+    <div class="info-note" style="margin-top: 22px">
+      <strong>No direct email is published</strong> to avoid scraping.
+      Corrections are reviewed during weekday evenings (UTC) — expect a response within 2–5 business days.
+      Every change goes through manual review against official sources before a page is updated.
+    </div>
   </div>
 </ContentLayout>
+
+<style>
+  .step-card {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-4);
+    padding: var(--space-5);
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+  }
+  .step-num {
+    width: 1.75rem;
+    height: 1.75rem;
+    border-radius: 50%;
+    background: var(--color-accent);
+    color: #fff;
+    font-size: 0.8125rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  .step-body strong {
+    display: block;
+    font-size: 0.9375rem;
+  }
+  .info-note {
+    padding: var(--space-5);
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+    font-size: 0.9375rem;
+    color: var(--color-text-muted);
+  }
+</style>
