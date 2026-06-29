@@ -1,5 +1,6 @@
 ---
 import ContentLayout from '../layouts/ContentLayout.astro';
+import Ads from '../components/Ads.astro';
 import { GAME_NAME, CURRENT_VERSION } from '../data/site';
 
 const pageSourceIds = ['DB-API-001'];
@@ -15,108 +16,251 @@ const pageSourceIds = ['DB-API-001'];
 >
   <h1>{GAME_NAME} Beginner Guide</h1>
 
-  <p class="page-lead">
-    Getting started with {GAME_NAME} on Roblox — official facts only.
-    Detailed walkthrough steps require hands-on testing and are not yet published.
-  </p>
-
-  <div class="info-note">
-    <strong>Version:</strong> {CURRENT_VERSION}.
-    This page contains only officially confirmed facts. Detailed quest steps,
-    level progression, and combat mechanics require hands-on testing.
+  <!-- Quick status -->
+  <div class="guide-meta">
+    <span class="meta-chip">
+      <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true">
+        <rect x="1.5" y="1.5" width="9" height="9" rx="2" stroke="currentColor" stroke-width="1.2"/>
+        <path d="M4 6h4M4 8h2" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
+      </svg>
+      {CURRENT_VERSION}
+    </span>
+    <span class="meta-chip meta-warn">
+      <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true">
+        <path d="M6 2v5M6 9v.5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
+        <circle cx="6" cy="6" r="5" stroke="currentColor" stroke-width="1.2"/>
+      </svg>
+      Detailed steps require hands-on testing
+    </span>
   </div>
 
-  <h2>What the official description says</h2>
-  <p>
-    The Roblox game description for <em>[WORLD CUP BETA] Demon Born</em> (source: <code>DB-API-001</code>)
-    establishes the following:
-  </p>
+  <!-- Checklist -->
+  <h2>Getting started (official facts)</h2>
+  <ol class="checklist">
+    <li class="checklist-item">
+      <span class="check-num">1</span>
+      <div class="check-body">
+        <strong>Open the game on Roblox</strong>
+        Launch <em>[WORLD CUP BETA] Demon Born</em> from the official Roblox game page. Ensure you are signed in to a Roblox account.
+      </div>
+    </li>
+    <li class="checklist-item">
+      <span class="check-num">2</span>
+      <div class="check-body">
+        <strong>Choose your route: Slayer or Demon</strong>
+        The official game description offers two distinct routes: become a <strong>Slayer</strong> (fight demons) or <strong>Demon</strong> (embrace the dark side and fight to destroy humanity). The specific differences between routes — stat allocations, abilities, quest branching, endings — are not yet documented in official sources.
+      </div>
+    </li>
+    <li class="checklist-item">
+      <span class="check-num">3</span>
+      <div class="check-body">
+        <strong>Learn the controls</strong>
+        Key controls confirmed from the official Roblox description: <kbd>Left Click</kbd> Attack · <kbd>Q</kbd> Dash · <kbd>F</kbd> Defense · <kbd>ALT</kbd> Lock · <kbd>B</kbd> Finish · <kbd>H</kbd> Breathing · <kbd>U</kbd> Quest Indicators · <kbd>M</kbd> Menu · <kbd>SHIFT</kbd> Run. See the <a href="/controls/">full Controls page</a> for details.
+      </div>
+    </li>
+    <li class="checklist-item">
+      <span class="check-num">4</span>
+      <div class="check-body">
+        <strong>Explore the open world</strong>
+        The official description describes an open-world setting with mysteries and challenging quests. Specific starting areas, quest names, or objectives are not yet confirmed from official sources.
+      </div>
+    </li>
+    <li class="checklist-item checklist-partial">
+      <span class="check-num">5</span>
+      <div class="check-body">
+        <strong>Check for active codes (when available)</strong>
+        No official codes are currently confirmed. When an official code source is verified, active codes and redemption steps will be published on the <a href="/codes/">Codes Status page</a>.
+      </div>
+    </li>
+  </ol>
 
-  <div class="info-block">
-    <strong>Genre:</strong> Action RPG, RPG<br />
-    <strong>Setting:</strong> Open world with mysteries and challenging quests<br />
-    <strong>Theme:</strong> Demons<br />
-    <strong>Player count:</strong> 1 (at time of retrieval — <code>DB-API-001</code>; may change)
+  <!-- Two routes card -->
+  <h2>The two official routes</h2>
+  <div class="routes-grid">
+    <div class="route-card route-slayer">
+      <div class="route-badge">Slayer</div>
+      <p>Official wording: <em>"Become a slayer — fight demons."</em></p>
+      <p class="route-unknown">Specific abilities, stats, and progression for this route are not yet documented in official sources.</p>
+    </div>
+    <div class="route-card route-demon">
+      <div class="route-badge">Demon</div>
+      <p>Official wording: <em>"Embrace the dark side and fight to destroy humanity."</em></p>
+      <p class="route-unknown">Specific abilities, stats, and progression for this route are not yet documented in official sources.</p>
+    </div>
   </div>
 
-  <h2>The two player routes</h2>
-  <p>
-    The official description explicitly offers two player routes:
-  </p>
+  <!-- What is not confirmed -->
+  <h2>What is not yet confirmed (requires hands-on testing)</h2>
+  <ul class="not-confirmed-list">
+    <li>Starting area or tutorial steps</li>
+    <li>How to unlock the slayer or demon route</li>
+    <li>First quest or objective</li>
+    <li>How breathing works (styles, upgrades, effects)</li>
+    <li>Character creation or stat allocation</li>
+    <li>How to earn or spend in-game currency</li>
+    <li>Inventory or equipment system</li>
+    <li>Multiplayer or co-op features</li>
+  </ul>
+
+  <!-- Official resources -->
+  <h2>Official resources</h2>
   <div class="table-wrapper">
     <table>
       <thead>
         <tr>
-          <th>Route</th>
-          <th>Official wording</th>
+          <th>Resource</th>
+          <th>URL</th>
         </tr>
       </thead>
       <tbody>
         <tr>
-          <td>Slayer route</td>
-          <td>Become a slayer — fight demons</td>
+          <td>Official game page</td>
+          <td><a href="https://www.roblox.com/games/79833666916700/Demon-Born" rel="noopener noreferrer" target="_blank">roblox.com/games/79833666916700/Demon-Born</a></td>
         </tr>
         <tr>
-          <td>Demon route</td>
-          <td>Embrace the dark side and fight to destroy humanity</td>
+          <td>SoraExp Roblox group</td>
+          <td><a href="https://groups.roblox.com/v1/groups/34709042" rel="noopener noreferrer" target="_blank">groups.roblox.com/v1/groups/34709042</a></td>
         </tr>
       </tbody>
     </table>
   </div>
-  <p>
-    The specific differences between these routes (stat allocations, abilities,
-    quest branching, or endings) are not yet documented in official sources.
-  </p>
 
-  <h2>Controls overview</h2>
-  <p>
-    The official description lists the following controls. See the
-    <a href="/controls/">Controls page</a> for the full table.
-  </p>
-  <ul>
-    <li><strong>Left Click</strong> — Attack</li>
-    <li><strong>Q</strong> — Dash</li>
-    <li><strong>F</strong> — Defense</li>
-    <li><strong>B</strong> — Finish move</li>
-    <li><strong>H</strong> — Breathing</li>
-    <li><strong>U</strong> — Quest Indicators</li>
-    <li><strong>ALT</strong> — Lock</li>
-    <li><strong>SHIFT</strong> — Run</li>
-    <li><strong>M</strong> — Menu</li>
-  </ul>
-
-  <h2>What is not yet confirmed (requires hands-on testing)</h2>
-  <ul>
-    <li>Starting area or tutorial steps</li>
-    <li>How to unlock the slayer or demon route</li>
-    <li>First quest or objective</li>
-    <li>How breathing works as a mechanic (styles, upgrades, effects)</li>
-    <li>Character creation or stat allocation</li>
-    <li>How to earn or spend in-game currency</li>
-    <li>Inventory or equipment system</li>
-    <li>Multiplayer or co-op features (if any)</li>
-  </ul>
-
-  <h2>Official resources</h2>
-  <ul>
-    <li>
-      Official game page:
-      <a href="https://www.roblox.com/games/79833666916700/Demon-Born" rel="noopener noreferrer" target="_blank">
-        roblox.com/games/79833666916700/Demon-Born
-      </a>
-    </li>
-    <li>
-      SoraExp Roblox group:
-      <a href="https://groups.roblox.com/v1/groups/34709042" rel="noopener noreferrer" target="_blank">
-        groups.roblox.com/v1/groups/34709042
-      </a>
-    </li>
-  </ul>
-
-  <h2>Contribute</h2>
   <p>
     If you have verified official information or hands-on observations to share,
     use the <a href="/contact/">correction workflow</a>.
     All published gameplay facts require either an official source or documented hands-on testing.
   </p>
+
+  <Ads placement="rectangle" />
 </ContentLayout>
+
+<style>
+.guide-meta {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  margin-bottom: var(--space-8);
+  flex-wrap: wrap;
+}
+.meta-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  background: var(--color-surface-raised);
+  border: 1px solid var(--color-border);
+  border-radius: 6px;
+  padding: 4px 10px;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--color-text);
+}
+.meta-warn {
+  color: var(--color-warning-text);
+  border-color: var(--color-warning-border);
+  background: var(--color-warning-bg);
+}
+
+.checklist {
+  list-style: none;
+  padding: 0;
+  margin-bottom: var(--space-10);
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  counter-reset: none;
+}
+.checklist-item {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-4);
+  padding: var(--space-4) 0;
+  border-bottom: 1px solid var(--color-border);
+}
+.checklist-item:last-child { border-bottom: none; }
+.check-num {
+  width: 1.75rem;
+  height: 1.75rem;
+  border-radius: 50%;
+  background: var(--color-accent);
+  color: #fff;
+  font-size: 0.8125rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+.checklist-partial .check-num {
+  background: var(--color-warning-text);
+}
+.check-body {
+  font-size: 0.9375rem;
+  line-height: 1.6;
+  padding-top: 3px;
+}
+.check-body strong { color: var(--color-text); }
+
+kbd {
+  display: inline-block;
+  padding: 1px 5px;
+  border: 1px solid var(--color-border);
+  border-radius: 4px;
+  background: var(--color-surface-raised);
+  font-family: var(--font-mono);
+  font-size: 0.8125rem;
+  color: var(--color-text);
+}
+
+.routes-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(14rem, 1fr));
+  gap: var(--space-4);
+  margin-bottom: var(--space-8);
+}
+.route-card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  padding: var(--space-5);
+}
+.route-badge {
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  padding: 2px 8px;
+  border-radius: 4px;
+  display: inline-block;
+  margin-bottom: var(--space-3);
+}
+.route-slayer .route-badge {
+  background: rgba(76, 175, 80, 0.15);
+  color: #4caf50;
+  border: 1px solid rgba(76, 175, 80, 0.3);
+}
+.route-demon .route-badge {
+  background: rgba(224, 85, 85, 0.15);
+  color: #e05555;
+  border: 1px solid rgba(224, 85, 85, 0.3);
+}
+.route-card p {
+  font-size: 0.875rem;
+  color: var(--color-text-muted);
+  margin-bottom: var(--space-3);
+}
+.route-card em { color: var(--color-text); font-style: normal; }
+.route-unknown {
+  font-size: 0.8125rem !important;
+  color: var(--color-text-muted) !important;
+  opacity: 0.7;
+}
+
+.not-confirmed-list {
+  columns: 2;
+  column-gap: var(--space-8);
+}
+@media (max-width: 600px) {
+  .not-confirmed-list { columns: 1; }
+}
+</style>

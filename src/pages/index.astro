@@ -1,7 +1,10 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Ads from '../components/Ads.astro';
-import { SITE_TITLE, SITE_DESCRIPTION, GAME_NAME, CURRENT_VERSION, EVIDENCE_REVIEW_DATE, ADS_ENABLED } from '../data/site';
+import { SITE_TITLE, SITE_DESCRIPTION, GAME_NAME, CURRENT_VERSION, EVIDENCE_REVIEW_DATE, ADS_ENABLED, EVIDENCE_STATUS } from '../data/site';
+
+const statusLabel = EVIDENCE_STATUS === 'official-confirmed' ? 'Official Sources' : EVIDENCE_STATUS;
+const statusOk = EVIDENCE_STATUS === 'official-confirmed';
 ---
 
 <BaseLayout
@@ -11,21 +14,75 @@ import { SITE_TITLE, SITE_DESCRIPTION, GAME_NAME, CURRENT_VERSION, EVIDENCE_REVI
 >
   <div class="prose-container">
 
-    <div class="info-block" style="margin-bottom: var(--space-6)">
+    <div class="info-block" style="margin-bottom: var(--space-4)">
       <strong>Unofficial fan guide.</strong> Not affiliated with Roblox Corporation, SoraExp, or Demon Born creators.
       {ADS_ENABLED ? 'This site displays third-party ads.' : 'Ads are disabled. No analytics or tracking scripts.'}
+    </div>
+
+    <!-- Game Status Dashboard -->
+    <div class="status-dashboard">
+      <div class="dash-item">
+        <span class="dash-icon" aria-hidden="true">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="8" cy="8" r="6.5" stroke="currentColor" stroke-width="1.5"/>
+            <path d="M8 4.5v3.5l2.5 1.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+          </svg>
+        </span>
+        <div class="dash-text">
+          <span class="dash-label">Version</span>
+          <span class="dash-value">{CURRENT_VERSION}</span>
+        </div>
+      </div>
+
+      <div class="dash-sep" aria-hidden="true"></div>
+
+      <div class="dash-item">
+        <span class="dash-icon" aria-hidden="true">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M3 8l3 3 7-7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </span>
+        <div class="dash-text">
+          <span class="dash-label">Evidence</span>
+          <span class={`dash-value dash-badge ${statusOk ? 'badge-ok' : 'badge-warn'}`}>{statusLabel}</span>
+        </div>
+      </div>
+
+      <div class="dash-sep" aria-hidden="true"></div>
+
+      <div class="dash-item">
+        <span class="dash-icon" aria-hidden="true">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="2" y="3" width="12" height="10" rx="1.5" stroke="currentColor" stroke-width="1.5"/>
+            <path d="M5 6h6M5 9h4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+          </svg>
+        </span>
+        <div class="dash-text">
+          <span class="dash-label">Pages</span>
+          <span class="dash-value">6 answers</span>
+        </div>
+      </div>
+
+      <div class="dash-sep" aria-hidden="true"></div>
+
+      <div class="dash-item">
+        <span class="dash-icon" aria-hidden="true">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="8" cy="8" r="6.5" stroke="currentColor" stroke-width="1.5"/>
+            <path d="M8 5v3.5l2 2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+          </svg>
+        </span>
+        <div class="dash-text">
+          <span class="dash-label">Last checked</span>
+          <span class="dash-value">{EVIDENCE_REVIEW_DATE}</span>
+        </div>
+      </div>
     </div>
 
     <p class="page-lead">
       The fastest way to get accurate facts about <strong>{GAME_NAME}</strong> on Roblox —
       wiki status, controls, beginner guide, and codes status, all evidence-backed.
     </p>
-
-    <div class="info-note" style="margin-bottom: var(--space-8)">
-      <strong>Current version:</strong> {CURRENT_VERSION}
-      &nbsp;·&nbsp;
-      <strong>Evidence reviewed:</strong> {EVIDENCE_REVIEW_DATE}
-    </div>
 
     <h2>Quick Answers</h2>
     <div class="card-grid">
@@ -78,3 +135,93 @@ import { SITE_TITLE, SITE_DESCRIPTION, GAME_NAME, CURRENT_VERSION, EVIDENCE_REVI
 
   </div>
 </BaseLayout>
+
+<style>
+  .status-dashboard {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+    padding: var(--space-4) var(--space-5);
+    margin-bottom: var(--space-6);
+    flex-wrap: wrap;
+    row-gap: var(--space-3);
+  }
+
+  .dash-item {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    flex: 1;
+    min-width: 120px;
+  }
+
+  .dash-icon {
+    color: var(--color-accent);
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+  }
+
+  .dash-text {
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+  }
+
+  .dash-label {
+    font-size: 0.6875rem;
+    color: var(--color-text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    font-weight: 500;
+  }
+
+  .dash-value {
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: var(--color-text);
+  }
+
+  .dash-badge {
+    display: inline-block;
+    padding: 1px 6px;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    font-weight: 600;
+  }
+  .badge-ok {
+    background: rgba(76, 175, 80, 0.15);
+    color: #4caf50;
+    border: 1px solid rgba(76, 175, 80, 0.3);
+  }
+  .badge-warn {
+    background: var(--color-warning-bg);
+    color: var(--color-warning-text);
+    border: 1px solid var(--color-warning-border);
+  }
+
+  .dash-sep {
+    width: 1px;
+    height: 2rem;
+    background: var(--color-border);
+    flex-shrink: 0;
+  }
+
+  @media (max-width: 600px) {
+    .status-dashboard {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: var(--space-3);
+    }
+    .dash-sep {
+      display: none;
+    }
+    .dash-item {
+      min-width: unset;
+      width: 100%;
+    }
+  }
+</style>

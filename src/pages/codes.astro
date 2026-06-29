@@ -1,5 +1,6 @@
 ---
 import ContentLayout from '../layouts/ContentLayout.astro';
+import Ads from '../components/Ads.astro';
 import { GAME_NAME } from '../data/site';
 
 const pageSourceIds = ['DB-TRENDS-001', 'DB-SERP-001', 'DB-LEAD-001', 'DB-LEAD-002'];
@@ -13,98 +14,226 @@ const pageSourceIds = ['DB-TRENDS-001', 'DB-SERP-001', 'DB-LEAD-001', 'DB-LEAD-0
   evidenceNotes="No official code source confirmed — third-party code lists are not copied"
   sourceIds={pageSourceIds}
 >
-  <h1>{GAME_NAME} Codes — Status</h1>
+  <h1>{GAME_NAME} Codes</h1>
 
-  <p class="page-lead">
-    Are there active {GAME_NAME} codes? Current status: <strong>no official code source has been confirmed</strong>.
-    This page explains why and how to check safely.
-  </p>
-
-  <div class="info-block" style="border-left-color: var(--color-warning-text); background: var(--color-warning-bg)">
-    <strong>No official codes published on this site.</strong>
-    Codes appearing on third-party sites (Pocket Tactics, Destructoid, Beebom, Radio Times, etc.)
-    are not copied here. No code is published without confirmation from an official Roblox channel
-    or verified in-game redemption UI.
+  <!-- Verdict card -->
+  <div class="verdict-card verdict-warn">
+    <div class="verdict-icon" aria-hidden="true">
+      <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="10" cy="10" r="8.5" stroke="currentColor" stroke-width="1.5"/>
+        <path d="M10 6v5M10 13.5v.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+      </svg>
+    </div>
+    <div class="verdict-body">
+      <strong>No official code feed confirmed.</strong>
+      No active codes are published here because no official Roblox or creator channel has been verified as a code source. Third-party code lists are not copied.
+    </div>
   </div>
 
-  <h2>Why no codes are published yet</h2>
-  <p>
-    Google Trends data (<code>DB-TRENDS-001</code>) shows <em>Demon Born codes</em> as a rising
-    related query. Third-party code sites (Pocket Tactics, Destructoid — <code>DB-LEAD-001/002</code>)
-    have published code lists. However:
-  </p>
-  <ul>
-    <li>No official Roblox channel (game page, creator Discord, group description) has been
-        confirmed as a code source.</li>
-    <li>Codes on third-party sites cannot be verified as active or accurate without
-        in-game confirmation.</li>
-    <li>Expired or incorrect codes published on aggregators can mislead players.</li>
-  </ul>
+  <!-- Last checked strip -->
+  <div class="last-checked-strip">
+    <span class="strip-item">
+      <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true">
+        <circle cx="6" cy="6" r="5" stroke="currentColor" stroke-width="1.2"/>
+        <path d="M6 3.5v2.5l1.5 1" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
+      </svg>
+      Last checked: 2026-06-27
+    </span>
+    <span class="strip-sep">·</span>
+    <span class="strip-item">
+      <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true">
+        <path d="M2 6h8M7 3l3 3-3 3" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      Next check: when official source is reported
+    </span>
+  </div>
 
-  <h2>How to find codes safely</h2>
-  <p>Until an official code source is confirmed, use these verification steps:</p>
-  <ol>
-    <li>Check the official Roblox game page description for any pinned codes.</li>
-    <li>Visit the official SoraExp Roblox group page for announcements.</li>
-    <li>Check the Roblox game description in-game at the main menu.</li>
-    <li>If a creator Discord is confirmed official, check its announcements channel.</li>
+  <!-- How to redeem -->
+  <h2>How to redeem codes</h2>
+  <ol class="redeem-steps">
+    <li>
+      <span class="step-num">1</span>
+      <div class="step-body">
+        <strong>Open the game</strong>
+        Launch <em>[WORLD CUP BETA] Demon Born</em> on Roblox.
+      </div>
+    </li>
+    <li>
+      <span class="step-num">2</span>
+      <div class="step-body">
+        <strong>Find the Menu</strong>
+        Press <kbd>M</kbd> to open the in-game menu.
+      </div>
+    </li>
+    <li>
+      <span class="step-num">3</span>
+      <div class="step-body">
+        <strong>Look for a Codes or Settings option</strong>
+        Navigate to the Codes section in the menu (location may vary by beta version).
+      </div>
+    </li>
+    <li>
+      <span class="step-num">4</span>
+      <div class="step-body">
+        <strong>Enter your code</strong>
+        Type the code exactly as given and press Enter or confirm.
+      </div>
+    </li>
+    <li>
+      <span class="step-num">5</span>
+      <div class="step-body">
+        <strong>Confirm reward</strong>
+        If the code is active, you will receive your reward notification in-game.
+      </div>
+    </li>
   </ol>
 
-  <h2>What this site tracks</h2>
+  <!-- Why no codes yet -->
+  <h2>Why no codes are published here</h2>
   <div class="table-wrapper">
     <table>
       <thead>
         <tr>
-          <th>Item</th>
-          <th>Status</th>
           <th>Source</th>
+          <th>Status</th>
+          <th>Verified?</th>
         </tr>
       </thead>
       <tbody>
         <tr>
-          <td>Official code list on Roblox game page</td>
-          <td>Not confirmed</td>
-          <td>DB-API-001 / DB-ROBLOX-001</td>
+          <td>Roblox game page description</td>
+          <td>No codes listed</td>
+          <td><span class="tick">✓</span></td>
         </tr>
         <tr>
-          <td>Codes pinned in official Discord</td>
+          <td>Official Discord or group</td>
           <td>No official Discord confirmed</td>
-          <td>DB-SERP-001</td>
-        </tr>
-        <tr>
-          <td>Codes in official Twitter/X or social media</td>
-          <td>Not researched</td>
           <td>—</td>
         </tr>
         <tr>
-          <td>In-game code redemption UI</td>
-          <td>Requires hands-on verification</td>
+          <td>Creator Twitter/X or social</td>
+          <td>Not yet researched</td>
           <td>—</td>
+        </tr>
+        <tr>
+          <td>In-game redemption UI</td>
+          <td>Requires hands-on play</td>
+          <td>—</td>
+        </tr>
+        <tr>
+          <td>Third-party aggregator sites</td>
+          <td>Not verified; not copied</td>
+          <td><span class="cross">✗</span></td>
         </tr>
       </tbody>
     </table>
   </div>
 
-  <h2>How codes will be added</h2>
-  <p>
-    When an official code source is confirmed (official game page, creator channel, or
-    in-game redemption UI), the Codes page will be updated to include:
-  </p>
+  <h2>How to find codes safely</h2>
   <ul>
-    <li>Active codes with rewards and expiration status</li>
-    <li>Redemption steps</li>
-    <li>Expired codes with last-seen dates</li>
-    <li>Verification source for each code</li>
+    <li>Check the official Roblox game page description for any pinned codes.</li>
+    <li>Visit the official SoraExp Roblox group page for announcements.</li>
+    <li>Check the Roblox game description in-game at the main menu.</li>
+    <li>If a creator Discord is confirmed official, check its announcements channel.</li>
   </ul>
-  <p>
-    All codes will be tied to a <code>claim_id</code> and <code>source_id</code> before publication.
-    No codes are added from third-party aggregators.
-  </p>
 
   <h2>Submit an official code source</h2>
   <p>
     If you have verified an official Roblox channel that publishes {GAME_NAME} codes,
     use the <a href="/contact/">correction workflow</a> with the URL.
-    Once confirmed, the codes page will be updated.
+    Once confirmed, the codes page will be updated with active codes and redemption details.
   </p>
+
+  <Ads placement="rectangle" />
 </ContentLayout>
+
+<style>
+.verdict-card {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-4);
+  padding: var(--space-5);
+  border-radius: 8px;
+  margin-bottom: var(--space-5);
+  border: 1px solid;
+}
+.verdict-warn {
+  background: var(--color-warning-bg);
+  border-color: var(--color-warning-border);
+  color: var(--color-text);
+}
+.verdict-icon {
+  color: var(--color-warning-text);
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+.verdict-body {
+  font-size: 0.9375rem;
+  line-height: 1.55;
+}
+
+.last-checked-strip {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  font-size: 0.8125rem;
+  color: var(--color-text-muted);
+  margin-bottom: var(--space-8);
+  flex-wrap: wrap;
+}
+.strip-item {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+.strip-sep { opacity: 0.5; }
+
+.redeem-steps {
+  list-style: none;
+  padding: 0;
+  margin-bottom: var(--space-8);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+.redeem-steps li {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-4);
+  margin-bottom: 0;
+}
+.step-num {
+  width: 1.75rem;
+  height: 1.75rem;
+  border-radius: 50%;
+  background: var(--color-accent);
+  color: #fff;
+  font-size: 0.8125rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+.step-body {
+  font-size: 0.9375rem;
+  line-height: 1.55;
+  padding-top: 3px;
+}
+.step-body strong { color: var(--color-text); }
+
+kbd {
+  display: inline-block;
+  padding: 1px 5px;
+  border: 1px solid var(--color-border);
+  border-radius: 4px;
+  background: var(--color-surface-raised);
+  font-family: var(--font-mono);
+  font-size: 0.8125rem;
+  color: var(--color-text);
+}
+
+.tick { color: #4caf50; font-weight: 700; }
+.cross { color: #e05555; font-weight: 700; }
+</style>

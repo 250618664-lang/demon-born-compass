@@ -1,5 +1,6 @@
 ---
 import ContentLayout from '../layouts/ContentLayout.astro';
+import Ads from '../components/Ads.astro';
 import { GAME_NAME } from '../data/site';
 
 const pageSourceIds = ['DB-SERP-001', 'DB-ROBLOX-001', 'DB-API-001'];
@@ -7,7 +8,7 @@ const pageSourceIds = ['DB-SERP-001', 'DB-ROBLOX-001', 'DB-API-001'];
 
 <ContentLayout
   title="Wiki Status"
-  description="Demon Born wiki status — what the SERP actually shows and what is still missing."
+  description="Demon Born wiki status — what the SERP actually shows and how to spot fake wiki links."
   canonicalUrl="/wiki/"
   breadcrumb={[{ label: 'Wiki Status', url: '/wiki/' }]}
   evidenceNotes="SERP gap confirmed — no authoritative wiki hub found yet"
@@ -15,95 +16,216 @@ const pageSourceIds = ['DB-SERP-001', 'DB-ROBLOX-001', 'DB-API-001'];
 >
   <h1>{GAME_NAME} Wiki — Status</h1>
 
-  <p class="page-lead">
-    Is there a reliable {GAME_NAME} wiki? The current SERP is mixed —
-    here is what actually exists and what is still missing.
-  </p>
-
-  <div class="info-block">
-    <strong>Current status:</strong> No authoritative, official-source-backed wiki hub confirmed.
-    An exact-match competitor (<em>demonbornwiki.wiki</em>) exists but its content has not been
-    verified against official sources.
+  <!-- Verdict card -->
+  <div class="verdict-card verdict-warn">
+    <div class="verdict-icon" aria-hidden="true">
+      <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="10" cy="10" r="8.5" stroke="currentColor" stroke-width="1.5"/>
+        <path d="M10 6v5M10 13.5v.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+      </svg>
+    </div>
+    <div class="verdict-body">
+      <strong>No authoritative wiki hub confirmed.</strong>
+      An exact-match competitor (<em>demonbornwiki.wiki</em>) exists but its content has not been verified against official sources. No wiki is linked from the official Roblox game page.
+    </div>
   </div>
 
-  <h2>What the SERP shows (2026-06-27)</h2>
+  <!-- What official sources confirm -->
+  <h2>What official sources confirm</h2>
+  <div class="source-confirm-grid">
+    <div class="source-chip">
+      <span class="chip-label">Game title</span>
+      <span class="chip-value">[WORLD CUP BETA] Demon Born</span>
+    </div>
+    <div class="source-chip">
+      <span class="chip-label">Creator</span>
+      <span class="chip-value">SoraExp (Roblox group)</span>
+    </div>
+    <div class="source-chip">
+      <span class="chip-label">Genre</span>
+      <span class="chip-value">Action RPG, RPG</span>
+    </div>
+    <div class="source-chip">
+      <span class="chip-label">Setting</span>
+      <span class="chip-value">Open world, demons</span>
+    </div>
+  </div>
+
+  <!-- SERP results table -->
+  <h2>What the search results show</h2>
   <div class="table-wrapper">
     <table>
       <thead>
         <tr>
-          <th>Result type</th>
-          <th>Example</th>
-          <th>Assessment</th>
+          <th>Result</th>
+          <th>Type</th>
+          <th>Verdict</th>
         </tr>
       </thead>
       <tbody>
         <tr>
-          <td>Exact-match wiki</td>
           <td>demonbornwiki.wiki</td>
-          <td>Exists but content unverified against official sources</td>
+          <td>Exact-match wiki</td>
+          <td><span class="verdict-tbd">Unverified</span> — content not confirmed official</td>
         </tr>
         <tr>
-          <td>Unrelated Fandom results</td>
-          <td>Fandom wikis for other games appearing for broad queries</td>
-          <td>Not relevant to Demon Born</td>
+          <td>.fandom.com results</td>
+          <td>Fandom wikis (other games)</td>
+          <td><span class="verdict-fake">Not relevant</span> — wrong game</td>
         </tr>
         <tr>
-          <td>Third-party guide sites</td>
-          <td>Pocket Tactics, Destructoid, treyexgaming</td>
-          <td>Code lists and beginner guides; not full wikis</td>
+          <td>Pocket Tactics, Destructoid</td>
+          <td>Third-party guides</td>
+          <td><span class="verdict-tbd">Partial</span> — beginner guides and codes only</td>
         </tr>
         <tr>
-          <td>Reddit threads</td>
-          <td>Community discussions</td>
-          <td>Useful as leads only; not authoritative</td>
+          <td>YouTube gameplay videos</td>
+          <td>Video</td>
+          <td><span class="verdict-tbd">Orientation</span> — not structured reference</td>
         </tr>
         <tr>
-          <td>YouTube videos</td>
-          <td>Gameplay and guide videos</td>
-          <td>Orientation only; not structured reference material</td>
+          <td>Reddit community threads</td>
+          <td>Community</td>
+          <td><span class="verdict-tbd">Leads only</span> — not authoritative</td>
         </tr>
       </tbody>
     </table>
   </div>
 
-  <h2>What official sources confirm</h2>
-  <p>
-    The Roblox Games API and official game page (source: <code>DB-API-001</code>) confirm:
-  </p>
-  <ul>
-    <li>Title: <strong>[WORLD CUP BETA] Demon Born</strong></li>
-    <li>Creator: Roblox group <strong>SoraExp</strong></li>
-    <li>Genre: Action RPG, RPG</li>
-    <li>Description: open world with mysteries, challenging quests and demons</li>
-    <li>Two player routes: become a slayer or embrace the dark side and fight to destroy humanity</li>
-    <li>Controls: Left Click Attack, U Quest Indicators, Q Dash, F Defense, ALT Lock, SHIFT Run, B Finish, H Breathing, M Menu</li>
+  <!-- How to spot fake wiki links -->
+  <h2>How to identify a real wiki link</h2>
+  <ul class="link-check-list">
+    <li>
+      <span class="check-icon check-fail" aria-hidden="true">
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 2l10 10M12 2L2 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+      </span>
+      <span><strong>Do NOT trust:</strong> Domains ending in <code>.wiki</code>, <code>.fandom.com</code>, or generic <code>roblox.fandom.com</code> unless they are clearly linked from an official Roblox game page.</span>
+    </li>
+    <li>
+      <span class="check-icon check-pass" aria-hidden="true">
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 7l4 4 6-7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </span>
+      <span><strong>Look for:</strong> Links published on the official Roblox game page description or the official SoraExp Roblox group page.</span>
+    </li>
+    <li>
+      <span class="check-icon check-pass" aria-hidden="true">
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 7l4 4 6-7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </span>
+      <span><strong>Check the URL:</strong> Does it match the official creator's branding? Does the Roblox group ID in the URL (<code>groups.roblox.com/v1/groups/&lt;id&gt;</code>) match SoraExp's verified group ID?</span>
+    </li>
+    <li>
+      <span class="check-icon check-fail" aria-hidden="true">
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 2l10 10M12 2L2 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+      </span>
+      <span><strong>Red flag:</strong> A wiki that lists codes, best builds, tier lists, or boss guides with no cited official source. Verify each fact independently.</span>
+    </li>
   </ul>
 
+  <!-- What is not confirmed -->
   <h2>What is not yet confirmed</h2>
   <ul>
     <li>Clan or class system details</li>
     <li>Breathing styles or blood demon arts mechanics</li>
     <li>Specific quest names, dungeon locations, or boss names</li>
-    <li>Level progression or stat systems beyond the official description wording</li>
+    <li>Level progression or stat systems beyond official description wording</li>
     <li>Active codes from an official Roblox or creator channel</li>
   </ul>
 
-  <h2>This site as a wiki alternative</h2>
   <p>
-    <strong>Demon Born Compass</strong> tracks official source status and publishes only
-    verified facts. It does not replace a full wiki — it fills the gap for the most
-    common queries (controls, beginner facts, codes status) where reliable information
-    is currently absent.
-  </p>
-  <p>
-    As official sources are confirmed or gameplay testing becomes available,
-    additional pages will be added within the <a href="/editorial/">editorial policy</a> boundaries.
+    <strong>Demon Born Compass</strong> tracks official source status and publishes only verified facts.
+    As official sources are confirmed or gameplay testing becomes available, additional pages will be added within the <a href="/editorial/">editorial policy</a> boundaries.
   </p>
 
-  <h2>Contribute</h2>
-  <p>
-    If you have verified official information about {GAME_NAME}, use the
-    <a href="/contact/">correction workflow</a> to submit it.
-    All additions require an official source before publication.
-  </p>
+  <Ads placement="rectangle" />
 </ContentLayout>
+
+<style>
+.verdict-card {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-4);
+  padding: var(--space-5);
+  border-radius: 8px;
+  margin-bottom: var(--space-5);
+  border: 1px solid;
+}
+.verdict-warn {
+  background: var(--color-warning-bg);
+  border-color: var(--color-warning-border);
+  color: var(--color-text);
+}
+.verdict-icon {
+  color: var(--color-warning-text);
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+.verdict-body {
+  font-size: 0.9375rem;
+  line-height: 1.55;
+}
+
+.source-confirm-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(12rem, 1fr));
+  gap: var(--space-3);
+  margin-bottom: var(--space-8);
+}
+.source-chip {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 6px;
+  padding: var(--space-3) var(--space-4);
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.chip-label {
+  font-size: 0.6875rem;
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  font-weight: 500;
+}
+.chip-value {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.verdict-tbd { color: var(--color-warning-text); font-weight: 600; }
+.verdict-fake { color: #e05555; font-weight: 600; }
+
+.link-check-list {
+  list-style: none;
+  padding: 0;
+  margin-bottom: var(--space-8);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+.link-check-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-3);
+  font-size: 0.9rem;
+  line-height: 1.55;
+}
+.check-icon {
+  width: 1.25rem;
+  height: 1.25rem;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+.check-pass {
+  background: rgba(76, 175, 80, 0.15);
+  color: #4caf50;
+}
+.check-fail {
+  background: rgba(224, 85, 85, 0.15);
+  color: #e05555;
+}
+</style>

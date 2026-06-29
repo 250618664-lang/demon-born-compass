@@ -1,5 +1,6 @@
 ---
 import ContentLayout from '../layouts/ContentLayout.astro';
+import Ads from '../components/Ads.astro';
 import { GAME_NAME } from '../data/site';
 
 const pageSourceIds = ['DB-SERP-001', 'DB-LEAD-001', 'DB-LEAD-002'];
@@ -15,57 +16,178 @@ const pageSourceIds = ['DB-SERP-001', 'DB-LEAD-001', 'DB-LEAD-002'];
 >
   <h1>{GAME_NAME} Trello — Status</h1>
 
-  <p class="page-lead">
-    Does an official Trello board exist for {GAME_NAME}?
-    At present, no verified official Trello URL has been confirmed from any official source.
-  </p>
-
-  <div class="info-block" style="border-left-color: var(--color-warning-text); background: var(--color-warning-bg)">
-    <strong>No official Trello board confirmed.</strong>
-    This page does not claim an official Trello exists. Third-party sites mention
-    a Discord channel but no active Trello or wiki. If you have a verified official link,
-    use the <a href="/contact/">correction workflow</a>.
+  <!-- Verdict card -->
+  <div class="verdict-card verdict-warn">
+    <div class="verdict-icon" aria-hidden="true">
+      <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="10" cy="10" r="8.5" stroke="currentColor" stroke-width="1.5"/>
+        <path d="M10 6v5M10 13.5v.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+      </svg>
+    </div>
+    <div class="verdict-body">
+      <strong>No official Trello board confirmed.</strong>
+      No verified official Trello URL has been found from the Roblox game page, creator social media, or official Roblox group. This page does not publish any unverified Trello link.
+    </div>
   </div>
 
-  <h2>SERP observations (2026-06-27)</h2>
-  <p>
-    User-supplied SERP screenshots (<code>DB-SERP-001</code>) show mixed results for
-    <em>Demon Born trello</em> queries:
-  </p>
-  <ul>
-    <li>Unrelated Trello boards (boards for other games or topics) appear for broad queries.</li>
-    <li>Pocket Tactics (<code>DB-LEAD-001</code>) notes that no active Trello or wiki existed at time of writing.</li>
-    <li>Destructoid (<code>DB-LEAD-002</code>) similarly mentions Discord and wiki information but no confirmed Trello.</li>
-    <li>The exact-match competitor wiki (<em>demonbornwiki.wiki</em>) exists but is not a Trello board.</li>
+  <!-- What search results show -->
+  <h2>What search results show (2026-06-27)</h2>
+  <div class="table-wrapper">
+    <table>
+      <thead>
+        <tr>
+          <th>Result</th>
+          <th>Assessment</th>
+          <th>Verdict</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Unrelated Trello boards</td>
+          <td>Other game boards appearing for broad queries</td>
+          <td><span class="verdict-fake">Not relevant</span></td>
+        </tr>
+        <tr>
+          <td>demonbornwiki.wiki (not Trello)</td>
+          <td>A wiki, not a Trello board</td>
+          <td><span class="verdict-fake">Wrong type</span></td>
+        </tr>
+        <tr>
+          <td>Pocket Tactics article</td>
+          <td>Mentions no active Trello at time of writing</td>
+          <td><span class="verdict-tbd">Out of date</span></td>
+        </tr>
+        <tr>
+          <td>Destructoid article</td>
+          <td>Mentions Discord/wiki, no confirmed Trello</td>
+          <td><span class="verdict-tbd">Out of date</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- How to verify a Trello -->
+  <h2>How to verify a Trello link is official</h2>
+  <ul class="link-check-list">
+    <li>
+      <span class="check-icon check-pass" aria-hidden="true">
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 7l4 4 6-7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </span>
+      <span><strong>Check the Roblox game page description</strong> for any pinned Trello link published by the creator.</span>
+    </li>
+    <li>
+      <span class="check-icon check-pass" aria-hidden="true">
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 7l4 4 6-7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </span>
+      <span><strong>Check the official SoraExp Roblox group</strong> (<code>groups.roblox.com/v1/groups/34709042</code>) for a pinned Trello URL.</span>
+    </li>
+    <li>
+      <span class="check-icon check-fail" aria-hidden="true">
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 2l10 10M12 2L2 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+      </span>
+      <span><strong>Do NOT trust:</strong> Trello links from third-party guide sites unless the creator has publicly endorsed them as official.</span>
+    </li>
+    <li>
+      <span class="check-icon check-fail" aria-hidden="true">
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 2l10 10M12 2L2 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+      </span>
+      <span><strong>Red flag:</strong> A Trello board that claims to be "official" but is not linked from any verified official Roblox channel.</span>
+    </li>
   </ul>
 
-  <h2>What counts as a verified official Trello</h2>
-  <p>A Trello board is considered officially verified when at least one of these is true:</p>
-  <ul>
-    <li>The link is published on the official Roblox game page or official creator social media.</li>
-    <li>The link is accessible via the official Roblox group page or verified creator channel.</li>
-    <li>The operator confirms the link directly from an official communication.</li>
-  </ul>
-
+  <!-- What this site will not do -->
   <h2>What this site will not do</h2>
   <ul>
-    <li>Will not publish a Trello link unless it is verified as official.</li>
-    <li>Will not list a Trello board from a third-party guide site as "official."</li>
-    <li>Will not create a fan Trello or mirror any unofficial board.</li>
+    <li>Will not publish a Trello link unless verified as official by an official Roblox or creator channel.</li>
+    <li>Will not list a third-party Trello board as "official."</li>
+    <li>Will not create or mirror any fan Trello board.</li>
   </ul>
 
-  <h2>Alternatives while no official Trello exists</h2>
-  <ul>
-    <li><a href="/wiki/">Wiki Status</a> — current wiki landscape and official source gaps.</li>
-    <li><a href="/codes/">Codes Status</a> — how to check for active codes from official channels.</li>
-    <li><a href="/beginner-guide/">Beginner Guide</a> — officially confirmed beginner facts.</li>
-    <li><a href="/controls/">Controls</a> — official controls list from the Roblox game description.</li>
-  </ul>
+  <!-- Alternatives -->
+  <h2>While no official Trello exists</h2>
+  <div class="card-grid" style="margin-bottom: var(--space-8)">
+    <a href="/wiki/" class="card">
+      <h2>Wiki Status</h2>
+      <p>Current wiki landscape and official source gaps.</p>
+    </a>
+    <a href="/codes/" class="card">
+      <h2>Codes Status</h2>
+      <p>How to check for active codes from official channels.</p>
+    </a>
+    <a href="/controls/" class="card">
+      <h2>Controls</h2>
+      <p>Official controls from the Roblox game description.</p>
+    </a>
+  </div>
 
-  <h2>If you have an official Trello link</h2>
   <p>
     If you can confirm a Trello board is officially associated with {GAME_NAME} or SoraExp,
     please use the <a href="/contact/">correction workflow</a> with the URL and source.
-    Once verified against an official channel, the Trello Status page will be updated.
+    Once verified, the Trello Status page will be updated.
   </p>
+
+  <Ads placement="rectangle" />
 </ContentLayout>
+
+<style>
+.verdict-card {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-4);
+  padding: var(--space-5);
+  border-radius: 8px;
+  margin-bottom: var(--space-5);
+  border: 1px solid;
+}
+.verdict-warn {
+  background: var(--color-warning-bg);
+  border-color: var(--color-warning-border);
+  color: var(--color-text);
+}
+.verdict-icon {
+  color: var(--color-warning-text);
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+.verdict-body {
+  font-size: 0.9375rem;
+  line-height: 1.55;
+}
+
+.verdict-tbd { color: var(--color-warning-text); font-weight: 600; }
+.verdict-fake { color: #e05555; font-weight: 600; }
+
+.link-check-list {
+  list-style: none;
+  padding: 0;
+  margin-bottom: var(--space-8);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+.link-check-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-3);
+  font-size: 0.9rem;
+  line-height: 1.55;
+}
+.check-icon {
+  width: 1.25rem;
+  height: 1.25rem;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+.check-pass {
+  background: rgba(76, 175, 80, 0.15);
+  color: #4caf50;
+}
+.check-fail {
+  background: rgba(224, 85, 85, 0.15);
+  color: #e05555;
+}
+</style>

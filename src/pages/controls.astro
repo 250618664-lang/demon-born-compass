@@ -1,8 +1,24 @@
 ---
 import ContentLayout from '../layouts/ContentLayout.astro';
+import Ads from '../components/Ads.astro';
 import { GAME_NAME, CURRENT_VERSION } from '../data/site';
 
 const pageSourceIds = ['DB-API-001'];
+
+// Group controls by category
+const controls = [
+  { key: 'Left Click', action: 'Attack', group: 'Combat' },
+  { key: 'Q', action: 'Dash', group: 'Combat' },
+  { key: 'F', action: 'Defense', group: 'Combat' },
+  { key: 'B', action: 'Finish', group: 'Combat', note: 'Finish move' },
+  { key: 'ALT', action: 'Lock', group: 'Combat', note: 'Target lock' },
+  { key: 'H', action: 'Breathing', group: 'Combat', note: 'Breathing mechanic' },
+  { key: 'U', action: 'Quest Indicators', group: 'Navigation' },
+  { key: 'M', action: 'Menu', group: 'Navigation' },
+  { key: 'SHIFT', action: 'Run', group: 'Movement' },
+];
+
+const groups = ['Combat', 'Movement', 'Navigation'];
 ---
 
 <ContentLayout
@@ -15,104 +31,129 @@ const pageSourceIds = ['DB-API-001'];
 >
   <h1>{GAME_NAME} Controls</h1>
 
-  <p class="page-lead">
-    Full control list from the official {GAME_NAME} Roblox game description.
-    Sourced from <code>DB-API-001</code> (Roblox Games API / official game page).
-  </p>
-
-  <div class="info-note">
-    <strong>Version:</strong> {CURRENT_VERSION}.
-    Controls are listed in the official Roblox description for the World Cup Beta.
-    Some controls may change with updates.
+  <div class="controls-intro">
+    <span class="version-badge">
+      <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true">
+        <rect x="1.5" y="1.5" width="9" height="9" rx="2" stroke="currentColor" stroke-width="1.2"/>
+        <path d="M4 6h4M4 8h2" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
+      </svg>
+      {CURRENT_VERSION}
+    </span>
+    <span class="source-ref">Sourced from official Roblox game description · DB-API-001</span>
   </div>
 
-  <h2>All Controls</h2>
-  <div class="table-wrapper">
-    <table>
-      <thead>
-        <tr>
-          <th>Key / Action</th>
-          <th>Function</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td><code>Left Click</code></td>
-          <td>Attack</td>
-        </tr>
-        <tr>
-          <td><code>U</code></td>
-          <td>Quest Indicators</td>
-        </tr>
-        <tr>
-          <td><code>Q</code></td>
-          <td>Dash</td>
-        </tr>
-        <tr>
-          <td><code>F</code></td>
-          <td>Defense</td>
-        </tr>
-        <tr>
-          <td><code>ALT</code></td>
-          <td>Lock (target lock)</td>
-        </tr>
-        <tr>
-          <td><code>SHIFT</code></td>
-          <td>Run</td>
-        </tr>
-        <tr>
-          <td><code>B</code></td>
-          <td>Finish (finish move)</td>
-        </tr>
-        <tr>
-          <td><code>H</code></td>
-          <td>Breathing</td>
-        </tr>
-        <tr>
-          <td><code>M</code></td>
-          <td>Menu</td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
+  {groups.map(group => (
+    <div class="control-group">
+      <h2>{group}</h2>
+      <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th>Key</th>
+              <th>Action</th>
+              <th>Note</th>
+            </tr>
+          </thead>
+          <tbody>
+            {controls
+              .filter(c => c.group === group)
+              .map(c => (
+                <tr>
+                  <td><kbd>{c.key}</kbd></td>
+                  <td>{c.action}</td>
+                  <td class="note-cell">{c.note ? c.note : '—'}</td>
+                </tr>
+              ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  ))}
 
-  <h2>Notes on the control scheme</h2>
+  <h2>Notes</h2>
   <ul>
     <li>
-      <strong>Breathing (H):</strong> The official description mentions a Breathing key,
-      suggesting a breathing mechanic exists in the World Cup Beta. Full details of the
-      breathing system (styles, effects, upgrades) are not yet confirmed from official sources.
+      <strong>Breathing (H):</strong> The official description mentions a Breathing key. Full details
+      of the breathing system — styles, effects, upgrades — are not yet confirmed from official sources.
     </li>
     <li>
-      <strong>Finish (B):</strong> A finish move key is listed, implying combat includes
-      a finisher animation or execution. Specific conditions for triggering a finish move
-      are not yet documented in official sources.
+      <strong>Finish (B):</strong> A finish move key is listed. Specific conditions for triggering
+      a finish move are not yet documented in official sources.
     </li>
     <li>
-      <strong>Defense (F) and Dash (Q):</strong> Standard action-RPG defensive options.
-      The specific effects, cooldowns, and interactions are not yet verified from official sources.
+      <strong>Defense (F) and Dash (Q):</strong> Standard action-RPG mechanics.
+      Specific effects, cooldowns, and interactions are not yet verified from official sources.
     </li>
     <li>
-      <strong>Lock (ALT):</strong> Target lock is typical for action RPGs with ranged or
-      directional combat. Specific behavior in {GAME_NAME} is not yet tested.
+      <strong>Lock (ALT):</strong> Target lock is typical for action RPGs with ranged or directional
+      combat. Specific behavior in {GAME_NAME} is not yet tested.
     </li>
   </ul>
 
   <h2>What is not yet confirmed</h2>
-  <p>
-    The following are not yet documented in official sources and are therefore not published:
-  </p>
   <ul>
-    <li>Breathing styles (e.g. water, fire, wind breathing) — existence and differences</li>
+    <li>Breathing styles (water, fire, wind breathing) — existence and differences</li>
     <li>Defense and Dash cooldowns, stamina cost, or i-frames</li>
     <li>Finish move conditions, damage, or rewards</li>
     <li>Any class-specific or clan-specific controls</li>
   </ul>
 
-  <h2>Source</h2>
-  <p>
-    All controls above are quoted directly from the official Roblox game description
-    for <em>[WORLD CUP BETA] Demon Born</em> (source: <code>DB-API-001</code>).
-    Retrieved <strong>2026-06-27</strong>. The description is subject to change in future updates.
-  </p>
+  <Ads placement="rectangle" />
 </ContentLayout>
+
+<style>
+.controls-intro {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  margin-bottom: var(--space-8);
+  flex-wrap: wrap;
+}
+.version-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  background: var(--color-surface-raised);
+  border: 1px solid var(--color-border);
+  border-radius: 6px;
+  padding: 4px 10px;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--color-text);
+}
+.source-ref {
+  font-size: 0.8125rem;
+  color: var(--color-text-muted);
+}
+
+.control-group {
+  margin-bottom: var(--space-4);
+}
+.control-group h2 {
+  margin-top: 0;
+  font-size: 0.875rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--color-text-muted);
+  border-bottom: 1px solid var(--color-border);
+  padding-bottom: var(--space-2);
+}
+
+kbd {
+  display: inline-block;
+  padding: 2px 8px;
+  border: 1px solid var(--color-border);
+  border-radius: 4px;
+  background: var(--color-surface-raised);
+  font-family: var(--font-mono);
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--color-accent);
+  white-space: nowrap;
+}
+
+.note-cell {
+  color: var(--color-text-muted);
+  font-size: 0.875rem;
+}
+</style>
