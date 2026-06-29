@@ -5,13 +5,11 @@ import { CURRENT_VERSION, EVIDENCE_REVIEW_DATE } from '../data/site';
 const pageSourceIds = ['DB-API-001', 'DB-API-005'];
 
 const checklist = [
-  { num: 1, title: 'Game title and platform', body: '<em>[WORLD CUP BETA] Demon Born</em> — available on Roblox. No separate client or download required.' },
-  { num: 2, title: 'Creator', body: 'SoraExp (Roblox group). Group ID: <code>34709042</code>. Not affiliated with Bandai Namco or the Demon Slayer IP.' },
-  { num: 3, title: 'Genre', body: 'Action RPG. Open-world setting with mysteries and challenging quests — confirmed from official Roblox description.' },
-  { num: 4, title: 'Two player routes exist', body: 'Official wording: become a <strong>Slayer</strong> (fight demons) or <strong>Demon</strong> (embrace the dark side and fight to destroy humanity). Specific route differences — stat allocations, abilities, quest branching, endings — are not documented in official sources yet.' },
-  { num: 5, title: 'Controls — key labels confirmed', body: '9 keys confirmed from official description: <kbd>Left Click</kbd> Attack · <kbd>Q</kbd> Dash · <kbd>F</kbd> Defense · <kbd>ALT</kbd> Lock · <kbd>B</kbd> Finish · <kbd>H</kbd> Breathing · <kbd>U</kbd> Quest Indicators · <kbd>M</kbd> Menu · <kbd>SHIFT</kbd> Run. <a href="/controls/">See full Controls page</a> — mechanics (cooldowns, stamina, style effects) are not yet verified.' },
-  { num: 6, title: 'Codes — not confirmed yet', body: 'No official code source is confirmed. Active codes and redemption details will be published only after an official source is verified. <a href="/codes/">See Codes Source Checker</a>', partial: true },
-  { num: 7, title: 'Wiki and Trello — not confirmed', body: 'No official wiki or Trello board is linked from any verified official Roblox channel. See <a href="/wiki/">Wiki Status</a> and <a href="/trello/">Trello Status</a>.', partial: true },
+  { num: 1, title: 'Open the official Roblox game page', body: 'Start from the source, not from copied links. Check the description for pinned codes or updates.', done: true },
+  { num: 2, title: 'Scan the controls page', body: 'Know the confirmed key labels before your first run. <a href="/controls/">See Controls page</a>.', done: true },
+  { num: 3, title: 'Check code source status', body: 'Do not waste time on unverified code lists. <a href="/codes/">See Codes Status</a>.', done: false },
+  { num: 4, title: 'Understand what not to trust yet', body: 'First quest, stat allocation, route unlock, tier lists, and best builds are not confirmed.', done: false },
+  { num: 5, title: 'Choose your route direction', body: 'Two routes exist: Slayer (fight demons) or Demon (embrace dark side). Do not commit to detailed builds yet.', done: false },
 ];
 
 const assetMap = [
@@ -49,65 +47,35 @@ const assetMap = [
       </p>
     </div>
 
-    <!-- What you should do now -->
-    <h2>What you should do now</h2>
-    <div class="step-cards">
-      <div class="step-card">
-        <div class="step-num">1</div>
-        <div class="step-body">Open the <strong>official Roblox game page</strong> and check the description for any pinned codes or updates.</div>
-      </div>
-      <div class="step-card">
-        <div class="step-num">2</div>
-        <div class="step-body">Learn the <strong>9 confirmed control keys</strong> — labels are official, mechanics are not verified yet. <a href="/controls/">See Controls page</a>.</div>
-      </div>
-      <div class="step-card">
-        <div class="step-num">3</div>
-        <div class="step-body">Choose <strong>Slayer or Demon</strong> as a broad route idea — do not commit to detailed builds or tier choices yet.</div>
-      </div>
-      <div class="step-card">
-        <div class="step-num">4</div>
-        <div class="step-body">Avoid <strong>tier lists and build claims</strong> from third-party sites until we can verify them from official sources.</div>
-      </div>
+    <!-- Progress card + clickable checklist -->
+    <div class="progress-card" style="margin-top: 22px">
+      <strong>Pre-play progress</strong>
+      <div class="progress-track"><div class="progress-fill" id="progress-fill"></div></div>
+      <span id="progress-label">2 of {checklist.length} checked</span>
     </div>
 
-    <!-- What not to trust yet -->
-    <h2>What not to trust yet</h2>
-    <div class="dont-trust-grid">
-      <div class="dont-trust-item">First quest or tutorial step-by-step guides</div>
-      <div class="dont-trust-item">Stat allocation recommendations</div>
-      <div class="dont-trust-item">Route unlock methods</div>
-      <div class="dont-trust-item">Best clan, best build, or tier list</div>
-      <div class="dont-trust-item">Clan or class system details</div>
-      <div class="dont-trust-item">Active codes from third-party sites</div>
+    <div class="check-list" style="margin-top: 22px" id="checklist">
+      {checklist.map(item => (
+        <div class="check-item" data-done={item.done ? 'true' : 'false'}>
+          <span class="number">{item.num}</span>
+          <div>
+            <strong>{item.title}</strong>
+            <span set:html={item.body}></span>
+          </div>
+          <button
+            class="check-action"
+            type="button"
+            aria-label={`Mark step ${item.num} as done`}
+            data-checked={item.done ? 'true' : 'false'}
+          >
+            {item.done ? 'OK' : '+'}
+          </button>
+        </div>
+      ))}
     </div>
 
-    <!-- Quick status -->
-    <div class="guide-meta">
-      <span class="meta-chip">
-        <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true">
-          <rect x="1.5" y="1.5" width="9" height="9" rx="2" stroke="currentColor" stroke-width="1.2"/>
-          <path d="M4 6h4M4 8h2" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
-        </svg>
-        {CURRENT_VERSION}
-      </span>
-      <span class="meta-chip meta-warn">
-        <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true">
-          <path d="M6 2v5M6 9v.5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
-          <circle cx="6" cy="6" r="5" stroke="currentColor" stroke-width="1.2"/>
-        </svg>
-        Detailed steps require hands-on testing
-      </span>
-      <span class="meta-chip">
-        <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true">
-          <circle cx="6" cy="6" r="5" stroke="currentColor" stroke-width="1.2"/>
-          <path d="M6 3.5v2.5l1.5 1" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
-        </svg>
-        Last checked: {EVIDENCE_REVIEW_DATE}
-      </span>
-    </div>
-
-    <!-- Ready now / Do not trust yet — two column cards -->
-    <h2>Can I use this info right now?</h2>
+    <!-- Confirmed facts — below checklist -->
+    <h2 style="margin-top: var(--space-10)">Confirmed facts before you play</h2>
     <div class="can-cannot">
       <div class="can-col">
         <div class="col-heading">Yes — safe to use</div>
@@ -136,7 +104,32 @@ const assetMap = [
       </div>
     </div>
 
-    <!-- Mini asset map — player language -->
+    <!-- Quick status -->
+    <div class="guide-meta">
+      <span class="meta-chip">
+        <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true">
+          <rect x="1.5" y="1.5" width="9" height="9" rx="2" stroke="currentColor" stroke-width="1.2"/>
+          <path d="M4 6h4M4 8h2" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
+        </svg>
+        {CURRENT_VERSION}
+      </span>
+      <span class="meta-chip meta-warn">
+        <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true">
+          <path d="M6 2v5M6 9v.5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
+          <circle cx="6" cy="6" r="5" stroke="currentColor" stroke-width="1.2"/>
+        </svg>
+        Detailed steps require hands-on testing
+      </span>
+      <span class="meta-chip">
+        <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true">
+          <circle cx="6" cy="6" r="5" stroke="currentColor" stroke-width="1.2"/>
+          <path d="M6 3.5v2.5l1.5 1" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
+        </svg>
+        Last checked: {EVIDENCE_REVIEW_DATE}
+      </span>
+    </div>
+
+    <!-- Mini asset map -->
     <h2>Can I use this info? (status map)</h2>
     <div class="asset-map">
       {assetMap.map(a => (
@@ -146,23 +139,6 @@ const assetMap = [
             <div style="font-size: 0.75rem; color: var(--color-text-muted);">{a.note}</div>
           </div>
           <span class={`simple-status-pill ${a.pillClass}`}>{a.status}</span>
-        </div>
-      ))}
-    </div>
-
-    <!-- Pre-play checklist — step cards -->
-    <h2>Confirmed facts before you play</h2>
-    <p style="color: var(--color-text-muted); font-size: 0.9375rem; margin-bottom: var(--space-5)">
-      Each item below is confirmed from official Roblox sources. Items marked incomplete need hands-on testing before they are complete.
-    </p>
-    <div class="step-cards">
-      {checklist.map(item => (
-        <div class={`step-card ${item.partial ? 'step-card-partial' : ''}`}>
-          <div class={`step-num ${item.partial ? 'step-num-partial' : ''}`}>{item.num}</div>
-          <div class="step-body">
-            <strong>{item.title}</strong>
-            <div set:html={item.body} style="margin-top: 4px; color: var(--color-text-muted); font-size: 0.875rem; line-height: 1.55;"></div>
-          </div>
         </div>
       ))}
     </div>
@@ -197,6 +173,40 @@ const assetMap = [
     </p>
   </div>
 </ContentLayout>
+
+<script>
+  // Clickable checklist with progress bar
+  const checkItems = document.querySelectorAll<HTMLElement>('.check-item');
+  const progressFill = document.getElementById('progress-fill');
+  const progressLabel = document.getElementById('progress-label');
+  const total = checkItems.length;
+
+  function updateProgress() {
+    const done = document.querySelectorAll<HTMLElement>('.check-item[data-done="true"]').length;
+    if (progressFill) {
+      progressFill.style.width = `${(done / total) * 100}%`;
+    }
+    if (progressLabel) {
+      progressLabel.textContent = `${done} of ${total} checked`;
+    }
+  }
+
+  checkItems.forEach(item => {
+    const btn = item.querySelector<HTMLButtonElement>('.check-action');
+    if (!btn) return;
+
+    btn.addEventListener('click', () => {
+      const isDone = item.dataset.done === 'true';
+      item.dataset.done = isDone ? 'false' : 'true';
+      btn.dataset.checked = isDone ? 'false' : 'true';
+      btn.textContent = isDone ? '+' : 'OK';
+      updateProgress();
+    });
+  });
+
+  // Initialize
+  updateProgress();
+</script>
 
 <style>
   .guide-meta {

@@ -5,20 +5,23 @@ import { CURRENT_VERSION, EVIDENCE_REVIEW_DATE } from '../data/site';
 const pageSourceIds = ['DB-API-001', 'DB-API-005'];
 
 const controls = [
-  { key: 'Left Click', action: 'Attack', group: 'Combat', confirmed: 'Key label confirmed', unverified: 'We know the key label, but not exactly how the move works yet — cooldowns, stamina, damage unverified' },
-  { key: 'Q', action: 'Dash', group: 'Combat', confirmed: 'Key label confirmed', unverified: 'Cooldown, stamina cost, i-frames not verified' },
-  { key: 'F', action: 'Defense', group: 'Combat', confirmed: 'Key label confirmed', unverified: 'Effect and duration not verified' },
-  { key: 'B', action: 'Finish', group: 'Combat', confirmed: 'Key label confirmed', unverified: 'Trigger conditions not verified' },
-  { key: 'ALT', action: 'Lock', group: 'Combat', confirmed: 'Key label confirmed', unverified: 'Lock behavior and target-switching not verified' },
-  { key: 'H', action: 'Breathing', group: 'Combat', confirmed: 'Key label confirmed', unverified: 'Breathing system details (styles, upgrades, effects) not verified' },
-  { key: 'SHIFT', action: 'Run', group: 'Movement', confirmed: 'Key label confirmed', unverified: 'Stamina cost and speed not verified' },
-  { key: 'U', action: 'Quest Indicators', group: 'Navigation', confirmed: 'Key label confirmed', unverified: 'Indicator behavior not verified' },
-  { key: 'M', action: 'Menu', group: 'Navigation', confirmed: 'Key label confirmed', unverified: 'Menu structure not verified' },
+  { key: 'M1', action: 'Attack', group: 'combat', confirmed: 'Key label confirmed', unverified: 'Cooldowns, stamina, damage not verified' },
+  { key: 'Q', action: 'Dash', group: 'combat', confirmed: 'Key label confirmed', unverified: 'Cooldown, stamina cost, i-frames not verified' },
+  { key: 'F', action: 'Defense', group: 'combat', confirmed: 'Key label confirmed', unverified: 'Effect and duration not verified' },
+  { key: 'B', action: 'Finish', group: 'combat', confirmed: 'Key label confirmed', unverified: 'Trigger conditions not verified' },
+  { key: 'ALT', action: 'Lock', group: 'combat', confirmed: 'Key label confirmed', unverified: 'Lock behavior and target-switching not verified' },
+  { key: 'H', action: 'Breathing', group: 'combat', confirmed: 'Key label confirmed', unverified: 'Breathing system details not verified' },
+  { key: 'SHIFT', action: 'Run', group: 'movement', confirmed: 'Key label confirmed', unverified: 'Stamina cost and speed not verified' },
+  { key: 'U', action: 'Quest Indicators', group: 'navigation', confirmed: 'Key label confirmed', unverified: 'Indicator behavior not verified' },
+  { key: 'M', action: 'Menu', group: 'navigation', confirmed: 'Key label confirmed', unverified: 'Menu structure not verified' },
 ];
 
-const groups = ['Combat', 'Movement', 'Navigation'];
-const confirmedCount = controls.filter(c => c.confirmed).length;
-const unverifiedCount = controls.length;
+const groups = ['combat', 'movement', 'navigation'];
+const groupLabels: Record<string, string> = {
+  combat: 'Combat',
+  movement: 'Movement',
+  navigation: 'Navigation',
+};
 ---
 
 <ContentLayout
@@ -46,41 +49,6 @@ const unverifiedCount = controls.length;
       </p>
     </div>
 
-    <!-- What you should do now -->
-    <h2>What you should do now</h2>
-    <div class="step-cards">
-      <div class="step-card">
-        <div class="step-num">1</div>
-        <div class="step-body">Use the <strong>key grid below</strong> while playing — key labels are confirmed.</div>
-      </div>
-      <div class="step-card">
-        <div class="step-num">2</div>
-        <div class="step-body">Treat mechanics like <strong>cooldowns, stamina cost, damage, and effects</strong> as unverified until we can test them in-game.</div>
-      </div>
-    </div>
-
-    <!-- Count cards -->
-    <div class="status-grid" style="margin-bottom: var(--space-6)">
-      <div class="status-card status-ok">
-        <div class="status-icon" aria-hidden="true">
-          <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 7l4 4 6-7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </div>
-        <div>
-          <div class="status-label">{confirmedCount} keys confirmed</div>
-          <div class="status-desc">Key labels from official Roblox description</div>
-        </div>
-      </div>
-      <div class="status-card status-warn">
-        <div class="status-icon" aria-hidden="true">
-          <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M7 2v5M7 9v.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><circle cx="7" cy="7" r="6" stroke="currentColor" stroke-width="1.2"/></svg>
-        </div>
-        <div>
-          <div class="status-label">{unverifiedCount} mechanics unverified</div>
-          <div class="status-desc">Cooldowns, stamina, style effects, class controls</div>
-        </div>
-      </div>
-    </div>
-
     <!-- Controls intro strip -->
     <div class="controls-intro">
       <span class="version-badge">
@@ -95,25 +63,42 @@ const unverifiedCount = controls.length;
       </span>
     </div>
 
-    <!-- Keycap grid — primary component, near top -->
-    <h2>Controls key grid</h2>
-    <div class="keycap-grid">
+    <!-- Filter buttons -->
+    <div class="filter-row" aria-label="Control filters">
+      <button class="filter-button active" type="button" data-filter="all">All</button>
+      <button class="filter-button" type="button" data-filter="combat">Combat</button>
+      <button class="filter-button" type="button" data-filter="movement">Movement</button>
+      <button class="filter-button" type="button" data-filter="navigation">Navigation</button>
+    </div>
+
+    <!-- Key grid — primary, compact v0.3 key-card style -->
+    <div class="key-grid" id="key-grid">
       {controls.map(c => (
-        <div class="keycap-card">
-          <div class="keycap-key">{c.key}</div>
-          <div class="keycap-info">
-            <div class="keycap-action">{c.action}</div>
-            <div class="keycap-confirmed">✓ {c.confirmed}</div>
-            <div class="keycap-unverified">— {c.unverified}</div>
+        <div class="key-card" data-kind={c.group}>
+          <span class="keycap">{c.key}</span>
+          <div>
+            <strong>{c.action}</strong>
+            <span>✓ {c.confirmed}</span>
+            <span style="color: var(--quiet); font-size: 11px;">— {c.unverified}</span>
           </div>
         </div>
       ))}
     </div>
 
-    <!-- Grouped tables — secondary, mobile-friendly -->
+    <!-- What is not confirmed -->
+    <h2>What is not confirmed</h2>
+    <div class="not-confirmed-cards">
+      <div class="not-confirmed-item">Breathing system details — existence and differences between breathing types are unconfirmed</div>
+      <div class="not-confirmed-item">Defense and Dash cooldowns, stamina cost, or i-frames</div>
+      <div class="not-confirmed-item">Finish move trigger conditions, damage, or rewards</div>
+      <div class="not-confirmed-item">Lock behavior and target-switching rules</div>
+      <div class="not-confirmed-item">Any class-specific, clan-specific, or route-specific controls</div>
+    </div>
+
+    <!-- Grouped tables — secondary detail -->
     {groups.map(group => (
       <div class="control-group">
-        <h2>{group}</h2>
+        <h2>{groupLabels[group]}</h2>
         <div class="table-wrapper">
           <table>
             <thead>
@@ -140,16 +125,6 @@ const unverifiedCount = controls.length;
         </div>
       </div>
     ))}
-
-    <!-- What is not confirmed -->
-    <h2>What is not confirmed</h2>
-    <div class="not-confirmed-cards">
-      <div class="not-confirmed-item">Breathing system details — existence and differences between breathing types are unconfirmed</div>
-      <div class="not-confirmed-item">Defense and Dash cooldowns, stamina cost, or i-frames</div>
-      <div class="not-confirmed-item">Finish move trigger conditions, damage, or rewards</div>
-      <div class="not-confirmed-item">Lock behavior and target-switching rules</div>
-      <div class="not-confirmed-item">Any class-specific, clan-specific, or route-specific controls</div>
-    </div>
 
     <!-- How we checked this -->
     <div class="how-we-checked">
@@ -187,6 +162,31 @@ const unverifiedCount = controls.length;
     </div>
   </div>
 </ContentLayout>
+
+<script>
+  // Filter buttons for controls key grid
+  const filterButtons = document.querySelectorAll<HTMLButtonElement>('.filter-button');
+  const keyCards = document.querySelectorAll<HTMLElement>('.key-card');
+
+  filterButtons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const filter = btn.dataset.filter;
+
+      // Update active button
+      filterButtons.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+
+      // Filter key cards
+      keyCards.forEach(card => {
+        if (filter === 'all' || card.dataset.kind === filter) {
+          card.classList.remove('is-hidden');
+        } else {
+          card.classList.add('is-hidden');
+        }
+      });
+    });
+  });
+</script>
 
 <style>
   .controls-intro {
