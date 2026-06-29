@@ -22,11 +22,19 @@ const groupLabels: Record<string, string> = {
   movement: 'Movement',
   navigation: 'Navigation',
 };
+
+const checklist = [
+  { num: 1, text: 'Open the official Roblox game page for Demon Born', done: false },
+  { num: 2, text: 'Read the official description — controls are listed there', done: false },
+  { num: 3, text: 'Test movement keys (SHIFT to run) in-game', done: false },
+  { num: 4, text: 'Test combat keys (M1, Q, F, B, ALT, H) in a real session', done: false },
+  { num: 5, text: 'Report any mismatch between listed keys and actual game behavior', done: false },
+];
 ---
 
 <ContentLayout
   title="Demon Born Controls"
-  description="Official controls for Demon Born Roblox — 9 key labels confirmed from Roblox game description; mechanics not verified."
+  description="Demon Born controls helper — 9 confirmed key labels, filter by group, first-session checklist. Mechanics not verified."
   canonicalUrl="/controls/"
   breadcrumb={[{ label: 'Controls', url: '/controls/' }]}
   evidenceNotes="Keys confirmed official; mechanics unverified — no cooldowns, iframes, style effects, or route-specific controls published"
@@ -45,8 +53,45 @@ const groupLabels: Record<string, string> = {
         Quick Answer
       </div>
       <p class="qap-body">
-        These 9 Demon Born key labels are confirmed from the official Roblox game description. We know what key does what by name — but not exactly how the move works yet.
+        9 key labels confirmed from the official Roblox description. Key names are right — exact mechanics (cooldowns, combos, stamina cost) are not yet verified.
       </p>
+    </div>
+
+    <!-- What can I use now? -->
+    <div class="helper-panel">
+      <div class="helper-panel-label">
+        <svg width="11" height="11" viewBox="0 0 11 11" fill="none" aria-hidden="true">
+          <path d="M1 5.5h9M5.5 1v9" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
+        </svg>
+        What can I use right now?
+      </div>
+      <div class="helper-body">
+        <div class="helper-col">
+          <div class="helper-col-heading ok">Confirmed — safe to use</div>
+          <ul>
+            <li>All 9 key labels are correct by name</li>
+            <li>SHIFT = Run, M = Menu, U = Quest Indicators</li>
+            <li>Combat keys: M1 Q F B ALT H</li>
+          </ul>
+        </div>
+        <div class="helper-col">
+          <div class="helper-col-heading warn">Unverified — check in-game</div>
+          <ul>
+            <li>Cooldowns, stamina cost, i-frames</li>
+            <li>Lock-on behavior and target switching</li>
+            <li>Breathing style differences</li>
+            <li>Route or class-specific bindings</li>
+          </ul>
+        </div>
+        <div class="helper-col">
+          <div class="helper-col-heading info">Check in game first</div>
+          <ul>
+            <li>Does M1 feel slow or fast? (not confirmed)</li>
+            <li>Does Q cancel into other moves? (unknown)</li>
+            <li>Does H activate a specific breathing style?</li>
+          </ul>
+        </div>
+      </div>
     </div>
 
     <!-- Controls intro strip -->
@@ -59,43 +104,96 @@ const groupLabels: Record<string, string> = {
         {CURRENT_VERSION}
       </span>
       <span class="source-ref">
-        Sourced from official Roblox game description · Refreshed {EVIDENCE_REVIEW_DATE}
+        9 keys confirmed · Refreshed {EVIDENCE_REVIEW_DATE}
       </span>
     </div>
 
-    <!-- Filter buttons -->
-    <div class="filter-row" aria-label="Control filters">
-      <button class="filter-button active" type="button" data-filter="all">All</button>
-      <button class="filter-button" type="button" data-filter="combat">Combat</button>
-      <button class="filter-button" type="button" data-filter="movement">Movement</button>
-      <button class="filter-button" type="button" data-filter="navigation">Navigation</button>
+    <!-- Search + Filter bar -->
+    <div class="search-filter-bar">
+      <div class="search-wrap">
+        <svg class="search-icon" width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+          <circle cx="6" cy="6" r="5" stroke="currentColor" stroke-width="1.2"/>
+          <path d="M10 10l3 3" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
+        </svg>
+        <input
+          type="text"
+          id="key-search"
+          class="key-search"
+          placeholder="Find a key — try M1, Q, H, Menu…"
+          autocomplete="off"
+          spellcheck="false"
+        />
+      </div>
+      <div class="filter-row" role="group" aria-label="Filter by group">
+        <button class="filter-button active" type="button" data-filter="all">All</button>
+        <button class="filter-button" type="button" data-filter="combat">Combat</button>
+        <button class="filter-button" type="button" data-filter="movement">Movement</button>
+        <button class="filter-button" type="button" data-filter="navigation">Navigation</button>
+      </div>
     </div>
 
-    <!-- Key grid — primary, compact v0.3 key-card style -->
+    <!-- Key grid -->
     <div class="key-grid" id="key-grid">
       {controls.map(c => (
-        <div class="key-card" data-kind={c.group}>
+        <div class="key-card" data-kind={c.group} data-key={c.key.toLowerCase()} data-action={c.action.toLowerCase()}>
           <span class="keycap">{c.key}</span>
-          <div>
+          <div class="key-card-body">
             <strong>{c.action}</strong>
-            <span>✓ {c.confirmed}</span>
-            <span style="color: var(--quiet); font-size: 11px;">— {c.unverified}</span>
+            <span class="key-confirmed">OK — key label confirmed</span>
+            <span class="key-unverified">{c.unverified}</span>
           </div>
         </div>
       ))}
     </div>
 
-    <!-- What is not confirmed -->
-    <h2>What is not confirmed</h2>
-    <div class="not-confirmed-cards">
-      <div class="not-confirmed-item">Breathing system details — existence and differences between breathing types are unconfirmed</div>
-      <div class="not-confirmed-item">Defense and Dash cooldowns, stamina cost, or i-frames</div>
-      <div class="not-confirmed-item">Finish move trigger conditions, damage, or rewards</div>
-      <div class="not-confirmed-item">Lock behavior and target-switching rules</div>
-      <div class="not-confirmed-item">Any class-specific, clan-specific, or route-specific controls</div>
+    <!-- No results message (hidden by default) -->
+    <div class="no-results" id="no-results" hidden>
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+        <circle cx="8" cy="8" r="7" stroke="currentColor" stroke-width="1.2"/>
+        <path d="M8 5v3.5M8 10.5v.5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
+      </svg>
+      No keys match your search. Try a key name like <kbd>M1</kbd>, <kbd>Q</kbd>, or <kbd>Menu</kbd>.
     </div>
 
-    <!-- Grouped tables — secondary detail -->
+    <!-- First session control checklist -->
+    <div class="checklist-panel">
+      <div class="checklist-panel-header">
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+          <rect x="1.5" y="1.5" width="11" height="11" rx="2.5" stroke="currentColor" stroke-width="1.2"/>
+          <path d="M4.5 7l2 2 3.5-4" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        First session control checklist
+      </div>
+      <div class="check-list" id="control-checklist">
+        {checklist.map(item => (
+          <div class="check-item" data-done={item.done ? 'true' : 'false'}>
+            <span class="number">{item.num}</span>
+            <div class="check-text">{item.text}</div>
+            <button class="check-action" type="button" aria-label={`Toggle step ${item.num}`} data-checked={item.done ? 'true' : 'false'}>
+              {item.done ? 'OK' : '+'}
+            </button>
+          </div>
+        ))}
+      </div>
+      <div class="check-progress">
+        <div class="check-progress-track"><div class="check-progress-fill" id="check-fill"></div></div>
+        <span id="check-label">0 of {checklist.length} done</span>
+      </div>
+    </div>
+
+    <!-- What is not confirmed — collapsed by default on mobile -->
+    <details class="not-confirmed-details">
+      <summary>What is not confirmed yet</summary>
+      <div class="not-confirmed-cards">
+        <div class="not-confirmed-item">Breathing system details — existence and differences between breathing types are unconfirmed</div>
+        <div class="not-confirmed-item">Defense and Dash cooldowns, stamina cost, or i-frames</div>
+        <div class="not-confirmed-item">Finish move trigger conditions, damage, or rewards</div>
+        <div class="not-confirmed-item">Lock behavior and target-switching rules</div>
+        <div class="not-confirmed-item">Any class-specific, clan-specific, or route-specific controls</div>
+      </div>
+    </details>
+
+    <!-- Grouped tables -->
     {groups.map(group => (
       <div class="control-group">
         <h2>{groupLabels[group]}</h2>
@@ -164,36 +262,259 @@ const groupLabels: Record<string, string> = {
 </ContentLayout>
 
 <script>
-  // Filter buttons for controls key grid
+  // --- Search + filter for key cards ---
+  const searchInput = document.getElementById('key-search') as HTMLInputElement;
   const filterButtons = document.querySelectorAll<HTMLButtonElement>('.filter-button');
   const keyCards = document.querySelectorAll<HTMLElement>('.key-card');
+  const noResults = document.getElementById('no-results');
+
+  let activeFilter = 'all';
+  let activeSearch = '';
+
+  function applyFilters() {
+    let visible = 0;
+    keyCards.forEach(card => {
+      const kind = card.dataset.kind ?? '';
+      const key = card.dataset.key ?? '';
+      const action = card.dataset.action ?? '';
+      const matchesFilter = activeFilter === 'all' || kind === activeFilter;
+      const matchesSearch = activeSearch === '' ||
+        key.includes(activeSearch) ||
+        action.includes(activeSearch);
+      const show = matchesFilter && matchesSearch;
+      card.classList.toggle('is-hidden', !show);
+      if (show) visible++;
+    });
+    if (noResults) noResults.hidden = visible > 0;
+  }
 
   filterButtons.forEach(btn => {
     btn.addEventListener('click', () => {
-      const filter = btn.dataset.filter;
-
-      // Update active button
       filterButtons.forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
-
-      // Filter key cards
-      keyCards.forEach(card => {
-        if (filter === 'all' || card.dataset.kind === filter) {
-          card.classList.remove('is-hidden');
-        } else {
-          card.classList.add('is-hidden');
-        }
-      });
+      activeFilter = btn.dataset.filter ?? 'all';
+      applyFilters();
     });
   });
+
+  searchInput?.addEventListener('input', () => {
+    activeSearch = searchInput.value.toLowerCase().trim();
+    applyFilters();
+  });
+
+  // --- Checklist with progress bar ---
+  const checkItems = document.querySelectorAll<HTMLElement>('.check-item');
+  const checkFill = document.getElementById('check-fill');
+  const checkLabel = document.getElementById('check-label');
+  const total = checkItems.length;
+
+  function updateCheckProgress() {
+    const done = document.querySelectorAll<HTMLElement>('.check-item[data-done="true"]').length;
+    if (checkFill) checkFill.style.width = `${(done / total) * 100}%`;
+    if (checkLabel) checkLabel.textContent = `${done} of ${total} done`;
+  }
+
+  checkItems.forEach(item => {
+    const btn = item.querySelector<HTMLButtonElement>('.check-action');
+    if (!btn) return;
+    btn.addEventListener('click', () => {
+      const isDone = item.dataset.done === 'true';
+      item.dataset.done = isDone ? 'false' : 'true';
+      btn.dataset.checked = isDone ? 'false' : 'true';
+      btn.textContent = isDone ? '+' : 'OK';
+      updateCheckProgress();
+    });
+  });
+
+  updateCheckProgress();
 </script>
 
 <style>
+  /* Helper panel */
+  .helper-panel {
+    margin-top: 22px;
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+    overflow: hidden;
+  }
+  .helper-panel-label {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    padding: 10px 14px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+    color: var(--color-text-muted);
+    border-bottom: 1px solid var(--color-border);
+    background: var(--color-surface-raised);
+  }
+  .helper-body {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0;
+  }
+  .helper-col {
+    padding: 14px;
+    border-right: 1px solid var(--color-border);
+    min-width: 0;
+  }
+  .helper-col:last-child { border-right: none; }
+  .helper-col-heading {
+    font-size: 0.6875rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+    margin-bottom: 8px;
+  }
+  .helper-col-heading.ok { color: #4caf50; }
+  .helper-col-heading.warn { color: var(--color-warning-text); }
+  .helper-col-heading.info { color: #7070e0; }
+  .helper-col ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
+  .helper-col li {
+    font-size: 0.8125rem;
+    color: var(--color-text-muted);
+    padding-left: 0;
+    margin: 0;
+    line-height: 1.45;
+  }
+  .helper-col li::before { content: none; }
+
+  /* Search + filter bar */
+  .search-filter-bar {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin: 18px 0;
+  }
+  .search-wrap {
+    position: relative;
+  }
+  .search-icon {
+    position: absolute;
+    left: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--quiet);
+    pointer-events: none;
+  }
+  .key-search {
+    width: 100%;
+    padding: 10px 12px 10px 36px;
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: 999px;
+    color: var(--color-text);
+    font: inherit;
+    font-size: 0.9375rem;
+    outline: none;
+    transition: border-color 0.15s;
+    min-width: 0;
+    box-sizing: border-box;
+  }
+  .key-search::placeholder { color: var(--quiet); }
+  .key-search:focus { border-color: var(--color-accent); }
+
+  /* Key card body */
+  .key-card-body {
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+  }
+  .key-confirmed {
+    font-size: 0.75rem;
+    color: #4caf50;
+    font-family: var(--font-mono);
+  }
+  .key-unverified {
+    font-size: 0.75rem;
+    color: var(--quiet);
+    overflow-wrap: anywhere;
+  }
+
+  /* No results */
+  .no-results {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 14px;
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+    font-size: 0.875rem;
+    color: var(--color-text-muted);
+    margin-top: 10px;
+  }
+  .no-results kbd {
+    font-size: 0.8125rem;
+  }
+
+  /* Checklist panel */
+  .checklist-panel {
+    margin-top: 28px;
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+    overflow: hidden;
+  }
+  .checklist-panel-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 11px 14px;
+    font-size: 0.8125rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--color-text-muted);
+    border-bottom: 1px solid var(--color-border);
+    background: var(--color-surface-raised);
+  }
+  .check-progress {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 14px;
+    border-top: 1px solid var(--color-border);
+    font-size: 0.8125rem;
+    color: var(--color-text-muted);
+  }
+  .check-progress-track {
+    flex: 1;
+    height: 6px;
+    background: rgba(255,255,255,0.07);
+    border-radius: 999px;
+    overflow: hidden;
+  }
+  .check-progress-fill {
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(90deg, var(--accent), var(--accent-3));
+    border-radius: inherit;
+    transition: width 200ms ease;
+  }
+
+  /* Not confirmed details */
+  .not-confirmed-details {
+    margin-top: 14px;
+  }
+
+  /* Controls intro */
   .controls-intro {
     display: flex;
     align-items: center;
     gap: var(--space-4);
-    margin-bottom: var(--space-6);
+    margin-bottom: var(--space-4);
     flex-wrap: wrap;
   }
   .version-badge {
@@ -213,6 +534,14 @@ const groupLabels: Record<string, string> = {
     color: var(--color-text-muted);
   }
 
+  /* Filter row — inside search bar context */
+  .filter-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  /* Control group headings */
   .control-group {
     margin-bottom: var(--space-4);
   }
@@ -226,6 +555,7 @@ const groupLabels: Record<string, string> = {
     padding-bottom: var(--space-2);
   }
 
+  /* kbd style */
   kbd {
     display: inline-block;
     padding: 2px 8px;
@@ -239,19 +569,11 @@ const groupLabels: Record<string, string> = {
     white-space: nowrap;
   }
 
-  .note-confirmed {
-    color: #4caf50;
-    font-size: 0.8125rem;
-    white-space: nowrap;
-  }
-  .note-unverified {
-    color: var(--color-text-muted);
-    font-size: 0.8125rem;
-  }
+  /* Note styles */
+  .note-confirmed { color: #4caf50; font-size: 0.8125rem; white-space: nowrap; }
+  .note-unverified { color: var(--color-text-muted); font-size: 0.8125rem; }
 
-  h2 {
-    margin-top: 0;
-  }
+  h2 { margin-top: 0; }
 
   code {
     font-family: var(--font-mono);
@@ -260,5 +582,24 @@ const groupLabels: Record<string, string> = {
     padding: 1px 5px;
     border-radius: 3px;
     color: var(--color-text);
+  }
+
+  /* Mobile: stack helper panel cols */
+  @media (max-width: 600px) {
+    .helper-body {
+      grid-template-columns: 1fr;
+    }
+    .helper-col {
+      border-right: none;
+      border-bottom: 1px solid var(--color-border);
+    }
+    .helper-col:last-child { border-bottom: none; }
+  }
+
+  /* Mobile: stack key-grid */
+  @media (max-width: 560px) {
+    .key-grid {
+      grid-template-columns: 1fr;
+    }
   }
 </style>
