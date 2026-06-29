@@ -1,8 +1,27 @@
 ---
 import ContentLayout from '../layouts/ContentLayout.astro';
-import { GAME_NAME, CURRENT_VERSION, EVIDENCE_REVIEW_DATE } from '../data/site';
+import { CURRENT_VERSION, EVIDENCE_REVIEW_DATE } from '../data/site';
 
 const pageSourceIds = ['DB-API-001', 'DB-API-005'];
+
+const checklist = [
+  { num: 1, title: 'Game title and platform', body: '<em>[WORLD CUP BETA] Demon Born</em> — available on Roblox. No separate client or download required.' },
+  { num: 2, title: 'Creator', body: 'SoraExp (Roblox group). Group ID: <code>34709042</code>. Not affiliated with Bandai Namco or the Demon Slayer IP.' },
+  { num: 3, title: 'Genre', body: 'Action RPG. Open-world setting with mysteries and challenging quests — confirmed from official Roblox description.' },
+  { num: 4, title: 'Two player routes exist', body: 'Official wording: become a <strong>Slayer</strong> (fight demons) or <strong>Demon</strong> (embrace the dark side and fight to destroy humanity). Specific route differences — stat allocations, abilities, quest branching, endings — are not documented in official sources yet.' },
+  { num: 5, title: 'Controls — key labels confirmed', body: '9 keys confirmed from official description: <kbd>Left Click</kbd> Attack · <kbd>Q</kbd> Dash · <kbd>F</kbd> Defense · <kbd>ALT</kbd> Lock · <kbd>B</kbd> Finish · <kbd>H</kbd> Breathing · <kbd>U</kbd> Quest Indicators · <kbd>M</kbd> Menu · <kbd>SHIFT</kbd> Run. <a href="/controls/">See full Controls page</a> — mechanics (cooldowns, stamina, style effects) are not yet verified.' },
+  { num: 6, title: 'Codes — not confirmed yet', body: 'No official code source is confirmed. Active codes and redemption details will be published only after an official source is verified. <a href="/codes/">See Codes Source Checker</a>', partial: true },
+  { num: 7, title: 'Wiki and Trello — not confirmed', body: 'No official wiki or Trello board is linked from any verified official Roblox channel. See <a href="/wiki/">Wiki Status</a> and <a href="/trello/">Trello Status</a>.', partial: true },
+];
+
+const assetMap = [
+  { name: 'Play platform', status: 'NOW', badgeClass: 'as-now', note: 'Available on Roblox now' },
+  { name: 'Controls', status: 'NOW', badgeClass: 'as-now', note: '9 key labels confirmed' },
+  { name: 'Route premise', status: 'LIMITED', badgeClass: 'as-limited', note: 'Two routes confirmed; details not yet' },
+  { name: 'Codes', status: 'HOLD', badgeClass: 'as-hold', note: 'No official source confirmed' },
+  { name: 'Builds', status: 'REJECT', badgeClass: 'as-reject', note: 'Tier lists and best builds not published' },
+  { name: 'First quest', status: 'NEEDS_TESTING', badgeClass: 'as-limited', note: 'Requires hands-on play to document' },
+];
 ---
 
 <ContentLayout
@@ -13,164 +32,136 @@ const pageSourceIds = ['DB-API-001', 'DB-API-005'];
   evidenceNotes="Official confirmed limited — starter facts only; no first quest, stat allocation, or route unlock method published"
   sourceIds={pageSourceIds}
 >
-  <h1>Starter Facts &amp; Pre-Play Checklist</h1>
+  <div class="workstation-container">
+    <h1>Starter Facts &amp; Pre-Play Checklist</h1>
 
-  <!-- Verdict card -->
-  <div class="verdict-card verdict-limited">
-    <div class="verdict-icon" aria-hidden="true">
-      <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <circle cx="10" cy="10" r="8.5" stroke="currentColor" stroke-width="1.5"/>
-        <path d="M10 6v5M10 13.5v.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-      </svg>
+    <!-- Verdict card -->
+    <div class="verdict-card verdict-limited">
+      <div class="verdict-icon" aria-hidden="true">
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="10" cy="10" r="8.5" stroke="currentColor" stroke-width="1.5"/>
+          <path d="M10 6v5M10 13.5v.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <div class="verdict-body">
+        <strong>Starter facts only. No full walkthrough, no first quest, no stat allocation, no route unlock method.</strong>
+        All confirmed facts come from the official Roblox game description. Detailed gameplay steps, progression systems, and route-specific mechanics are not published until hands-on testing or official documentation is available.
+      </div>
     </div>
-    <div class="verdict-body">
-      <strong>Starter facts only. No full walkthrough, no first quest, no stat allocation, no route unlock method.</strong>
-      All confirmed facts come from the official Roblox game description. Detailed gameplay steps, progression systems, and route-specific mechanics are not published until hands-on testing or official documentation is available.
+
+    <!-- Quick status -->
+    <div class="guide-meta">
+      <span class="meta-chip">
+        <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true">
+          <rect x="1.5" y="1.5" width="9" height="9" rx="2" stroke="currentColor" stroke-width="1.2"/>
+          <path d="M4 6h4M4 8h2" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
+        </svg>
+        {CURRENT_VERSION}
+      </span>
+      <span class="meta-chip meta-warn">
+        <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true">
+          <path d="M6 2v5M6 9v.5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
+          <circle cx="6" cy="6" r="5" stroke="currentColor" stroke-width="1.2"/>
+        </svg>
+        Detailed steps require hands-on testing
+      </span>
+      <span class="meta-chip">
+        <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true">
+          <circle cx="6" cy="6" r="5" stroke="currentColor" stroke-width="1.2"/>
+          <path d="M6 3.5v2.5l1.5 1" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
+        </svg>
+        Last checked: {EVIDENCE_REVIEW_DATE}
+      </span>
     </div>
-  </div>
 
-  <!-- Quick status -->
-  <div class="guide-meta">
-    <span class="meta-chip">
-      <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true">
-        <rect x="1.5" y="1.5" width="9" height="9" rx="2" stroke="currentColor" stroke-width="1.2"/>
-        <path d="M4 6h4M4 8h2" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
-      </svg>
-      {CURRENT_VERSION}
-    </span>
-    <span class="meta-chip meta-warn">
-      <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true">
-        <path d="M6 2v5M6 9v.5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
-        <circle cx="6" cy="6" r="5" stroke="currentColor" stroke-width="1.2"/>
-      </svg>
-      Detailed steps require hands-on testing
-    </span>
-    <span class="meta-chip">
-      <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true">
-        <circle cx="6" cy="6" r="5" stroke="currentColor" stroke-width="1.2"/>
-        <path d="M6 3.5v2.5l1.5 1" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
-      </svg>
-      Last checked: {EVIDENCE_REVIEW_DATE}
-    </span>
-  </div>
-
-  <!-- Pre-play checklist -->
-  <h2>Pre-play checklist — confirmed facts</h2>
-  <p>Use this checklist before or during your first session. Each item is confirmed from official sources.</p>
-  <ol class="checklist">
-    <li class="checklist-item">
-      <span class="check-num">1</span>
-      <div class="check-body">
-        <strong>Game title and platform</strong>
-        <em>[WORLD CUP BETA] Demon Born</em> — available on Roblox. No separate client or download required.
+    <!-- Ready now / Do not trust yet — two column cards -->
+    <h2>What is ready and what is not</h2>
+    <div class="can-cannot">
+      <div class="can-col">
+        <div class="col-heading">Ready now</div>
+        <ul class="col-list">
+          <li>Identity, title, creator</li>
+          <li>Official control keys</li>
+          <li>Genre and setting (open world)</li>
+          <li>Two-route premise (slayer / demon)</li>
+          <li>Wiki and Trello status verification</li>
+          <li>Codes source checker</li>
+        </ul>
       </div>
-    </li>
-    <li class="checklist-item">
-      <span class="check-num">2</span>
-      <div class="check-body">
-        <strong>Creator</strong>
-        SoraExp (Roblox group). Group ID: <code>34709042</code>. Not affiliated with Bandai Namco or the Demon Slayer IP.
+      <div class="cannot-col">
+        <div class="col-heading">Do not trust yet</div>
+        <ul class="col-list">
+          <li>First quest or tutorial steps</li>
+          <li>Stat allocation system</li>
+          <li>Route unlock method</li>
+          <li>Character creation details</li>
+          <li>Breathing styles and demon arts</li>
+          <li>Clans or class system</li>
+          <li>Crafting, mining, fishing</li>
+          <li>Active codes (wait for official)</li>
+          <li>Tier list or best build</li>
+        </ul>
       </div>
-    </li>
-    <li class="checklist-item">
-      <span class="check-num">3</span>
-      <div class="check-body">
-        <strong>Genre</strong>
-        Action RPG. Open-world setting with mysteries and challenging quests — confirmed from official Roblox description.
-      </div>
-    </li>
-    <li class="checklist-item">
-      <span class="check-num">4</span>
-      <div class="check-body">
-        <strong>Two player routes exist</strong>
-        Official wording: become a <strong>Slayer</strong> (fight demons) or <strong>Demon</strong> (embrace the dark side and fight to destroy humanity). Specific route differences — stat allocations, abilities, quest branching, endings — are not documented in official sources yet.
-      </div>
-    </li>
-    <li class="checklist-item">
-      <span class="check-num">5</span>
-      <div class="check-body">
-        <strong>Controls — key labels confirmed</strong>
-        9 keys confirmed from official description: <kbd>Left Click</kbd> Attack · <kbd>Q</kbd> Dash · <kbd>F</kbd> Defense · <kbd>ALT</kbd> Lock · <kbd>B</kbd> Finish · <kbd>H</kbd> Breathing · <kbd>U</kbd> Quest Indicators · <kbd>M</kbd> Menu · <kbd>SHIFT</kbd> Run.
-        <br/>
-        <a href="/controls/">See full Controls page</a> — mechanics (cooldowns, stamina, style effects) are not yet verified.
-      </div>
-    </li>
-    <li class="checklist-item checklist-partial">
-      <span class="check-num">6</span>
-      <div class="check-body">
-        <strong>Codes — not confirmed yet</strong>
-        No official code source is confirmed. Active codes and redemption details will be published only after an official source is verified.
-        <a href="/codes/">See Codes Source Checker</a>
-      </div>
-    </li>
-    <li class="checklist-item checklist-partial">
-      <span class="check-num">7</span>
-      <div class="check-body">
-        <strong>Wiki and Trello — not confirmed</strong>
-        No official wiki or Trello board is linked from any verified official Roblox channel. See <a href="/wiki/">Wiki Status</a> and <a href="/trello/">Trello Status</a> for the full API verification results.
-      </div>
-    </li>
-  </ol>
-
-  <!-- Asset readiness summary -->
-  <h2>What is ready and what is not</h2>
-  <div class="readiness-grid">
-    <div class="readiness-card readiness-now">
-      <div class="readiness-label">Available now</div>
-      <ul>
-        <li>Identity, title, creator</li>
-        <li>Official control keys</li>
-        <li>Genre and setting (open world)</li>
-        <li>Two-route premise (slayer / demon)</li>
-        <li>Wiki and Trello status verification</li>
-        <li>Codes source checker</li>
-      </ul>
     </div>
-    <div class="readiness-card readiness-hold">
-      <div class="readiness-label">Not yet available</div>
-      <ul>
-        <li>First quest or tutorial steps</li>
-        <li>Stat allocation system</li>
-        <li>Route unlock method</li>
-        <li>Character creation details</li>
-        <li>Breathing styles and demon arts</li>
-        <li>Clans or class system</li>
-        <li>Crafting, mining, fishing</li>
-        <li>Specific locations or map</li>
-        <li>Active codes</li>
-        <li>Tier list or best build</li>
-      </ul>
+
+    <!-- Mini asset map -->
+    <h2>Page asset readiness map</h2>
+    <div class="asset-map">
+      {assetMap.map(a => (
+        <div class={`asset-item ${a.name === 'Play platform' || a.name === 'Controls' ? 'asset-now' : a.name === 'Codes' || a.name === 'Builds' ? 'asset-hold' : 'asset-limited'}`}>
+          <div>
+            <div class="asset-name">{a.name}</div>
+            <div style="font-size: 0.75rem; color: var(--color-text-muted);">{a.note}</div>
+          </div>
+          <span class={`asset-status ${a.badgeClass}`}>{a.status}</span>
+        </div>
+      ))}
     </div>
-  </div>
 
-  <!-- Official resources -->
-  <h2>Official resources</h2>
-  <div class="table-wrapper">
-    <table>
-      <thead>
-        <tr>
-          <th>Resource</th>
-          <th>URL</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>Official game page</td>
-          <td><a href="https://www.roblox.com/games/79833666916700/Demon-Born" rel="noopener noreferrer" target="_blank">roblox.com/games/79833666916700/Demon-Born</a></td>
-        </tr>
-        <tr>
-          <td>SoraExp Roblox group</td>
-          <td><a href="https://groups.roblox.com/v1/groups/34709042" rel="noopener noreferrer" target="_blank">groups.roblox.com/v1/groups/34709042</a></td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
+    <!-- Pre-play checklist — step cards -->
+    <h2>Pre-play checklist — confirmed facts</h2>
+    <p>Use this checklist before or during your first session. Each item is confirmed from official sources.</p>
+    <div class="step-cards">
+      {checklist.map(item => (
+        <div class={`step-card ${item.partial ? 'step-card-partial' : ''}`}>
+          <div class={`step-num ${item.partial ? 'step-num-partial' : ''}`}>{item.num}</div>
+          <div class="step-body">
+            <strong>{item.title}</strong>
+            <div set:html={item.body} style="margin-top: 4px; color: var(--color-text-muted); font-size: 0.875rem; line-height: 1.55;"></div>
+          </div>
+        </div>
+      ))}
+    </div>
 
-  <p>
-    If you have verified official information or hands-on observations to share,
-    use the <a href="/contact/">correction workflow</a>.
-    All published gameplay facts require either an official source or documented hands-on testing.
-  </p>
+    <!-- Official resources -->
+    <h2>Official resources</h2>
+    <div class="table-wrapper">
+      <table>
+        <thead>
+          <tr>
+            <th>Resource</th>
+            <th>URL</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Official game page</td>
+            <td><a href="https://www.roblox.com/games/79833666916700/Demon-Born" rel="noopener noreferrer" target="_blank">roblox.com/games/79833666916700/Demon-Born</a></td>
+          </tr>
+          <tr>
+            <td>SoraExp Roblox group</td>
+            <td><a href="https://groups.roblox.com/v1/groups/34709042" rel="noopener noreferrer" target="_blank">groups.roblox.com/v1/groups/34709042</a></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p>
+      If you have verified official information or hands-on observations to share,
+      use the <a href="/contact/">correction workflow</a>.
+      All published gameplay facts require either an official source or documented hands-on testing.
+    </p>
+  </div>
 </ContentLayout>
 
 <style>
@@ -202,7 +193,7 @@ const pageSourceIds = ['DB-API-001', 'DB-API-005'];
     display: flex;
     align-items: center;
     gap: var(--space-3);
-    margin-bottom: var(--space-8);
+    margin-bottom: var(--space-6);
     flex-wrap: wrap;
   }
   .meta-chip {
@@ -223,46 +214,9 @@ const pageSourceIds = ['DB-API-001', 'DB-API-005'];
     background: var(--color-warning-bg);
   }
 
-  .checklist {
-    list-style: none;
-    padding: 0;
-    margin-bottom: var(--space-10);
-    display: flex;
-    flex-direction: column;
-    gap: 0;
+  h2 {
+    margin-top: 0;
   }
-  .checklist-item {
-    display: flex;
-    align-items: flex-start;
-    gap: var(--space-4);
-    padding: var(--space-4) 0;
-    border-bottom: 1px solid var(--color-border);
-  }
-  .checklist-item:last-child { border-bottom: none; }
-  .check-num {
-    width: 1.75rem;
-    height: 1.75rem;
-    border-radius: 50%;
-    background: var(--color-accent);
-    color: #fff;
-    font-size: 0.8125rem;
-    font-weight: 700;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-    margin-top: 2px;
-  }
-  .checklist-partial .check-num {
-    background: var(--color-warning-text);
-  }
-  .check-body {
-    font-size: 0.9375rem;
-    line-height: 1.6;
-    padding-top: 3px;
-  }
-  .check-body strong { color: var(--color-text); }
-  .check-body em { color: var(--color-text); font-style: normal; }
 
   kbd {
     display: inline-block;
@@ -275,54 +229,19 @@ const pageSourceIds = ['DB-API-001', 'DB-API-005'];
     color: var(--color-text);
   }
 
-  /* Readiness grid */
-  .readiness-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(14rem, 1fr));
-    gap: var(--space-4);
-    margin-bottom: var(--space-8);
+  .step-card-partial {
+    border-left: 3px solid var(--color-warning-text);
   }
-  .readiness-card {
-    background: var(--color-surface);
-    border: 1px solid var(--color-border);
-    border-radius: 8px;
-    padding: var(--space-5);
-    border-left-width: 3px;
+  .step-num-partial {
+    background: var(--color-warning-text);
   }
-  .readiness-now {
-    border-left-color: #4caf50;
-  }
-  .readiness-hold {
-    border-left-color: var(--color-warning-text);
-  }
-  .readiness-label {
-    font-size: 0.75rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    margin-bottom: var(--space-3);
-  }
-  .readiness-now .readiness-label { color: #4caf50; }
-  .readiness-hold .readiness-label { color: var(--color-warning-text); }
-  .readiness-card ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-  }
-  .readiness-card ul li {
+
+  code {
+    font-family: var(--font-mono);
     font-size: 0.8125rem;
-    color: var(--color-text-muted);
-    padding-left: 0.875rem;
-    position: relative;
-    margin: 0;
-  }
-  .readiness-card ul li::before {
-    content: '–';
-    position: absolute;
-    left: 0;
-    color: var(--color-border);
+    background: var(--color-surface-raised);
+    padding: 1px 5px;
+    border-radius: 3px;
+    color: var(--color-text);
   }
 </style>

@@ -5,18 +5,20 @@ import { GAME_NAME, CURRENT_VERSION, EVIDENCE_REVIEW_DATE } from '../data/site';
 const pageSourceIds = ['DB-API-001', 'DB-API-005'];
 
 const controls = [
-  { key: 'Left Click', action: 'Attack', group: 'Combat', note: 'Key label confirmed official.' },
-  { key: 'Q', action: 'Dash', group: 'Combat', note: 'Key label confirmed official. Behavior (cooldown, stamina) not verified.' },
-  { key: 'F', action: 'Defense', group: 'Combat', note: 'Key label confirmed official. Effect not verified.' },
-  { key: 'B', action: 'Finish', group: 'Combat', note: 'Key label confirmed official. Trigger conditions not verified.' },
-  { key: 'ALT', action: 'Lock', group: 'Combat', note: 'Key label confirmed official. Lock behavior not verified.' },
-  { key: 'H', action: 'Breathing', group: 'Combat', note: 'Key label confirmed official. Breathing system details (styles, upgrades, effects) not verified.' },
-  { key: 'U', action: 'Quest Indicators', group: 'Navigation', note: 'Key label confirmed official.' },
-  { key: 'M', action: 'Menu', group: 'Navigation', note: 'Key label confirmed official.' },
-  { key: 'SHIFT', action: 'Run', group: 'Movement', note: 'Key label confirmed official.' },
+  { key: 'Left Click', action: 'Attack', group: 'Combat', confirmed: 'Key label', unverified: 'Behavior (cooldown, stamina) not verified' },
+  { key: 'Q', action: 'Dash', group: 'Combat', confirmed: 'Key label', unverified: 'Cooldown, stamina cost, i-frames not verified' },
+  { key: 'F', action: 'Defense', group: 'Combat', confirmed: 'Key label', unverified: 'Effect and duration not verified' },
+  { key: 'B', action: 'Finish', group: 'Combat', confirmed: 'Key label', unverified: 'Trigger conditions not verified' },
+  { key: 'ALT', action: 'Lock', group: 'Combat', confirmed: 'Key label', unverified: 'Lock behavior and target-switching not verified' },
+  { key: 'H', action: 'Breathing', group: 'Combat', confirmed: 'Key label', unverified: 'Breathing system details (styles, upgrades, effects) not verified' },
+  { key: 'SHIFT', action: 'Run', group: 'Movement', confirmed: 'Key label', unverified: 'Stamina cost and speed not verified' },
+  { key: 'U', action: 'Quest Indicators', group: 'Navigation', confirmed: 'Key label', unverified: 'Indicator behavior not verified' },
+  { key: 'M', action: 'Menu', group: 'Navigation', confirmed: 'Key label', unverified: 'Menu structure not verified' },
 ];
 
 const groups = ['Combat', 'Movement', 'Navigation'];
+const confirmedCount = controls.filter(c => c.confirmed).length;
+const unverifiedCount = controls.length;
 ---
 
 <ContentLayout
@@ -27,98 +29,140 @@ const groups = ['Combat', 'Movement', 'Navigation'];
   evidenceNotes="Keys confirmed official; mechanics unverified — no cooldowns, iframes, style effects, or route-specific controls published"
   sourceIds={pageSourceIds}
 >
-  <h1>{GAME_NAME} Controls</h1>
+  <div class="workstation-container">
+    <h1>{GAME_NAME} Controls</h1>
 
-  <!-- Verdict card -->
-  <div class="verdict-card verdict-confirmed">
-    <div class="verdict-icon" aria-hidden="true">
-      <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <circle cx="10" cy="10" r="8.5" stroke="currentColor" stroke-width="1.5"/>
-        <path d="M6.5 10l2.5 2.5 5-5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-      </svg>
-    </div>
-    <div class="verdict-body">
-      <strong>Key labels are official-confirmed. Mechanics are not verified.</strong>
-      All 9 keys listed here come from the official Roblox game description. Behaviors, cooldowns, stamina costs, style effects, and class-specific controls have not been confirmed from official sources.
-    </div>
-  </div>
-
-  <!-- Controls intro strip -->
-  <div class="controls-intro">
-    <span class="version-badge">
-      <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true">
-        <rect x="1.5" y="1.5" width="9" height="9" rx="2" stroke="currentColor" stroke-width="1.2"/>
-        <path d="M4 6h4M4 8h2" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
-      </svg>
-      {CURRENT_VERSION}
-    </span>
-    <span class="source-ref">
-      Sourced from official Roblox game description · DB-API-001 · Refreshed {EVIDENCE_REVIEW_DATE}
-    </span>
-  </div>
-
-  {groups.map(group => (
-    <div class="control-group">
-      <h2>{group}</h2>
-      <div class="table-wrapper">
-        <table>
-          <thead>
-            <tr>
-              <th>Key</th>
-              <th>Action</th>
-              <th>Confirmed</th>
-              <th>Unverified</th>
-            </tr>
-          </thead>
-          <tbody>
-            {controls
-              .filter(c => c.group === group)
-              .map(c => (
-                <tr>
-                  <td><kbd>{c.key}</kbd></td>
-                  <td>{c.action}</td>
-                  <td class="note-confirmed">Key label</td>
-                  <td class="note-unverified">{c.note}</td>
-                </tr>
-              ))}
-          </tbody>
-        </table>
+    <!-- Verdict card -->
+    <div class="verdict-card verdict-confirmed">
+      <div class="verdict-icon" aria-hidden="true">
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="10" cy="10" r="8.5" stroke="currentColor" stroke-width="1.5"/>
+          <path d="M6.5 10l2.5 2.5 5-5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+      <div class="verdict-body">
+        <strong>Key labels are official-confirmed. Mechanics are not verified.</strong>
+        All 9 keys listed here come from the official Roblox game description. Behaviors, cooldowns, stamina costs, style effects, and class-specific controls have not been confirmed from official sources.
       </div>
     </div>
-  ))}
 
-  <h2>What is not confirmed</h2>
-  <ul>
-    <li>Breathing system details — existence and differences between breathing types are unconfirmed</li>
-    <li>Defense and Dash cooldowns, stamina cost, or i-frames</li>
-    <li>Finish move trigger conditions, damage, or rewards</li>
-    <li>Lock behavior and target-switching rules</li>
-    <li>Any class-specific, clan-specific, or route-specific controls</li>
-  </ul>
+    <!-- Count cards -->
+    <div class="status-grid" style="margin-bottom: var(--space-6)">
+      <div class="status-card status-ok">
+        <div class="status-icon" aria-hidden="true">
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 7l4 4 6-7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <div>
+          <div class="status-label">{confirmedCount} keys confirmed</div>
+          <div class="status-desc">Key labels from official Roblox description</div>
+        </div>
+      </div>
+      <div class="status-card status-warn">
+        <div class="status-icon" aria-hidden="true">
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M7 2v5M7 9v.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><circle cx="7" cy="7" r="6" stroke="currentColor" stroke-width="1.2"/></svg>
+        </div>
+        <div>
+          <div class="status-label">{unverifiedCount} mechanics unverified</div>
+          <div class="status-desc">Cooldowns, stamina, style effects, class controls</div>
+        </div>
+      </div>
+    </div>
 
-  <h2>Evidence and update history</h2>
-  <div class="table-wrapper">
-    <table>
-      <thead>
-        <tr>
-          <th>Date</th>
-          <th>Event</th>
-          <th>Source</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>2026-06-27</td>
-          <td>Initial controls confirmed from Roblox API</td>
-          <td><code>DB-API-001</code></td>
-        </tr>
-        <tr>
-          <td>2026-06-29</td>
-          <td>API refresh — same controls list confirmed</td>
-          <td><code>DB-API-005</code></td>
-        </tr>
-      </tbody>
-    </table>
+    <!-- Controls intro strip -->
+    <div class="controls-intro">
+      <span class="version-badge">
+        <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true">
+          <rect x="1.5" y="1.5" width="9" height="9" rx="2" stroke="currentColor" stroke-width="1.2"/>
+          <path d="M4 6h4M4 8h2" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
+        </svg>
+        {CURRENT_VERSION}
+      </span>
+      <span class="source-ref">
+        Sourced from official Roblox game description · DB-API-001 · Refreshed {EVIDENCE_REVIEW_DATE}
+      </span>
+    </div>
+
+    <!-- Keycap grid — primary component -->
+    <h2>Controls key grid</h2>
+    <div class="keycap-grid">
+      {controls.map(c => (
+        <div class="keycap-card">
+          <div class="keycap-key">{c.key}</div>
+          <div class="keycap-info">
+            <div class="keycap-action">{c.action}</div>
+            <div class="keycap-confirmed">✓ {c.confirmed}</div>
+            <div class="keycap-unverified">— {c.unverified}</div>
+          </div>
+        </div>
+      ))}
+    </div>
+
+    <!-- Grouped tables — secondary, mobile-friendly -->
+    {groups.map(group => (
+      <div class="control-group">
+        <h2>{group}</h2>
+        <div class="table-wrapper">
+          <table>
+            <thead>
+              <tr>
+                <th>Key</th>
+                <th>Action</th>
+                <th>Confirmed</th>
+                <th>Unverified</th>
+              </tr>
+            </thead>
+            <tbody>
+              {controls
+                .filter(c => c.group === group)
+                .map(c => (
+                  <tr>
+                    <td><kbd>{c.key}</kbd></td>
+                    <td>{c.action}</td>
+                    <td class="note-confirmed">Key label</td>
+                    <td class="note-unverified">{c.unverified}</td>
+                  </tr>
+                ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    ))}
+
+    <!-- What is not confirmed -->
+    <h2>What is not confirmed</h2>
+    <div class="not-confirmed-cards">
+      <div class="not-confirmed-item">Breathing system details — existence and differences between breathing types are unconfirmed</div>
+      <div class="not-confirmed-item">Defense and Dash cooldowns, stamina cost, or i-frames</div>
+      <div class="not-confirmed-item">Finish move trigger conditions, damage, or rewards</div>
+      <div class="not-confirmed-item">Lock behavior and target-switching rules</div>
+      <div class="not-confirmed-item">Any class-specific, clan-specific, or route-specific controls</div>
+    </div>
+
+    <!-- Evidence history -->
+    <h2>Evidence and update history</h2>
+    <div class="table-wrapper">
+      <table>
+        <thead>
+          <tr>
+            <th>Date</th>
+            <th>Event</th>
+            <th>Source</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>2026-06-27</td>
+            <td>Initial controls confirmed from Roblox API</td>
+            <td><code>DB-API-001</code></td>
+          </tr>
+          <tr>
+            <td>2026-06-29</td>
+            <td>API refresh — same controls list confirmed</td>
+            <td><code>DB-API-005</code></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
 </ContentLayout>
 
@@ -151,7 +195,7 @@ const groups = ['Combat', 'Movement', 'Navigation'];
     display: flex;
     align-items: center;
     gap: var(--space-4);
-    margin-bottom: var(--space-8);
+    margin-bottom: var(--space-6);
     flex-wrap: wrap;
   }
   .version-badge {
@@ -205,5 +249,18 @@ const groups = ['Combat', 'Movement', 'Navigation'];
   .note-unverified {
     color: var(--color-text-muted);
     font-size: 0.8125rem;
+  }
+
+  h2 {
+    margin-top: 0;
+  }
+
+  code {
+    font-family: var(--font-mono);
+    font-size: 0.8125rem;
+    background: var(--color-surface-raised);
+    padding: 1px 5px;
+    border-radius: 3px;
+    color: var(--color-text);
   }
 </style>

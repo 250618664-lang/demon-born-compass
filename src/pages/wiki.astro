@@ -3,6 +3,23 @@ import ContentLayout from '../layouts/ContentLayout.astro';
 import { GAME_NAME, EVIDENCE_REVIEW_DATE } from '../data/site';
 
 const pageSourceIds = ['DB-SERP-001', 'DB-SERP-002', 'DB-ROBLOX-001', 'DB-API-001', 'DB-API-009', 'DB-API-010', 'DB-API-011'];
+
+const verifiers = [
+  { name: 'Roblox game page', endpoint: 'roblox.com/games/79833666916700', result: 'No wiki/Trello link in description', badge: 'tbd', canFact: false, note: 'No wiki linked' },
+  { name: 'Roblox game social links API', endpoint: 'games.roblox.com/v1/games/…/social-links/list', result: '401 — Authentication token missing', badge: 'blocked', canFact: false, note: 'Blocked — do not bypass' },
+  { name: 'SoraExp Roblox group page', endpoint: 'groups.roblox.com/v1/groups/34709042', result: 'Group metadata only; no wiki/Trello links', badge: 'tbd', canFact: false, note: 'No wiki linked' },
+  { name: 'SoraExp group social links API', endpoint: 'groups.roblox.com/v1/groups/…/social-links', result: '401 — Authentication token missing', badge: 'blocked', canFact: false, note: 'Blocked — do not bypass' },
+  { name: 'SoraExp community links API', endpoint: 'apis.roblox.com/community-links/v1/groups/…/community', result: 'Returned empty string', badge: 'empty', canFact: false, note: 'No link confirmed' },
+  { name: 'Third-party wiki: demonbornwiki.wiki', endpoint: 'demonbornwiki.wiki', result: 'Wiki exists; not linked from any official channel', badge: 'thirdparty', canFact: false, note: 'Community / third-party only' },
+];
+
+const serpResults = [
+  { result: 'demonbornwiki.wiki', type: 'Exact-match wiki', verdict: 'thirdparty', label: 'Third-party / community lead' },
+  { result: '.fandom.com results', type: 'Fandom wikis (other games)', verdict: 'fake', label: 'Not relevant — wrong game' },
+  { result: 'Pocket Tactics, Destructoid', type: 'Third-party guides', verdict: 'tbd', label: 'Partial — beginner guides and codes only' },
+  { result: 'YouTube gameplay videos', type: 'Video', verdict: 'tbd', label: 'Orientation — not structured reference' },
+  { result: 'Reddit community threads', type: 'Community', verdict: 'tbd', label: 'Leads only — not authoritative' },
+];
 ---
 
 <ContentLayout
@@ -13,196 +30,140 @@ const pageSourceIds = ['DB-SERP-001', 'DB-SERP-002', 'DB-ROBLOX-001', 'DB-API-00
   evidenceNotes="No official wiki confirmed; social endpoints blocked/empty; third-party wiki labeled as community"
   sourceIds={pageSourceIds}
 >
-  <h1>{GAME_NAME} Wiki — Status</h1>
+  <div class="workstation-container">
+    <h1>{GAME_NAME} Wiki — Official Verifier</h1>
 
-  <!-- Verdict card -->
-  <div class="verdict-card verdict-warn">
-    <div class="verdict-icon" aria-hidden="true">
-      <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <circle cx="10" cy="10" r="8.5" stroke="currentColor" stroke-width="1.5"/>
-        <path d="M10 6v5M10 13.5v.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-      </svg>
+    <!-- Verdict card -->
+    <div class="verdict-card verdict-warn">
+      <div class="verdict-icon" aria-hidden="true">
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="10" cy="10" r="8.5" stroke="currentColor" stroke-width="1.5"/>
+          <path d="M10 6v5M10 13.5v.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <div class="verdict-body">
+        <strong>No official wiki link confirmed from public official sources.</strong>
+        Roblox game social links and group social links endpoints are blocked by authentication. The community wiki <em>demonbornwiki.wiki</em> exists but is labeled third-party/community, not official.
+      </div>
     </div>
-    <div class="verdict-body">
-      <strong>No official wiki link confirmed from public official sources.</strong>
-      Roblox game social links and group social links endpoints are blocked by authentication. The community wiki <em>demonbornwiki.wiki</em> exists but is labeled third-party/community, not official.
-    </div>
-  </div>
 
-  <!-- Last checked -->
-  <div class="last-checked-strip">
-    <span class="strip-item">
-      <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true">
-        <circle cx="6" cy="6" r="5" stroke="currentColor" stroke-width="1.2"/>
-        <path d="M6 3.5v2.5l1.5 1" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
-      </svg>
-      Last checked: {EVIDENCE_REVIEW_DATE}
-    </span>
-  </div>
-
-  <!-- Official link verifier -->
-  <h2>Official link verifier — 2026-06-29</h2>
-  <p>
-    This table shows the result of checking official Roblox API endpoints for wiki, Trello, or community links
-    associated with Demon Born or SoraExp.
-  </p>
-  <div class="table-wrapper">
-    <table>
-      <thead>
-        <tr>
-          <th>Endpoint / channel</th>
-          <th>URL</th>
-          <th>Result</th>
-          <th>Verdict</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>Roblox game page</td>
-          <td><code>roblox.com/games/79833666916700</code></td>
-          <td>No wiki/Trello link in description</td>
-          <td><span class="verdict-tbd">No wiki linked</span></td>
-        </tr>
-        <tr>
-          <td>Roblox game social links API</td>
-          <td><code>games.roblox.com/v1/games/7326773869/social-links/list</code></td>
-          <td>401 — Authentication token is missing</td>
-          <td><span class="verdict-blocked">✗ Blocked (do not bypass)</span></td>
-        </tr>
-        <tr>
-          <td>SoraExp group page</td>
-          <td><code>groups.roblox.com/v1/groups/34709042</code></td>
-          <td>Group metadata only; no wiki/Trello links</td>
-          <td><span class="verdict-tbd">No wiki linked</span></td>
-        </tr>
-        <tr>
-          <td>SoraExp group social links API</td>
-          <td><code>groups.roblox.com/v1/groups/34709042/social-links</code></td>
-          <td>401 — Authentication token is missing</td>
-          <td><span class="verdict-blocked">✗ Blocked (do not bypass)</span></td>
-        </tr>
-        <tr>
-          <td>SoraExp community links API</td>
-          <td><code>apis.roblox.com/community-links/v1/groups/34709042/community</code></td>
-          <td>Returned empty string</td>
-          <td><span class="verdict-empty">— Empty (no link confirmed)</span></td>
-        </tr>
-        <tr>
-          <td>Third-party wiki: demonbornwiki.wiki</td>
-          <td><code>demonbornwiki.wiki</code></td>
-          <td>Exact-match wiki exists; not linked from any official channel</td>
-          <td><span class="verdict-thirdparty">Third-party / community</span></td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-
-  <!-- What official sources confirm -->
-  <h2>What official sources confirm</h2>
-  <div class="source-confirm-grid">
-    <div class="source-chip">
-      <span class="chip-label">Game title</span>
-      <span class="chip-value">[WORLD CUP BETA] Demon Born</span>
-    </div>
-    <div class="source-chip">
-      <span class="chip-label">Creator</span>
-      <span class="chip-value">SoraExp (Roblox group)</span>
-    </div>
-    <div class="source-chip">
-      <span class="chip-label">Genre</span>
-      <span class="chip-value">Action RPG, RPG</span>
-    </div>
-    <div class="source-chip">
-      <span class="chip-label">Setting</span>
-      <span class="chip-value">Open world, demons</span>
-    </div>
-  </div>
-
-  <!-- SERP results table -->
-  <h2>What search results show ({EVIDENCE_REVIEW_DATE})</h2>
-  <div class="table-wrapper">
-    <table>
-      <thead>
-        <tr>
-          <th>Result</th>
-          <th>Type</th>
-          <th>Verdict</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>demonbornwiki.wiki</td>
-          <td>Exact-match wiki</td>
-          <td><span class="verdict-thirdparty">Third-party / community lead</span> — content not confirmed official</td>
-        </tr>
-        <tr>
-          <td>.fandom.com results</td>
-          <td>Fandom wikis (other games)</td>
-          <td><span class="verdict-fake">Not relevant</span> — wrong game</td>
-        </tr>
-        <tr>
-          <td>Pocket Tactics, Destructoid</td>
-          <td>Third-party guides</td>
-          <td><span class="verdict-tbd">Partial</span> — beginner guides and codes only</td>
-        </tr>
-        <tr>
-          <td>YouTube gameplay videos</td>
-          <td>Video</td>
-          <td><span class="verdict-tbd">Orientation</span> — not structured reference</td>
-        </tr>
-        <tr>
-          <td>Reddit community threads</td>
-          <td>Community</td>
-          <td><span class="verdict-tbd">Leads only</span> — not authoritative</td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-
-  <!-- How to identify a real wiki link -->
-  <h2>How to identify a real wiki link</h2>
-  <ul class="link-check-list">
-    <li>
-      <span class="check-icon check-fail" aria-hidden="true">
-        <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 2l10 10M12 2L2 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+    <!-- Last checked -->
+    <div class="last-checked-strip">
+      <span class="strip-item">
+        <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true">
+          <circle cx="6" cy="6" r="5" stroke="currentColor" stroke-width="1.2"/>
+          <path d="M6 3.5v2.5l1.5 1" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
+        </svg>
+        Last checked: {EVIDENCE_REVIEW_DATE}
       </span>
-      <span><strong>Do NOT trust:</strong> Domains ending in <code>.wiki</code>, <code>.fandom.com</code>, or generic <code>roblox.fandom.com</code> unless they are clearly linked from an official Roblox game page or verified creator channel.</span>
-    </li>
-    <li>
-      <span class="check-icon check-pass" aria-hidden="true">
-        <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 7l4 4 6-7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      </span>
-      <span><strong>Look for:</strong> Links published on the official Roblox game page description or the verified SoraExp Roblox group page.</span>
-    </li>
-    <li>
-      <span class="check-icon check-pass" aria-hidden="true">
-        <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 7l4 4 6-7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      </span>
-      <span><strong>Check the URL:</strong> Does it match the official creator's branding? Does the Roblox group ID in the URL match SoraExp's verified group ID (<code>34709042</code>)?</span>
-    </li>
-    <li>
-      <span class="check-icon check-fail" aria-hidden="true">
-        <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 2l10 10M12 2L2 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
-      </span>
-      <span><strong>Red flag:</strong> A wiki that lists codes, best builds, tier lists, or boss guides with no cited official source. Verify each fact independently.</span>
-    </li>
-  </ul>
+    </div>
 
-  <!-- What is not confirmed -->
-  <h2>What is not yet confirmed</h2>
-  <ul>
-    <li>Clan or class system details</li>
-    <li>Breathing styles or blood demon arts mechanics</li>
-    <li>Specific quest names, dungeon locations, or boss names</li>
-    <li>Level progression or stat systems beyond official description wording</li>
-    <li>Active codes from an official Roblox or creator channel</li>
-    <li>Official wiki or Trello linked from any official Roblox channel</li>
-  </ul>
+    <!-- Verifier board -->
+    <h2>Link verifier board</h2>
+    <div class="verifier-board">
+      {verifiers.map(v => (
+        <div class="verifier-card">
+          <div>
+            <div class="verifier-name">{v.name}</div>
+            <div class="verifier-endpoint">{v.endpoint}</div>
+            <div class="verifier-result">{v.result}</div>
+          </div>
+          <div class="verifier-right">
+            <span class={`verifier-badge badge-${v.badge}`}>{v.note}</span>
+            <span class={`verifier-fact-label ${v.canFact ? 'verified' : 'unverified'}`}>
+              {v.canFact ? '✓ Can use as fact' : '✗ Cannot use as fact'}
+            </span>
+          </div>
+        </div>
+      ))}
+    </div>
 
-  <p>
-    <strong>Demon Born Compass</strong> tracks official source status and publishes only verified facts.
-    As official sources are confirmed or gameplay testing becomes available, additional pages will be added within the <a href="/editorial/">editorial policy</a> boundaries.
-  </p>
+    <!-- SERP results as cards -->
+    <h2>What search results show ({EVIDENCE_REVIEW_DATE})</h2>
+    <div class="verifier-board" style="margin-bottom: var(--space-8)">
+      {serpResults.map(s => (
+        <div class="verifier-card">
+          <div>
+            <div class="verifier-name">{s.result}</div>
+            <div class="verifier-result">{s.type}</div>
+          </div>
+          <div class="verifier-right">
+            <span class={`verifier-badge badge-${s.verdict === 'fake' ? 'blocked' : s.verdict}`}>{s.label}</span>
+          </div>
+        </div>
+      ))}
+    </div>
+
+    <!-- Fake wiki risk checklist -->
+    <h2>Fake wiki risk checklist</h2>
+    <div class="checklist-cards">
+      <div class="checklist-card">
+        <div class="ck-icon ck-fail" aria-hidden="true">
+          <svg width="12" height="12" viewBox="0 0 14 14" fill="none"><path d="M2 2l10 10M12 2L2 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        </div>
+        <div class="ck-body"><strong>Do NOT trust:</strong> Domains ending in <code>.wiki</code>, <code>.fandom.com</code>, or generic <code>roblox.fandom.com</code> unless clearly linked from an official Roblox game page or verified creator channel.</div>
+      </div>
+      <div class="checklist-card">
+        <div class="ck-icon ck-pass" aria-hidden="true">
+          <svg width="12" height="12" viewBox="0 0 14 14" fill="none"><path d="M2 7l4 4 6-7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <div class="ck-body"><strong>Look for:</strong> Links published on the official Roblox game page description or the verified SoraExp Roblox group page.</div>
+      </div>
+      <div class="checklist-card">
+        <div class="ck-icon ck-pass" aria-hidden="true">
+          <svg width="12" height="12" viewBox="0 0 14 14" fill="none"><path d="M2 7l4 4 6-7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <div class="ck-body"><strong>Check the URL:</strong> Does it match the official creator's branding? Does the Roblox group ID match SoraExp's verified group ID (<code>34709042</code>)?</div>
+      </div>
+      <div class="checklist-card">
+        <div class="ck-icon ck-fail" aria-hidden="true">
+          <svg width="12" height="12" viewBox="0 0 14 14" fill="none"><path d="M2 2l10 10M12 2L2 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        </div>
+        <div class="ck-body"><strong>Red flag:</strong> A wiki that lists codes, best builds, tier lists, or boss guides with no cited official source. Verify each fact independently.</div>
+      </div>
+    </div>
+
+    <!-- Can / Cannot yet -->
+    <h2>What this page can and cannot do yet</h2>
+    <div class="can-cannot">
+      <div class="can-col">
+        <div class="col-heading">Can do now</div>
+        <ul class="col-list">
+          <li>Confirm official game title and creator</li>
+          <li>Verify no wiki link on Roblox game page</li>
+          <li>Track blocked/empty API endpoints</li>
+          <li>Label third-party wikis as community</li>
+          <li>Identify SERP supply and gaps</li>
+        </ul>
+      </div>
+      <div class="cannot-col">
+        <div class="col-heading">Cannot do yet</div>
+        <ul class="col-list">
+          <li>Publish any wiki URL as official</li>
+          <li>Cite third-party wiki content as fact</li>
+          <li>Confirm clan or class system details</li>
+          <li>Confirm breathing styles or demon arts mechanics</li>
+          <li>Document quest names, dungeons, or bosses</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- What is not confirmed -->
+    <h2>What is not yet confirmed</h2>
+    <div class="not-confirmed-cards">
+      <div class="not-confirmed-item">Clan or class system details</div>
+      <div class="not-confirmed-item">Breathing styles or blood demon arts mechanics</div>
+      <div class="not-confirmed-item">Specific quest names, dungeon locations, or boss names</div>
+      <div class="not-confirmed-item">Level progression or stat systems beyond official description wording</div>
+      <div class="not-confirmed-item">Active codes from an official Roblox or creator channel</div>
+      <div class="not-confirmed-item">Official wiki or Trello linked from any official Roblox channel</div>
+    </div>
+
+    <p>
+      <strong>Demon Born Compass</strong> tracks official source status and publishes only verified facts.
+      As official sources are confirmed or gameplay testing becomes available, additional pages will be added within the <a href="/editorial/">editorial policy</a> boundaries.
+    </p>
+  </div>
 </ContentLayout>
 
 <style>
@@ -236,7 +197,7 @@ const pageSourceIds = ['DB-SERP-001', 'DB-SERP-002', 'DB-ROBLOX-001', 'DB-API-00
     gap: var(--space-3);
     font-size: 0.8125rem;
     color: var(--color-text-muted);
-    margin-bottom: var(--space-8);
+    margin-bottom: var(--space-6);
     flex-wrap: wrap;
   }
   .strip-item {
@@ -245,71 +206,16 @@ const pageSourceIds = ['DB-SERP-001', 'DB-SERP-002', 'DB-ROBLOX-001', 'DB-API-00
     gap: 5px;
   }
 
-  .verdict-tbd { color: var(--color-warning-text); font-weight: 600; }
-  .verdict-fake { color: #e05555; font-weight: 600; }
-  .verdict-blocked { color: #e05555; font-weight: 700; }
-  .verdict-empty { color: var(--color-text-muted); font-weight: 600; }
-  .verdict-thirdparty { color: #7070e0; font-weight: 600; }
+  h2 {
+    margin-top: 0;
+  }
 
-  .source-confirm-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(12rem, 1fr));
-    gap: var(--space-3);
-    margin-bottom: var(--space-8);
-  }
-  .source-chip {
-    background: var(--color-surface);
-    border: 1px solid var(--color-border);
-    border-radius: 6px;
-    padding: var(--space-3) var(--space-4);
-    display: flex;
-    flex-direction: column;
-    gap: 2px;
-  }
-  .chip-label {
-    font-size: 0.6875rem;
-    color: var(--color-text-muted);
-    text-transform: uppercase;
-    letter-spacing: 0.06em;
-    font-weight: 500;
-  }
-  .chip-value {
-    font-size: 0.875rem;
-    font-weight: 600;
+  code {
+    font-family: var(--font-mono);
+    font-size: 0.8125rem;
+    background: var(--color-surface-raised);
+    padding: 1px 5px;
+    border-radius: 3px;
     color: var(--color-text);
-  }
-
-  .link-check-list {
-    list-style: none;
-    padding: 0;
-    margin-bottom: var(--space-8);
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-3);
-  }
-  .link-check-list li {
-    display: flex;
-    align-items: flex-start;
-    gap: var(--space-3);
-    font-size: 0.9rem;
-    line-height: 1.55;
-  }
-  .check-icon {
-    width: 1.25rem;
-    height: 1.25rem;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-    margin-top: 2px;
-  }
-  .check-pass {
-    background: rgba(76, 175, 80, 0.15);
-    color: #4caf50;
-  }
-  .check-fail {
-    background: rgba(224, 85, 85, 0.15);
-    color: #e05555;
   }
 </style>

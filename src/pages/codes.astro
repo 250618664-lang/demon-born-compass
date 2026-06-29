@@ -13,145 +13,181 @@ const pageSourceIds = ['DB-SERP-002', 'DB-LEAD-005', 'DB-LEAD-006', 'DB-LEAD-007
   evidenceNotes="Active codes not published — no official source confirmed; third-party lists disagree"
   sourceIds={pageSourceIds}
 >
-  <h1>{GAME_NAME} Codes — Source Checker</h1>
+  <div class="workstation-container">
+    <h1>{GAME_NAME} Codes — Source Checker</h1>
 
-  <!-- Verdict card -->
-  <div class="verdict-card verdict-warn">
-    <div class="verdict-icon" aria-hidden="true">
-      <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <circle cx="10" cy="10" r="8.5" stroke="currentColor" stroke-width="1.5"/>
-        <path d="M10 6v5M10 13.5v.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-      </svg>
+    <!-- Verdict card -->
+    <div class="verdict-card verdict-warn">
+      <div class="verdict-icon" aria-hidden="true">
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="10" cy="10" r="8.5" stroke="currentColor" stroke-width="1.5"/>
+          <path d="M10 6v5M10 13.5v.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <div class="verdict-body">
+        <strong>No public official code feed confirmed.</strong>
+        Active codes are not published here. No official Roblox channel, creator social, or in-game menu has been verified as a code source. Third-party code lists are not copied because they disagree on active/expired codes and redemption flow.
+      </div>
     </div>
-    <div class="verdict-body">
-      <strong>No public official code feed confirmed.</strong>
-      Active codes are not published here. No official Roblox channel, creator social, or in-game menu has been verified as a code source. Third-party code lists are not copied because they disagree on active/expired codes and redemption flow.
+
+    <!-- Last checked strip -->
+    <div class="last-checked-strip">
+      <span class="strip-item">
+        <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true">
+          <circle cx="6" cy="6" r="5" stroke="currentColor" stroke-width="1.2"/>
+          <path d="M6 3.5v2.5l1.5 1" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
+        </svg>
+        Last checked: {EVIDENCE_REVIEW_DATE}
+      </span>
+      <span class="strip-sep">·</span>
+      <span class="strip-item">
+        <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true">
+          <path d="M2 6h8M7 3l3 3-3 3" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        Next check: when official source is reported
+      </span>
     </div>
-  </div>
 
-  <!-- Last checked strip -->
-  <div class="last-checked-strip">
-    <span class="strip-item">
-      <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true">
-        <circle cx="6" cy="6" r="5" stroke="currentColor" stroke-width="1.2"/>
-        <path d="M6 3.5v2.5l1.5 1" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
-      </svg>
-      Last checked: {EVIDENCE_REVIEW_DATE}
-    </span>
-    <span class="strip-sep">·</span>
-    <span class="strip-item">
-      <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true">
-        <path d="M2 6h8M7 3l3 3-3 3" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
-      </svg>
-      Next check: when official source is reported
-    </span>
-  </div>
-
-  <!-- Code source checker -->
-  <h2>Code source checker</h2>
-  <p>
-    Use this table to evaluate any code source you find. No source = no codes published here.
-  </p>
-  <div class="table-wrapper">
-    <table>
-      <thead>
-        <tr>
-          <th>Source channel</th>
-          <th>Status as of {EVIDENCE_REVIEW_DATE}</th>
-          <th>Verdict</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>Roblox game page description</td>
-          <td>No codes listed at check time</td>
-          <td><span class="tick">✓ Official</span></td>
-        </tr>
-        <tr>
-          <td>Creator Discord or announcements</td>
-          <td>No public URL confirmed; social endpoint blocked (401 auth)</td>
-          <td><span class="blocked">✗ Blocked</span></td>
-        </tr>
-        <tr>
-          <td>Official Twitter/X or social link</td>
-          <td>No public URL confirmed; game social endpoint blocked (401 auth)</td>
-          <td><span class="blocked">✗ Blocked</span></td>
-        </tr>
-        <tr>
-          <td>SoraExp Roblox group</td>
-          <td>Group social links endpoint blocked (401 auth); community endpoint returned empty string</td>
-          <td><span class="blocked">✗ Blocked / empty</span></td>
-        </tr>
-        <tr>
-          <td>In-game code redemption UI</td>
-          <td>Requires hands-on play to confirm menu path and field labels</td>
-          <td><span class="unknown">— Needs testing</span></td>
-        </tr>
-        <tr>
-          <td>Third-party aggregator sites</td>
-          <td>Multiple pages found; active/expired lists and rewards disagree across sources</td>
-          <td><span class="conflict">⚠ Conflict</span></td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-
-  <!-- Conflict panel -->
-  <h2>Third-party code list conflicts</h2>
-  <div class="conflict-panel">
-    <div class="conflict-header">
-      <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
-        <path d="M7 1.5L12.5 11.5H1.5L7 1.5Z" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round"/>
-        <path d="M7 5.5v3M7 10v.5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
-      </svg>
-      Active codes disputed across third-party sources
+    <!-- Status cards grid -->
+    <div class="status-grid">
+      <div class="status-card status-unknown">
+        <div class="status-icon" aria-hidden="true">
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M7 2v5M7 9v.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><circle cx="7" cy="7" r="6" stroke="currentColor" stroke-width="1.2"/></svg>
+        </div>
+        <div>
+          <div class="status-label">Official Feed</div>
+          <div class="status-desc">Not confirmed — no official channel verified</div>
+        </div>
+      </div>
+      <div class="status-card status-blocked">
+        <div class="status-icon" aria-hidden="true">
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 2l10 10M12 2L2 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        </div>
+        <div>
+          <div class="status-label">Social Endpoints</div>
+          <div class="status-desc">Blocked / Empty — no public URL confirmed</div>
+        </div>
+      </div>
+      <div class="status-card status-unknown">
+        <div class="status-icon" aria-hidden="true">
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><rect x="2" y="3" width="10" height="8" rx="1.5" stroke="currentColor" stroke-width="1.2"/><path d="M5 6h4M5 8.5h2" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
+        </div>
+        <div>
+          <div class="status-label">In-game UI</div>
+          <div class="status-desc">Needs hands-on testing — menu path unverified</div>
+        </div>
+      </div>
+      <div class="status-card status-warn">
+        <div class="status-icon" aria-hidden="true">
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M7 1.5L12.5 11.5H1.5L7 1.5Z" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round"/><path d="M7 5.5v3M7 10v.5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
+        </div>
+        <div>
+          <div class="status-label">Third-party Lists</div>
+          <div class="status-desc">Conflicting — active/expired codes disagree across sources</div>
+        </div>
+      </div>
     </div>
-    <ul class="conflict-list">
-      <li><strong>Multiple code aggregator pages</strong> (June 2026) — lists of active and expired codes differ in which codes are included, which are marked expired, and what rewards are listed.</li>
-      <li><strong>Redeeming codes</strong> — third-party sources describe different menu paths: some cite <kbd>M</kbd> key + "Codes" button; others describe a character creation flow; no single path is confirmed as official.</li>
-      <li><strong>Active vs expired</strong> — the same code is listed as active on some aggregator pages and expired on others as of the same month.</li>
-    </ul>
-    <div class="conflict-resolution">
-      <strong>Resolution condition:</strong> A verified official Roblox channel, creator post, or documented in-game verification must confirm the active code list and redemption path before anything is published here.
+
+    <!-- Decision panel -->
+    <h2 style="margin-top: var(--space-8)">Can we publish codes?</h2>
+    <div class="decision-panel">
+      <div class="decision-header">Publishing readiness check</div>
+      <div class="decision-row">
+        <span class="decision-label">Active code list</span>
+        <span class="decision-value val-hold">HOLD</span>
+      </div>
+      <div class="decision-row">
+        <span class="decision-label">Redemption steps</span>
+        <span class="decision-value val-hold">HOLD</span>
+      </div>
+      <div class="decision-row">
+        <span class="decision-label">Official source link</span>
+        <span class="decision-value val-source">NEEDS_SOURCE</span>
+      </div>
     </div>
+
+    <!-- Conflict cards -->
+    <h2>Known conflicts with third-party sources</h2>
+    <div class="conflict-cards">
+      <div class="conflict-card">
+        <div class="conflict-card-title">
+          <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M6 1.5L10.5 9.5H1.5L6 1.5Z" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round"/></svg>
+          Different active code lists
+        </div>
+        <div class="conflict-card-body">Multiple aggregator pages (June 2026) include different codes, disagree on which are expired, and list different rewards. No single authoritative list exists.</div>
+      </div>
+      <div class="conflict-card">
+        <div class="conflict-card-title">
+          <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M6 1.5L10.5 9.5H1.5L6 1.5Z" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round"/></svg>
+          Conflicting redemption paths
+        </div>
+        <div class="conflict-card-body">Third-party sources describe different menu paths to redeem codes — some cite the <kbd>M</kbd> key + "Codes" button; others describe a character creation flow. No path is confirmed as official.</div>
+      </div>
+      <div class="conflict-card">
+        <div class="conflict-card-title">
+          <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M6 1.5L10.5 9.5H1.5L6 1.5Z" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round"/></svg>
+          Same code — active vs expired
+        </div>
+        <div class="conflict-card-body">The same code is listed as active on one aggregator and expired on another as of the same month. Cannot determine which is correct without official verification.</div>
+      </div>
+    </div>
+
+    <!-- Safe checklist — now as cards -->
+    <h2>Safe code-checking checklist</h2>
+    <div class="checklist-cards">
+      <div class="checklist-card">
+        <div class="ck-icon ck-pass" aria-hidden="true">
+          <svg width="12" height="12" viewBox="0 0 14 14" fill="none"><path d="M2 7l4 4 6-7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <div class="ck-body">Check the <strong>official Roblox game page description</strong> for pinned codes first.</div>
+      </div>
+      <div class="checklist-card">
+        <div class="ck-icon ck-pass" aria-hidden="true">
+          <svg width="12" height="12" viewBox="0 0 14 14" fill="none"><path d="M2 7l4 4 6-7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <div class="ck-body">Check the <strong>SoraExp Roblox group</strong> announcements if the group page is accessible.</div>
+      </div>
+      <div class="checklist-card">
+        <div class="ck-icon ck-warn" aria-hidden="true">
+          <svg width="12" height="12" viewBox="0 0 14 14" fill="none"><path d="M7 2v5M7 9v.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><circle cx="7" cy="7" r="6" stroke="currentColor" stroke-width="1.2"/></svg>
+        </div>
+        <div class="ck-body"><strong>Third-party code sites:</strong> treat as unverified leads only. Different pages give different active/expired lists.</div>
+      </div>
+      <div class="checklist-card">
+        <div class="ck-icon ck-fail" aria-hidden="true">
+          <svg width="12" height="12" viewBox="0 0 14 14" fill="none"><path d="M2 2l10 10M12 2L2 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        </div>
+        <div class="ck-body"><strong>Never enter a code</strong> from a site you cannot verify as official. Check the URL domain against the creator's known channels.</div>
+      </div>
+    </div>
+
+    <!-- What would unlock this page -->
+    <div class="unlock-panel">
+      <div class="unlock-heading">What would unlock this page?</div>
+      <div class="unlock-items">
+        <div class="unlock-item">
+          <div class="unlock-dot" style="background: #4caf50"></div>
+          <span><strong>Official post</strong> — a verified Roblox channel or creator post listing active codes with redemption path</span>
+        </div>
+        <div class="unlock-item">
+          <div class="unlock-dot" style="background: #4caf50"></div>
+          <span><strong>Verified in-game UI</strong> — documented menu path and field labels confirmed by hands-on testing</span>
+        </div>
+        <div class="unlock-item">
+          <div class="unlock-dot" style="background: #4caf50"></div>
+          <span><strong>Public creator source</strong> — a Discord message, group post, or social media update confirmed as official</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Submit official source -->
+    <h2>Submit an official code source</h2>
+    <p>
+      If you have verified an official Roblox channel that publishes {GAME_NAME} codes,
+      use the <a href="/contact/">correction workflow</a> with the URL and a screenshot of the code announcement.
+      Once confirmed against official sources, the codes page will be updated.
+    </p>
   </div>
-
-  <!-- Safe checklist -->
-  <h2>Safe code-checking checklist</h2>
-  <ul class="safe-checklist">
-    <li>
-      <span class="check-icon check-pass" aria-hidden="true">
-        <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 7l4 4 6-7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      </span>
-      <span>Check the <strong>official Roblox game page description</strong> for pinned codes first.</span>
-    </li>
-    <li>
-      <span class="check-icon check-pass" aria-hidden="true">
-        <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 7l4 4 6-7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      </span>
-      <span>Check the <strong>SoraExp Roblox group</strong> announcements if the group page is accessible.</span>
-    </li>
-    <li>
-      <span class="check-icon check-warn" aria-hidden="true">
-        <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M7 2v5M7 9v.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><circle cx="7" cy="7" r="6" stroke="currentColor" stroke-width="1.2"/></svg>
-      </span>
-      <span><strong>Third-party code sites:</strong> treat as unverified leads only. Different pages give different active/expired lists.</span>
-    </li>
-    <li>
-      <span class="check-icon check-fail" aria-hidden="true">
-        <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 2l10 10M12 2L2 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
-      </span>
-      <span><strong>Never enter a code</strong> from a site you cannot verify as official. Check the URL domain against the creator's known channels.</span>
-    </li>
-  </ul>
-
-  <!-- Submit official source -->
-  <h2>Submit an official code source</h2>
-  <p>
-    If you have verified an official Roblox channel that publishes {GAME_NAME} codes,
-    use the <a href="/contact/">correction workflow</a> with the URL and a screenshot of the code announcement.
-    Once confirmed against official sources, the codes page will be updated.
-  </p>
 </ContentLayout>
 
 <style>
@@ -185,7 +221,7 @@ const pageSourceIds = ['DB-SERP-002', 'DB-LEAD-005', 'DB-LEAD-006', 'DB-LEAD-007
     gap: var(--space-3);
     font-size: 0.8125rem;
     color: var(--color-text-muted);
-    margin-bottom: var(--space-8);
+    margin-bottom: var(--space-6);
     flex-wrap: wrap;
   }
   .strip-item {
@@ -195,93 +231,8 @@ const pageSourceIds = ['DB-SERP-002', 'DB-LEAD-005', 'DB-LEAD-006', 'DB-LEAD-007
   }
   .strip-sep { opacity: 0.5; }
 
-  .tick { color: #4caf50; font-weight: 700; }
-  .blocked { color: #e05555; font-weight: 700; }
-  .unknown { color: var(--color-text-muted); font-weight: 600; }
-  .conflict { color: var(--color-warning-text); font-weight: 700; }
-
-  /* Conflict panel */
-  .conflict-panel {
-    background: var(--color-surface);
-    border: 1px solid var(--color-warning-border);
-    border-radius: 8px;
-    padding: var(--space-5);
-    margin-bottom: var(--space-8);
-  }
-  .conflict-header {
-    display: flex;
-    align-items: center;
-    gap: var(--space-2);
-    font-size: 0.8125rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.06em;
-    color: var(--color-warning-text);
-    margin-bottom: var(--space-4);
-  }
-  .conflict-list {
-    list-style: none;
-    padding: 0;
-    margin-bottom: var(--space-4);
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-3);
-  }
-  .conflict-list li {
-    font-size: 0.875rem;
-    color: var(--color-text-muted);
-    padding-left: var(--space-4);
-    border-left: 2px solid var(--color-warning-border);
-    margin: 0;
-  }
-  .conflict-list li strong { color: var(--color-text); }
-  .conflict-resolution {
-    background: var(--color-warning-bg);
-    border: 1px solid var(--color-warning-border);
-    border-radius: 6px;
-    padding: var(--space-3) var(--space-4);
-    font-size: 0.875rem;
-    color: var(--color-text);
-  }
-
-  /* Safe checklist */
-  .safe-checklist {
-    list-style: none;
-    padding: 0;
-    margin-bottom: var(--space-8);
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-3);
-  }
-  .safe-checklist li {
-    display: flex;
-    align-items: flex-start;
-    gap: var(--space-3);
-    font-size: 0.9rem;
-    line-height: 1.55;
-    margin: 0;
-  }
-  .check-icon {
-    width: 1.25rem;
-    height: 1.25rem;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-    margin-top: 2px;
-  }
-  .check-pass {
-    background: rgba(76, 175, 80, 0.15);
-    color: #4caf50;
-  }
-  .check-warn {
-    background: rgba(201, 137, 10, 0.15);
-    color: var(--color-warning-text);
-  }
-  .check-fail {
-    background: rgba(224, 85, 85, 0.15);
-    color: #e05555;
+  h2 {
+    margin-top: 0;
   }
 
   kbd {
