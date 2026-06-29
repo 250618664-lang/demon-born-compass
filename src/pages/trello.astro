@@ -5,19 +5,19 @@ import { GAME_NAME, EVIDENCE_REVIEW_DATE } from '../data/site';
 const pageSourceIds = ['DB-SERP-001', 'DB-SERP-002', 'DB-API-009', 'DB-API-010', 'DB-API-011', 'DB-LEAD-001', 'DB-LEAD-002'];
 
 const verifiers = [
-  { name: 'Roblox game page', place: 'roblox.com/games/79833666916700', found: 'No Trello link in description', trust: 'Cannot use as fact', badge: 'blocked', note: 'No Trello linked' },
-  { name: 'Roblox game social links API', place: 'games.roblox.com/v1/games/…/social-links/list', found: 'Not publicly visible — authentication required', trust: 'Cannot use as fact', badge: 'blocked', note: 'Blocked — do not bypass' },
-  { name: 'SoraExp Roblox group page', place: 'groups.roblox.com/v1/groups/34709042', found: 'Group metadata only; no Trello links', trust: 'Cannot use as fact', badge: 'blocked', note: 'No Trello linked' },
-  { name: 'SoraExp group social links API', place: 'groups.roblox.com/v1/groups/…/social-links', found: 'Not publicly visible — authentication required', trust: 'Cannot use as fact', badge: 'blocked', note: 'Blocked — do not bypass' },
-  { name: 'SoraExp community links API', place: 'apis.roblox.com/community-links/v1/groups/…/community', found: 'Returned empty string', trust: 'Cannot use as fact', badge: 'empty', note: 'No link confirmed' },
+  { name: 'Roblox game page', place: 'roblox.com/games/79833666916700', found: 'No Trello link in description', trust: 'Cannot use as official', badge: 'blocked', note: 'No Trello linked' },
+  { name: 'Roblox game social links', place: 'games.roblox.com/v1/games/…/social-links/list', found: 'Not publicly visible — authentication required', trust: 'Cannot use as fact', badge: 'blocked', note: 'Not publicly visible — do not bypass' },
+  { name: 'SoraExp Roblox group page', place: 'groups.roblox.com/v1/groups/34709042', found: 'Group metadata only; no Trello links found', trust: 'Cannot use as official', badge: 'blocked', note: 'No Trello linked' },
+  { name: 'SoraExp group social links', place: 'groups.roblox.com/v1/groups/…/social-links', found: 'Not publicly visible — authentication required', trust: 'Cannot use as fact', badge: 'blocked', note: 'Not publicly visible — do not bypass' },
+  { name: 'SoraExp community links', place: 'apis.roblox.com/community-links/v1/groups/…/community', found: 'Returned empty — no link confirmed', trust: 'Cannot use as fact', badge: 'empty', note: 'No link confirmed' },
   { name: 'Pocket Tactics article', place: 'pockettactics.com', found: 'Mentions "no active Trello board or wiki yet" at time of writing', trust: 'Lead only — not verified', badge: 'tbd', note: 'Out of date / lead only' },
 ];
 
 const verifySteps = [
   { num: 1, text: 'Check the official Roblox game page description for any pinned Trello link published by the creator.' },
-  { num: 2, text: 'Check the official SoraExp Roblox group page (<code>groups.roblox.com/v1/groups/34709042</code>) for a pinned Trello URL.' },
-  { num: 3, text: 'Verify the Trello board owner matches the creator\'s branding and is not a fan-created board.' },
-  { num: 4, text: 'Check that the board is actively maintained and linked from a verifiable official channel.' },
+  { num: 2, text: 'Check the official SoraExp Roblox group page for a pinned Trello URL.' },
+  { num: 3, text: 'Treat all other Trello links as unverified unless the creator links them directly.' },
+  { num: 4, text: 'Verify the Trello board owner matches the creator\'s branding and is not a fan-created board.' },
 ];
 ---
 
@@ -46,21 +46,25 @@ const verifySteps = [
       </p>
     </div>
 
-    <!-- What you should do now -->
-    <h2>What you should do now</h2>
-    <div class="step-cards">
-      <div class="step-card">
-        <div class="step-num">1</div>
-        <div class="step-body">Check the <strong>official Roblox game page</strong> description for a pinned Trello link.</div>
-      </div>
-      <div class="step-card">
-        <div class="step-num">2</div>
-        <div class="step-body">Check the <strong>SoraExp Roblox group</strong> page for a pinned Trello link.</div>
-      </div>
-      <div class="step-card">
-        <div class="step-num">3</div>
-        <div class="step-body">Treat all other Trello links as unverified unless the creator links them directly.</div>
-      </div>
+    <!-- Official link check — player language, lower technical -->
+    <h2>Official link check</h2>
+    <p style="color: var(--color-text-muted); font-size: 0.9375rem; margin-bottom: var(--space-5)">
+      Last checked: {EVIDENCE_REVIEW_DATE}. We checked the places where official Trello links would normally appear.
+    </p>
+    <div class="verifier-board">
+      {verifiers.map(v => (
+        <div class="verifier-card">
+          <div>
+            <div class="verifier-name">{v.name}</div>
+            <div class="verifier-endpoint">{v.place}</div>
+            <div class="verifier-result">{v.found}</div>
+          </div>
+          <div class="verifier-right">
+            <span class={`verifier-badge badge-${v.badge}`}>{v.note}</span>
+            <span class="verifier-fact-label">{v.trust}</span>
+          </div>
+        </div>
+      ))}
     </div>
 
     <!-- What not to trust yet -->
@@ -71,29 +75,25 @@ const verifySteps = [
       <div class="dont-trust-item">Roadmap or update claims from unknown boards</div>
     </div>
 
-    <!-- Status cards — player language -->
-    <h2>Where we checked for official links</h2>
-    <p style="color: var(--color-text-muted); font-size: 0.9375rem; margin-bottom: var(--space-5)">
-      Last checked: {EVIDENCE_REVIEW_DATE}. We checked the places where official Trello links would normally appear.
-    </p>
-    <div class="status-grid">
-      <div class="status-card status-blocked">
-        <div class="status-icon" aria-hidden="true">
-          <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 2l10 10M12 2L2 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+    <!-- Step cards: verify in order -->
+    <h2>If you find a Trello link, verify in this order</h2>
+    <div class="step-cards">
+      {verifySteps.map(s => (
+        <div class="step-card">
+          <div class="step-num">{s.num}</div>
+          <div class="step-body" set:html={s.text}></div>
         </div>
-        <div>
-          <div class="status-label">Social endpoints</div>
-          <div class="status-desc">Not publicly visible — authentication required, cannot bypass</div>
-        </div>
+      ))}
+    </div>
+
+    <!-- Blocked endpoint warning — reduced technical -->
+    <div class="status-card status-blocked" style="margin-bottom: var(--space-6)">
+      <div class="status-icon" aria-hidden="true">
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 2l10 10M12 2L2 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
       </div>
-      <div class="status-card status-empty">
-        <div class="status-icon" aria-hidden="true">
-          <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="6" stroke="currentColor" stroke-width="1.2" stroke-dasharray="2 2"/></svg>
-        </div>
-        <div>
-          <div class="status-label">Community endpoint</div>
-          <div class="status-desc">Empty string — no official Trello confirmed</div>
-        </div>
+      <div>
+        <div class="status-label">Why some links are not publicly visible</div>
+        <div class="status-desc">Some Roblox API endpoints require a login session to access — this is intentional. We do not bypass authentication requirements.</div>
       </div>
     </div>
 
@@ -113,55 +113,6 @@ const verifySteps = [
         <span class="decision-label">Community links API result</span>
         <span class="decision-value val-blocked">Not publicly visible</span>
       </div>
-    </div>
-
-    <!-- Link verifier board — player language -->
-    <h2>Official link check</h2>
-    <div class="verifier-board">
-      {verifiers.map(v => (
-        <div class="verifier-card">
-          <div>
-            <div class="verifier-name">{v.name}</div>
-            <div class="verifier-endpoint">{v.place}</div>
-            <div class="verifier-result">{v.found}</div>
-          </div>
-          <div class="verifier-right">
-            <span class={`verifier-badge badge-${v.badge}`}>{v.note}</span>
-            <span class="verifier-fact-label">{v.trust}</span>
-          </div>
-        </div>
-      ))}
-    </div>
-
-    <!-- Step cards: verify in order -->
-    <h2>If you find a Trello link, verify in this order</h2>
-    <div class="step-cards">
-      {verifySteps.map(s => (
-        <div class="step-card">
-          <div class="step-num">{s.num}</div>
-          <div class="step-body" set:html={s.text}></div>
-        </div>
-      ))}
-    </div>
-
-    <!-- Blocked endpoint warning -->
-    <div class="status-card status-blocked" style="margin-bottom: var(--space-6)">
-      <div class="status-icon" aria-hidden="true">
-        <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 2l10 10M12 2L2 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
-      </div>
-      <div>
-        <div class="status-label">Why some links are not publicly visible</div>
-        <div class="status-desc">Some Roblox API endpoints require a login session to access — this is intentional. We do not bypass authentication requirements.</div>
-      </div>
-    </div>
-
-    <!-- What this site will not do -->
-    <h2>What this site will not do</h2>
-    <div class="not-confirmed-cards">
-      <div class="not-confirmed-item">Will not publish a Trello link unless verified as official by an official Roblox or creator channel.</div>
-      <div class="not-confirmed-item">Will not list a fan Trello board as "official."</div>
-      <div class="not-confirmed-item">Will not create or mirror any fan Trello board.</div>
-      <div class="not-confirmed-item">Will not attempt to bypass Roblox authentication requirements.</div>
     </div>
 
     <!-- Can / Cannot yet -->
@@ -191,7 +142,7 @@ const verifySteps = [
 
     <!-- Alternatives -->
     <h2>While no official Trello exists</h2>
-    <div class="card-grid" style="margin-bottom: var(--space-8)">
+    <div class="card-grid">
       <a href="/wiki/" class="card">
         <h2>Wiki Status</h2>
         <p>Current wiki landscape and official source gaps.</p>
@@ -236,15 +187,6 @@ const verifySteps = [
     padding: 1px 5px;
     border-radius: 3px;
     color: var(--color-text);
-  }
-
-  .status-empty {
-    border-left-color: var(--color-text-muted);
-    background: rgba(139, 144, 168, 0.05);
-  }
-  .status-empty .status-icon {
-    background: rgba(139, 144, 168, 0.15);
-    color: var(--color-text-muted);
   }
 
   .card-grid {

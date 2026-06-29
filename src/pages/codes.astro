@@ -16,22 +16,62 @@ const pageSourceIds = ['DB-SERP-002', 'DB-LEAD-005', 'DB-LEAD-006', 'DB-LEAD-007
   <div class="workstation-container">
     <h1>Demon Born Codes</h1>
 
-    <!-- Quick Answer Panel -->
-    <div class="quick-answer-panel">
-      <div class="qap-label">
-        <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true">
-          <circle cx="6" cy="6" r="5" stroke="currentColor" stroke-width="1.2"/>
-          <path d="M6 3.5v2.5l1.5 1" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
-        </svg>
-        Quick Answer
+    <!-- Quick Answer + locked slots — primary section -->
+    <div class="answer-strip">
+      <div>
+        <strong>Quick answer: no verified active codes yet.</strong>
+        <span>This area becomes the copy panel only after an official or tested source exists.</span>
       </div>
-      <p class="qap-body">
-        No verified official Demon Born code source is public right now. We do not list copied codes because different sites disagree on which ones are active.
-      </p>
+      <span class="pill">Checked {EVIDENCE_REVIEW_DATE}</span>
     </div>
 
+    <!-- Status cards -->
+    <div class="three-grid" style="margin-top: 22px; grid-template-columns: repeat(3, 1fr);">
+      <div class="status-card good">
+        <strong>Official source</strong>
+        <p>No public official code feed is visible in this state.</p>
+      </div>
+      <div class="status-card warn">
+        <strong>Other lists conflict</strong>
+        <p>Use them to discover demand, not as publishable facts.</p>
+      </div>
+      <div class="status-card bad">
+        <strong>Redemption flow</strong>
+        <p>Do not publish steps until the in-game UI is verified.</p>
+      </div>
+    </div>
+
+    <!-- Locked code slots — primary tool component -->
+    <section class="panel section" style="margin-top: 22px">
+      <div class="section-head">
+        <div>
+          <h2 style="margin: 0">Code slots</h2>
+          <p style="margin: 4px 0 0; color: var(--muted); font-size: 14px;">
+            Placeholder slots showing where verified codes would appear. No real code values are published.
+          </p>
+        </div>
+        <span class="pill" style="background: rgba(224,85,85,0.1); border-color: rgba(224,85,85,0.3); color: #e05555;">Not safe yet</span>
+      </div>
+      <div class="code-list">
+        <div class="code-row">
+          <div>
+            <span class="code-token">OFFICIAL-CODE-SLOT</span>
+            <small>Locked placeholder. It shows where verified codes would appear, without publishing fake values.</small>
+          </div>
+          <button class="copy-button" type="button" disabled>Locked</button>
+        </div>
+        <div class="code-row">
+          <div>
+            <span class="code-token">EXPIRED-SLOT</span>
+            <small>Expired codes should appear only after they were once verified as active.</small>
+          </div>
+          <button class="copy-button" type="button" disabled>Locked</button>
+        </div>
+      </div>
+    </section>
+
     <!-- What you should do now -->
-    <h2>What you should do now</h2>
+    <h2 style="margin-top: var(--space-10)">What you should do now</h2>
     <div class="step-cards">
       <div class="step-card">
         <div class="step-num">1</div>
@@ -56,7 +96,7 @@ const pageSourceIds = ['DB-SERP-002', 'DB-LEAD-005', 'DB-LEAD-006', 'DB-LEAD-007
       <div class="dont-trust-item">Same code listed as active on one site and expired on another</div>
     </div>
 
-    <!-- Source status — player language -->
+    <!-- Source status cards -->
     <h2>How we check code sources</h2>
     <p style="color: var(--color-text-muted); font-size: 0.9375rem; margin-bottom: var(--space-5)">
       Last checked: {EVIDENCE_REVIEW_DATE}. We check these places so you do not have to guess.
@@ -227,5 +267,10 @@ const pageSourceIds = ['DB-SERP-002', 'DB-LEAD-005', 'DB-LEAD-006', 'DB-LEAD-007
     font-family: var(--font-mono);
     font-size: 0.8125rem;
     color: var(--color-text);
+  }
+
+  .three-grid {
+    display: grid;
+    gap: 12px;
   }
 </style>

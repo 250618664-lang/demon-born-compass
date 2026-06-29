@@ -16,8 +16,8 @@ const assetGroups = [
 
 const playerCards = [
   { href: '/codes/', title: 'Looking for codes?', desc: 'No verified official code source is public yet. Check what we confirmed before using any code list.', btn: 'Check code status' },
-  { href: '/wiki/', title: 'Looking for wiki or Trello?', desc: 'We separate official links from fan pages and fake results. Only official links get the green light.', btn: 'Check official links' },
-  { href: '/beginner-guide/', title: 'Starting the game?', desc: 'Official key labels are confirmed. Gameplay details like first quest and stats are still limited.', btn: 'View starter checklist' },
+  { href: '/controls/', title: 'Need controls?', desc: '9 key labels confirmed from official Roblox description. Mechanics like cooldown and stamina are not verified yet.', btn: 'See controls' },
+  { href: '/beginner-guide/', title: 'Starting the game?', desc: 'Official key labels confirmed. Gameplay details like first quest and stats are still limited.', btn: 'View starter checklist' },
 ];
 ---
 
@@ -26,161 +26,103 @@ const playerCards = [
   description={SITE_DESCRIPTION}
   canonicalUrl="/"
 >
-  <div class="prose-container">
+  <main class="shell">
 
-    <div class="info-block" style="margin-bottom: var(--space-4)">
-      <strong>Unofficial evidence-backed player guide.</strong>
-      Not affiliated with Roblox Corporation, SoraExp, or Demon Born creators.
-      {ADS_ENABLED ? 'This site displays third-party ads.' : 'Ads are disabled. No analytics or tracking scripts.'}
-    </div>
+    <!-- Home Task Hub — hero grid -->
+    <section class="hero-grid">
+      <div class="panel hero">
+        <span class="eyebrow"><span class="dot"></span> Home is a task hub</span>
+        <h1>Demon Born Help Hub</h1>
+        <p class="lead">A normal guide site should not put every guide on one endless page. Home gives players fast routes to the answer they searched for.</p>
 
-    <!-- Quick Answer Panel -->
-    <div class="quick-answer-panel">
-      <div class="qap-label">
-        <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true">
-          <circle cx="6" cy="6" r="5" stroke="currentColor" stroke-width="1.2"/>
-          <path d="M6 3.5v2.5l1.5 1" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
-        </svg>
-        Quick Answer
-      </div>
-      <p class="qap-body">
-        Use this site to check what is safe to trust about Demon Born right now: codes, wiki, Trello, controls, and starter facts.
-      </p>
-    </div>
-
-    <!-- Player Action Grid -->
-    <h2 class="section-heading" style="margin-top: var(--space-8)">What do you need?</h2>
-    <div class="player-action-grid">
-      {playerCards.map(card => (
-        <a href={card.href} class="player-action-card">
-          <h3 class="pac-title">{card.title}</h3>
-          <p class="pac-desc">{card.desc}</p>
-          <span class="pac-btn">{card.btn} →</span>
-        </a>
-      ))}
-    </div>
-
-    <!-- Asset map — player language -->
-    <div class="section-with-label" style="margin-top: var(--space-10)">
-      <h2 style="margin: 0">What can I use right now?</h2>
-    </div>
-    <p style="color: var(--color-text-muted); font-size: 0.9375rem; margin-bottom: var(--space-5)">
-      Last checked {lastChecked}. Status reflects what we have confirmed from official sources.
-    </p>
-    <div class="asset-board">
-      {assetGroups.map(g => (
-        <div class="asset-card">
-          <div class="asset-header">
-            <span class="asset-group-name">{g.group}</span>
-            <span class={`simple-status-pill ${g.pillClass}`}>{g.playerLabel}</span>
-          </div>
-          <ul class="asset-items">
-            {g.items.map(item => (
-              <li>{item}</li>
-            ))}
-          </ul>
+        <!-- 3 player task cards -->
+        <div class="task-grid">
+          <a class="task-card" href={playerCards[0].href}>
+            <strong>{playerCards[0].title}</strong>
+            <span>{playerCards[0].desc}</span>
+          </a>
+          <a class="task-card" href={playerCards[1].href}>
+            <strong>{playerCards[1].title}</strong>
+            <span>{playerCards[1].desc}</span>
+          </a>
+          <a class="task-card" href={playerCards[2].href}>
+            <strong>{playerCards[2].title}</strong>
+            <span>{playerCards[2].desc}</span>
+          </a>
         </div>
-      ))}
-    </div>
+      </div>
 
-    <!-- Quick navigation -->
-    <h2 class="section-heading">All pages</h2>
-    <div class="card-grid">
-      <a href="/codes/" class="card">
-        <h2>Codes Status</h2>
-        <p>Source checker — what we verified and what we are still waiting on.</p>
-      </a>
-      <a href="/wiki/" class="card">
-        <h2>Wiki Status</h2>
-        <p>Official vs fan wiki — what is safe to trust.</p>
-      </a>
-      <a href="/trello/" class="card">
-        <h2>Trello Status</h2>
-        <p>Official Trello check — no unverified links published.</p>
-      </a>
-      <a href="/controls/" class="card">
-        <h2>Controls</h2>
-        <p>9 confirmed key labels from the official Roblox description.</p>
-      </a>
-      <a href="/beginner-guide/" class="card">
-        <h2>Starter Checklist</h2>
-        <p>Safe facts before you play — not a full walkthrough.</p>
-      </a>
-      <a href="/sources/" class="card">
-        <h2>How We Check This</h2>
-        <p>Evidence methods, blocked checks, and update timeline.</p>
-      </a>
-    </div>
+      <!-- Side panel -->
+      <aside class="panel side">
+        <!-- Compact status summary -->
+        <div style="margin-bottom: 14px">
+          <h2 style="margin: 0 0 12px 0; font-size: 15px">What can I use right now?</h2>
+          <div style="display: flex; flex-direction: column; gap: 8px;">
+            <div style="display: flex; align-items: center; gap: 8px; font-size: 13px;">
+              <span style="width: 7px; height: 7px; border-radius: 50%; background: #55e08f; box-shadow: 0 0 8px #55e08f; flex-shrink: 0;"></span>
+              <span style="color: var(--muted);">Controls: <strong style="color: var(--text)">can use now</strong></span>
+            </div>
+            <div style="display: flex; align-items: center; gap: 8px; font-size: 13px;">
+              <span style="width: 7px; height: 7px; border-radius: 50%; background: #c9890a; flex-shrink: 0;"></span>
+              <span style="color: var(--muted);">Codes: <strong style="color: var(--text)">not safe yet / no official source</strong></span>
+            </div>
+            <div style="display: flex; align-items: center; gap: 8px; font-size: 13px;">
+              <span style="width: 7px; height: 7px; border-radius: 50%; background: #c9890a; flex-shrink: 0;"></span>
+              <span style="color: var(--muted);">Wiki/Trello: <strong style="color: var(--text)">link check only</strong></span>
+            </div>
+          </div>
+          <p style="margin: 10px 0 0; font-size: 11px; color: var(--quiet);">Last checked {lastChecked}</p>
+        </div>
 
-  </div>
+        <!-- Unofficial disclaimer — lower visual weight -->
+        <div style="padding: 12px; background: var(--soft); border: 1px solid var(--line); border-radius: var(--radius);">
+          <p style="margin: 0; font-size: 11px; color: var(--quiet); line-height: 1.5;">
+            Unofficial evidence-backed guide. Not affiliated with Roblox Corporation or SoraExp.
+            {ADS_ENABLED ? 'Third-party ads may appear.' : 'Ads are disabled. No analytics or tracking.'}
+          </p>
+        </div>
+      </aside>
+    </section>
+
+    <!-- All pages route cards -->
+    <section class="panel section" style="margin-top: 22px">
+      <div class="section-head">
+        <div><h2 style="margin: 0">All pages</h2><p style="margin: 4px 0 0; color: var(--muted); font-size: 14px;">Pick what you need — each page covers one search intent.</p></div>
+        <span class="pill">Quick routes</span>
+      </div>
+      <div class="route">
+        <a href="/codes/"><b>01</b><span><strong>/codes/</strong><br />Codes search intent — source status and safe checklist.</span></a>
+        <a href="/controls/"><b>02</b><span><strong>/controls/</strong><br />Key grid with confirmed labels and filter buttons.</span></a>
+        <a href="/beginner-guide/"><b>03</b><span><strong>/beginner-guide/</strong><br />Starter checklist and confirmed facts before you play.</span></a>
+        <a href="/wiki/"><b>04</b><span><strong>/wiki/</strong><br />Official vs fan wiki — what is safe to trust.</span></a>
+        <a href="/trello/"><b>05</b><span><strong>/trello/</strong><br />Official Trello link check — no unverified links published.</span></a>
+        <a href="/sources/"><b>06</b><span><strong>/sources/</strong><br />Evidence methods and source registry.</span></a>
+      </div>
+    </section>
+
+    <!-- Asset status map -->
+    <section class="panel section" style="margin-top: 22px">
+      <div class="section-head">
+        <div><h2 style="margin: 0">Content status map</h2><p style="margin: 4px 0 0; color: var(--muted); font-size: 14px;">What is safe to use and what is still unverified.</p></div>
+        <span class="pill">Evidence-safe</span>
+      </div>
+      <div class="asset-board">
+        {assetGroups.map(g => (
+          <div class="asset-card">
+            <div class="asset-header">
+              <span class="asset-group-name">{g.group}</span>
+              <span class={`simple-status-pill ${g.pillClass}`}>{g.playerLabel}</span>
+            </div>
+            <ul class="asset-items">
+              {g.items.map(item => (
+                <li>{item}</li>
+              ))}
+            </ul>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <p class="footer-note">Demon Born Compass — unofficial evidence-backed player guide. Ads are disabled. No analytics or tracking scripts.</p>
+  </main>
 </BaseLayout>
-
-<style>
-  /* Asset board */
-  .asset-board {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(13rem, 1fr));
-    gap: var(--space-3);
-    margin-bottom: var(--space-8);
-  }
-  .asset-card {
-    background: var(--color-surface);
-    border: 1px solid var(--color-border);
-    border-radius: 8px;
-    padding: var(--space-4);
-    border-left-width: 3px;
-    border-left-color: var(--color-border);
-  }
-  .asset-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: var(--space-2);
-    margin-bottom: var(--space-3);
-    flex-wrap: wrap;
-  }
-  .asset-group-name {
-    font-size: 0.8125rem;
-    font-weight: 600;
-    color: var(--color-text);
-  }
-  .asset-items {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-  }
-  .asset-items li {
-    font-size: 0.75rem;
-    color: var(--color-text-muted);
-    padding-left: 0.75rem;
-    position: relative;
-    margin: 0;
-  }
-  .asset-items li::before {
-    content: '–';
-    position: absolute;
-    left: 0;
-    color: var(--color-border);
-  }
-
-  /* Section headings */
-  .section-heading {
-    margin-top: var(--space-10);
-    margin-bottom: var(--space-3);
-  }
-
-  /* Mobile */
-  @media (max-width: 600px) {
-    .asset-board {
-      grid-template-columns: 1fr 1fr;
-    }
-  }
-  @media (max-width: 400px) {
-    .asset-board {
-      grid-template-columns: 1fr;
-    }
-  }
-</style>

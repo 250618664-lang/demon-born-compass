@@ -5,11 +5,11 @@ import { EVIDENCE_REVIEW_DATE } from '../data/site';
 const pageSourceIds = ['DB-SERP-001', 'DB-SERP-002', 'DB-ROBLOX-001', 'DB-API-001', 'DB-API-009', 'DB-API-010', 'DB-API-011'];
 
 const verifiers = [
-  { name: 'Roblox game page', place: 'roblox.com/games/79833666916700', found: 'No wiki/Trello link in description', trust: 'Cannot trust as official', badge: 'blocked', note: 'No wiki linked' },
-  { name: 'Roblox game social links API', place: 'games.roblox.com/v1/games/…/social-links/list', found: 'Not publicly visible — authentication required', trust: 'Cannot use as fact', badge: 'blocked', note: 'Blocked — do not bypass' },
-  { name: 'SoraExp Roblox group page', place: 'groups.roblox.com/v1/groups/34709042', found: 'Group metadata only; no wiki/Trello links', trust: 'Cannot use as fact', badge: 'blocked', note: 'No wiki linked' },
-  { name: 'SoraExp group social links API', place: 'groups.roblox.com/v1/groups/…/social-links', found: 'Not publicly visible — authentication required', trust: 'Cannot use as fact', badge: 'blocked', note: 'Blocked — do not bypass' },
-  { name: 'SoraExp community links API', place: 'apis.roblox.com/community-links/v1/groups/…/community', found: 'Returned empty string', trust: 'Cannot use as fact', badge: 'empty', note: 'No link confirmed' },
+  { name: 'Roblox game page', place: 'roblox.com/games/79833666916700', found: 'No wiki/Trello link in description', trust: 'Cannot use as official', badge: 'blocked', note: 'No wiki linked' },
+  { name: 'Roblox game social links', place: 'games.roblox.com/v1/games/…/social-links/list', found: 'Not publicly visible — authentication required', trust: 'Cannot use as fact', badge: 'blocked', note: 'Not publicly visible — do not bypass' },
+  { name: 'SoraExp Roblox group page', place: 'groups.roblox.com/v1/groups/34709042', found: 'Group metadata only; no wiki/Trello links found', trust: 'Cannot use as official', badge: 'blocked', note: 'No wiki linked' },
+  { name: 'SoraExp group social links', place: 'groups.roblox.com/v1/groups/…/social-links', found: 'Not publicly visible — authentication required', trust: 'Cannot use as fact', badge: 'blocked', note: 'Not publicly visible — do not bypass' },
+  { name: 'SoraExp community links', place: 'apis.roblox.com/community-links/v1/groups/…/community', found: 'Returned empty — no link confirmed', trust: 'Cannot use as fact', badge: 'empty', note: 'No link confirmed' },
   { name: 'Fan wiki: demonbornwiki.wiki', place: 'demonbornwiki.wiki', found: 'Wiki exists; not linked from any official channel', trust: 'Not official — fan page only', badge: 'thirdparty', note: 'Community / third-party only' },
 ];
 
@@ -47,33 +47,7 @@ const serpResults = [
       </p>
     </div>
 
-    <!-- What you should do now -->
-    <h2>What you should do now</h2>
-    <div class="step-cards">
-      <div class="step-card">
-        <div class="step-num">1</div>
-        <div class="step-body">Use this page to <strong>check whether a wiki is official</strong> before trusting any facts from it.</div>
-      </div>
-      <div class="step-card">
-        <div class="step-num">2</div>
-        <div class="step-body">Do not treat a <code>.wiki</code> or <code>.fandom.com</code> page as official unless the creator links it from the Roblox game page or verified group.</div>
-      </div>
-      <div class="step-card">
-        <div class="step-num">3</div>
-        <div class="step-body">Use confirmed facts on this site for now — they are traceable to official sources.</div>
-      </div>
-    </div>
-
-    <!-- What not to trust yet -->
-    <h2>What not to trust yet</h2>
-    <div class="dont-trust-grid">
-      <div class="dont-trust-item">Fan wiki pages claiming complete or verified data</div>
-      <div class="dont-trust-item">Best builds, tier lists, or rankings without cited official source</div>
-      <div class="dont-trust-item">Wiki pages that copy codes from third-party aggregators</div>
-      <div class="dont-trust-item">Any .fandom.com page not clearly linked by the creator</div>
-    </div>
-
-    <!-- Official link check — player language -->
+    <!-- Official link check — player language, lower technical -->
     <h2>Official link check</h2>
     <p style="color: var(--color-text-muted); font-size: 0.9375rem; margin-bottom: var(--space-5)">
       Last checked: {EVIDENCE_REVIEW_DATE}. We checked the places where official links would appear.
@@ -137,6 +111,15 @@ const serpResults = [
         </div>
         <div class="ck-body"><strong>Red flag:</strong> A wiki that lists codes, best builds, tier lists, or boss guides with no cited official source. Verify each fact independently.</div>
       </div>
+    </div>
+
+    <!-- What not to trust yet -->
+    <h2>What not to trust yet</h2>
+    <div class="dont-trust-grid">
+      <div class="dont-trust-item">Fan wiki pages claiming complete or verified data</div>
+      <div class="dont-trust-item">Best builds, tier lists, or rankings without cited official source</div>
+      <div class="dont-trust-item">Wiki pages that copy codes from third-party aggregators</div>
+      <div class="dont-trust-item">Any .fandom.com page not clearly linked by the creator</div>
     </div>
 
     <!-- Can / Cannot yet -->
