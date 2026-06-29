@@ -1,6 +1,5 @@
 ---
 import ContentLayout from '../layouts/ContentLayout.astro';
-import Ads from '../components/Ads.astro';
 import { GAME_NAME } from '../data/site';
 
 const pageSourceIds = ['DB-TRENDS-001', 'DB-SERP-001', 'DB-LEAD-001', 'DB-LEAD-002'];
@@ -48,8 +47,12 @@ const pageSourceIds = ['DB-TRENDS-001', 'DB-SERP-001', 'DB-LEAD-001', 'DB-LEAD-0
     </span>
   </div>
 
-  <!-- How to redeem -->
-  <h2>How to redeem codes</h2>
+  <!-- Redemption status -->
+  <h2>Code redemption status</h2>
+  <p>
+    No official code feed or in-game redemption flow has been verified yet. The steps below
+    are a safe checklist to use only if an official code source or in-game code menu is confirmed.
+  </p>
   <ol class="redeem-steps">
     <li>
       <span class="step-num">1</span>
@@ -69,21 +72,21 @@ const pageSourceIds = ['DB-TRENDS-001', 'DB-SERP-001', 'DB-LEAD-001', 'DB-LEAD-0
       <span class="step-num">3</span>
       <div class="step-body">
         <strong>Look for a Codes or Settings option</strong>
-        Navigate to the Codes section in the menu (location may vary by beta version).
+        Check whether the menu contains a Codes or Settings option. This location has not been hands-on verified.
       </div>
     </li>
     <li>
       <span class="step-num">4</span>
       <div class="step-body">
         <strong>Enter your code</strong>
-        Type the code exactly as given and press Enter or confirm.
+        Only enter codes from a verified official source. Do not copy codes from unverified aggregators.
       </div>
     </li>
     <li>
       <span class="step-num">5</span>
       <div class="step-body">
         <strong>Confirm reward</strong>
-        If the code is active, you will receive your reward notification in-game.
+        If a redemption flow is confirmed later, this page will document the exact reward confirmation behavior.
       </div>
     </li>
   </ol>
@@ -143,8 +146,6 @@ const pageSourceIds = ['DB-TRENDS-001', 'DB-SERP-001', 'DB-LEAD-001', 'DB-LEAD-0
     use the <a href="/contact/">correction workflow</a> with the URL.
     Once confirmed, the codes page will be updated with active codes and redemption details.
   </p>
-
-  <Ads placement="rectangle" />
 </ContentLayout>
 
 <style>

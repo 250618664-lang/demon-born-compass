@@ -1,6 +1,5 @@
 ---
 import ContentLayout from '../layouts/ContentLayout.astro';
-import Ads from '../components/Ads.astro';
 import { GAME_NAME, CURRENT_VERSION } from '../data/site';
 
 const pageSourceIds = ['DB-API-001'];
@@ -81,12 +80,12 @@ const groups = ['Combat', 'Movement', 'Navigation'];
       a finish move are not yet documented in official sources.
     </li>
     <li>
-      <strong>Defense (F) and Dash (Q):</strong> Standard action-RPG mechanics.
+      <strong>Defense (F) and Dash (Q):</strong> The keys are officially listed.
       Specific effects, cooldowns, and interactions are not yet verified from official sources.
     </li>
     <li>
-      <strong>Lock (ALT):</strong> Target lock is typical for action RPGs with ranged or directional
-      combat. Specific behavior in {GAME_NAME} is not yet tested.
+      <strong>Lock (ALT):</strong> The official description lists a lock key.
+      Specific lock behavior in {GAME_NAME} is not yet tested.
     </li>
   </ul>
 
@@ -97,8 +96,6 @@ const groups = ['Combat', 'Movement', 'Navigation'];
     <li>Finish move conditions, damage, or rewards</li>
     <li>Any class-specific or clan-specific controls</li>
   </ul>
-
-  <Ads placement="rectangle" />
 </ContentLayout>
 
 <style>
