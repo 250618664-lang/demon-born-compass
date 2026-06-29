@@ -5,12 +5,12 @@ import { GAME_NAME, EVIDENCE_REVIEW_DATE } from '../data/site';
 const pageSourceIds = ['DB-SERP-001', 'DB-SERP-002', 'DB-API-009', 'DB-API-010', 'DB-API-011', 'DB-LEAD-001', 'DB-LEAD-002'];
 
 const verifiers = [
-  { name: 'Roblox game page', endpoint: 'roblox.com/games/79833666916700', result: 'No Trello link in description', badge: 'tbd', canFact: false, note: 'No Trello linked' },
-  { name: 'Roblox game social links API', endpoint: 'games.roblox.com/v1/games/…/social-links/list', result: '401 — Authentication token missing', badge: 'blocked', canFact: false, note: 'Blocked — do not bypass' },
-  { name: 'SoraExp Roblox group page', endpoint: 'groups.roblox.com/v1/groups/34709042', result: 'Group metadata only; no Trello links', badge: 'tbd', canFact: false, note: 'No Trello linked' },
-  { name: 'SoraExp group social links API', endpoint: 'groups.roblox.com/v1/groups/…/social-links', result: '401 — Authentication token missing', badge: 'blocked', canFact: false, note: 'Blocked — do not bypass' },
-  { name: 'SoraExp community links API', endpoint: 'apis.roblox.com/community-links/v1/groups/…/community', result: 'Returned empty string', badge: 'empty', canFact: false, note: 'No link confirmed' },
-  { name: 'Pocket Tactics article', endpoint: 'pockettactics.com', result: 'Mentions "no active Trello board or wiki yet" at time of writing', badge: 'tbd', canFact: false, note: 'Out of date / lead only' },
+  { name: 'Roblox game page', place: 'roblox.com/games/79833666916700', found: 'No Trello link in description', trust: 'Cannot use as fact', badge: 'blocked', note: 'No Trello linked' },
+  { name: 'Roblox game social links API', place: 'games.roblox.com/v1/games/…/social-links/list', found: 'Not publicly visible — authentication required', trust: 'Cannot use as fact', badge: 'blocked', note: 'Blocked — do not bypass' },
+  { name: 'SoraExp Roblox group page', place: 'groups.roblox.com/v1/groups/34709042', found: 'Group metadata only; no Trello links', trust: 'Cannot use as fact', badge: 'blocked', note: 'No Trello linked' },
+  { name: 'SoraExp group social links API', place: 'groups.roblox.com/v1/groups/…/social-links', found: 'Not publicly visible — authentication required', trust: 'Cannot use as fact', badge: 'blocked', note: 'Blocked — do not bypass' },
+  { name: 'SoraExp community links API', place: 'apis.roblox.com/community-links/v1/groups/…/community', found: 'Returned empty string', trust: 'Cannot use as fact', badge: 'empty', note: 'No link confirmed' },
+  { name: 'Pocket Tactics article', place: 'pockettactics.com', found: 'Mentions "no active Trello board or wiki yet" at time of writing', trust: 'Lead only — not verified', badge: 'tbd', note: 'Out of date / lead only' },
 ];
 
 const verifySteps = [
@@ -22,51 +22,68 @@ const verifySteps = [
 ---
 
 <ContentLayout
-  title="Trello Status"
-  description="Demon Born Trello board status — no official Trello URL confirmed; social endpoints blocked/empty."
+  title="Demon Born Trello"
+  description="Demon Born Trello board status — no official Trello URL confirmed; how to verify if a Trello link is official."
   canonicalUrl="/trello/"
-  breadcrumb={[{ label: 'Trello Status', url: '/trello/' }]}
-  evidenceNotes="No official Trello URL confirmed; blocked/empty API checks on record"
+  breadcrumb={[{ label: 'Trello', url: '/trello/' }]}
+  evidenceNotes="No official Trello URL confirmed; social endpoints blocked/empty API checks on record"
   sourceIds={pageSourceIds}
 >
   <div class="workstation-container">
-    <h1>{GAME_NAME} Trello — Official Verifier</h1>
+    <h1>Demon Born Trello</h1>
 
-    <!-- Verdict card -->
-    <div class="verdict-card verdict-warn">
-      <div class="verdict-icon" aria-hidden="true">
-        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <circle cx="10" cy="10" r="8.5" stroke="currentColor" stroke-width="1.5"/>
-          <path d="M10 6v5M10 13.5v.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-        </svg>
-      </div>
-      <div class="verdict-body">
-        <strong>No official Trello board confirmed from public official sources.</strong>
-        Roblox game social links and SoraExp group social links endpoints are blocked by authentication (401).
-        The group community endpoint returned an empty string. This page does not publish any unverified Trello link.
-      </div>
-    </div>
-
-    <!-- Last checked -->
-    <div class="last-checked-strip">
-      <span class="strip-item">
+    <!-- Quick Answer Panel -->
+    <div class="quick-answer-panel">
+      <div class="qap-label">
         <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true">
           <circle cx="6" cy="6" r="5" stroke="currentColor" stroke-width="1.2"/>
           <path d="M6 3.5v2.5l1.5 1" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
         </svg>
-        Last checked: {EVIDENCE_REVIEW_DATE}
-      </span>
+        Quick Answer
+      </div>
+      <p class="qap-body">
+        No official Demon Born Trello link is confirmed yet. Do not trust random Trello links unless they are linked by the creator on the Roblox game page or verified group.
+      </p>
     </div>
 
-    <!-- Status cards -->
+    <!-- What you should do now -->
+    <h2>What you should do now</h2>
+    <div class="step-cards">
+      <div class="step-card">
+        <div class="step-num">1</div>
+        <div class="step-body">Check the <strong>official Roblox game page</strong> description for a pinned Trello link.</div>
+      </div>
+      <div class="step-card">
+        <div class="step-num">2</div>
+        <div class="step-body">Check the <strong>SoraExp Roblox group</strong> page for a pinned Trello link.</div>
+      </div>
+      <div class="step-card">
+        <div class="step-num">3</div>
+        <div class="step-body">Treat all other Trello links as unverified unless the creator links them directly.</div>
+      </div>
+    </div>
+
+    <!-- What not to trust yet -->
+    <h2>What not to trust yet</h2>
+    <div class="dont-trust-grid">
+      <div class="dont-trust-item">Trello links from guide sites — not verified as official</div>
+      <div class="dont-trust-item">Trello boards not linked by the creator from an official Roblox channel</div>
+      <div class="dont-trust-item">Roadmap or update claims from unknown boards</div>
+    </div>
+
+    <!-- Status cards — player language -->
+    <h2>Where we checked for official links</h2>
+    <p style="color: var(--color-text-muted); font-size: 0.9375rem; margin-bottom: var(--space-5)">
+      Last checked: {EVIDENCE_REVIEW_DATE}. We checked the places where official Trello links would normally appear.
+    </p>
     <div class="status-grid">
       <div class="status-card status-blocked">
         <div class="status-icon" aria-hidden="true">
           <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 2l10 10M12 2L2 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
         </div>
         <div>
-          <div class="status-label">Social Endpoints</div>
-          <div class="status-desc">Blocked (401) — authentication required, cannot bypass</div>
+          <div class="status-label">Social endpoints</div>
+          <div class="status-desc">Not publicly visible — authentication required, cannot bypass</div>
         </div>
       </div>
       <div class="status-card status-empty">
@@ -74,45 +91,43 @@ const verifySteps = [
           <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="6" stroke="currentColor" stroke-width="1.2" stroke-dasharray="2 2"/></svg>
         </div>
         <div>
-          <div class="status-label">Community Endpoint</div>
+          <div class="status-label">Community endpoint</div>
           <div class="status-desc">Empty string — no official Trello confirmed</div>
         </div>
       </div>
     </div>
 
     <!-- Decision panel -->
-    <h2 style="margin-top: var(--space-6)">Publishing readiness check</h2>
+    <h2>Can we publish a Trello link?</h2>
     <div class="decision-panel">
-      <div class="decision-header">Can we publish a Trello link?</div>
+      <div class="decision-header">Publishing readiness check</div>
       <div class="decision-row">
         <span class="decision-label">Trello link on Roblox game page</span>
-        <span class="decision-value val-hold">HOLD</span>
+        <span class="decision-value val-hold">Not safe yet</span>
       </div>
       <div class="decision-row">
         <span class="decision-label">Trello link on SoraExp group page</span>
-        <span class="decision-value val-hold">HOLD</span>
+        <span class="decision-value val-hold">Not safe yet</span>
       </div>
       <div class="decision-row">
         <span class="decision-label">Community links API result</span>
-        <span class="decision-value val-blocked">BLOCKED / EMPTY</span>
+        <span class="decision-value val-blocked">Not publicly visible</span>
       </div>
     </div>
 
-    <!-- Link verifier board -->
-    <h2>Link verifier board</h2>
+    <!-- Link verifier board — player language -->
+    <h2>Official link check</h2>
     <div class="verifier-board">
       {verifiers.map(v => (
         <div class="verifier-card">
           <div>
             <div class="verifier-name">{v.name}</div>
-            <div class="verifier-endpoint">{v.endpoint}</div>
-            <div class="verifier-result">{v.result}</div>
+            <div class="verifier-endpoint">{v.place}</div>
+            <div class="verifier-result">{v.found}</div>
           </div>
           <div class="verifier-right">
             <span class={`verifier-badge badge-${v.badge}`}>{v.note}</span>
-            <span class={`verifier-fact-label ${v.canFact ? 'verified' : 'unverified'}`}>
-              {v.canFact ? '✓ Can use as fact' : '✗ Cannot use as fact'}
-            </span>
+            <span class="verifier-fact-label">{v.trust}</span>
           </div>
         </div>
       ))}
@@ -135,8 +150,8 @@ const verifySteps = [
         <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 2l10 10M12 2L2 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
       </div>
       <div>
-        <div class="status-label">Blocked endpoints cannot be bypassed</div>
-        <div class="status-desc">Roblox API endpoints returning 401 require a login session — this is intentional. Do not attempt to work around authentication requirements.</div>
+        <div class="status-label">Why some links are not publicly visible</div>
+        <div class="status-desc">Some Roblox API endpoints require a login session to access — this is intentional. We do not bypass authentication requirements.</div>
       </div>
     </div>
 
@@ -144,7 +159,7 @@ const verifySteps = [
     <h2>What this site will not do</h2>
     <div class="not-confirmed-cards">
       <div class="not-confirmed-item">Will not publish a Trello link unless verified as official by an official Roblox or creator channel.</div>
-      <div class="not-confirmed-item">Will not list a third-party Trello board as "official."</div>
+      <div class="not-confirmed-item">Will not list a fan Trello board as "official."</div>
       <div class="not-confirmed-item">Will not create or mirror any fan Trello board.</div>
       <div class="not-confirmed-item">Will not attempt to bypass Roblox authentication requirements.</div>
     </div>
@@ -156,7 +171,7 @@ const verifySteps = [
         <div class="col-heading">Can do now</div>
         <ul class="col-list">
           <li>Confirm official game title and creator</li>
-          <li>Track blocked/empty API endpoints</li>
+          <li>Track where official links would appear</li>
           <li>Warn against unverified Trello links</li>
           <li>Identify Trello as a content gap</li>
           <li>Guide users through official verification steps</li>
@@ -182,13 +197,23 @@ const verifySteps = [
         <p>Current wiki landscape and official source gaps.</p>
       </a>
       <a href="/codes/" class="card">
-        <h2>Codes Checker</h2>
+        <h2>Codes Status</h2>
         <p>How to check for active codes from official channels.</p>
       </a>
       <a href="/controls/" class="card">
         <h2>Controls</h2>
         <p>Official controls from the Roblox game description.</p>
       </a>
+    </div>
+
+    <!-- How we checked this -->
+    <div class="how-we-checked">
+      <div class="how-we-checked-title">How we checked this</div>
+      <p style="font-size: 0.875rem; color: var(--color-text-muted); margin: 0 0 var(--space-4) 0">
+        We checked the Roblox game page, Roblox Games social links API, SoraExp group page, SoraExp group social links API, and community links API.
+        Both social links endpoints returned 401 (authentication required) and the community endpoint returned empty string.
+        No bypass of authentication was attempted.
+      </p>
     </div>
 
     <p>
@@ -200,54 +225,6 @@ const verifySteps = [
 </ContentLayout>
 
 <style>
-  .verdict-card {
-    display: flex;
-    align-items: flex-start;
-    gap: var(--space-4);
-    padding: var(--space-5);
-    border-radius: 8px;
-    margin-bottom: var(--space-5);
-    border: 1px solid;
-  }
-  .verdict-warn {
-    background: var(--color-warning-bg);
-    border-color: var(--color-warning-border);
-    color: var(--color-text);
-  }
-  .verdict-icon {
-    color: var(--color-warning-text);
-    flex-shrink: 0;
-    margin-top: 1px;
-  }
-  .verdict-body {
-    font-size: 0.9375rem;
-    line-height: 1.55;
-  }
-
-  .last-checked-strip {
-    display: flex;
-    align-items: center;
-    gap: var(--space-3);
-    font-size: 0.8125rem;
-    color: var(--color-text-muted);
-    margin-bottom: var(--space-6);
-    flex-wrap: wrap;
-  }
-  .strip-item {
-    display: flex;
-    align-items: center;
-    gap: 5px;
-  }
-
-  .status-empty {
-    border-left-color: var(--color-text-muted);
-    background: rgba(139, 144, 168, 0.05);
-  }
-  .status-empty .status-icon {
-    background: rgba(139, 144, 168, 0.15);
-    color: var(--color-text-muted);
-  }
-
   h2 {
     margin-top: 0;
   }
@@ -259,6 +236,15 @@ const verifySteps = [
     padding: 1px 5px;
     border-radius: 3px;
     color: var(--color-text);
+  }
+
+  .status-empty {
+    border-left-color: var(--color-text-muted);
+    background: rgba(139, 144, 168, 0.05);
+  }
+  .status-empty .status-icon {
+    background: rgba(139, 144, 168, 0.15);
+    color: var(--color-text-muted);
   }
 
   .card-grid {

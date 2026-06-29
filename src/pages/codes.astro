@@ -6,56 +6,68 @@ const pageSourceIds = ['DB-SERP-002', 'DB-LEAD-005', 'DB-LEAD-006', 'DB-LEAD-007
 ---
 
 <ContentLayout
-  title="Codes Status"
-  description="Demon Born codes — source checker. No official code feed confirmed; third-party lists conflict; redemption flow unverified."
+  title="Demon Born Codes"
+  description="Demon Born codes — no verified official code source confirmed yet. We check codes status so you know what is safe."
   canonicalUrl="/codes/"
-  breadcrumb={[{ label: 'Codes Status', url: '/codes/' }]}
+  breadcrumb={[{ label: 'Codes', url: '/codes/' }]}
   evidenceNotes="Active codes not published — no official source confirmed; third-party lists disagree"
   sourceIds={pageSourceIds}
 >
   <div class="workstation-container">
-    <h1>{GAME_NAME} Codes — Source Checker</h1>
+    <h1>Demon Born Codes</h1>
 
-    <!-- Verdict card -->
-    <div class="verdict-card verdict-warn">
-      <div class="verdict-icon" aria-hidden="true">
-        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <circle cx="10" cy="10" r="8.5" stroke="currentColor" stroke-width="1.5"/>
-          <path d="M10 6v5M10 13.5v.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-        </svg>
-      </div>
-      <div class="verdict-body">
-        <strong>No public official code feed confirmed.</strong>
-        Active codes are not published here. No official Roblox channel, creator social, or in-game menu has been verified as a code source. Third-party code lists are not copied because they disagree on active/expired codes and redemption flow.
-      </div>
-    </div>
-
-    <!-- Last checked strip -->
-    <div class="last-checked-strip">
-      <span class="strip-item">
+    <!-- Quick Answer Panel -->
+    <div class="quick-answer-panel">
+      <div class="qap-label">
         <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true">
           <circle cx="6" cy="6" r="5" stroke="currentColor" stroke-width="1.2"/>
           <path d="M6 3.5v2.5l1.5 1" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
         </svg>
-        Last checked: {EVIDENCE_REVIEW_DATE}
-      </span>
-      <span class="strip-sep">·</span>
-      <span class="strip-item">
-        <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true">
-          <path d="M2 6h8M7 3l3 3-3 3" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
-        Next check: when official source is reported
-      </span>
+        Quick Answer
+      </div>
+      <p class="qap-body">
+        No verified official Demon Born code source is public right now. We do not list copied codes because different sites disagree on which ones are active.
+      </p>
     </div>
 
-    <!-- Status cards grid -->
+    <!-- What you should do now -->
+    <h2>What you should do now</h2>
+    <div class="step-cards">
+      <div class="step-card">
+        <div class="step-num">1</div>
+        <div class="step-body">Check the <strong>official Roblox game page</strong> description for pinned codes first.</div>
+      </div>
+      <div class="step-card">
+        <div class="step-num">2</div>
+        <div class="step-body">Do not trust copied code lists blindly — different third-party sites list different codes as active or expired.</div>
+      </div>
+      <div class="step-card">
+        <div class="step-num">3</div>
+        <div class="step-body">Come back when an official source appears — we will update this page once we can verify from an official channel.</div>
+      </div>
+    </div>
+
+    <!-- What not to trust yet -->
+    <h2>What not to trust yet</h2>
+    <div class="dont-trust-grid">
+      <div class="dont-trust-item">Active code lists on aggregator sites with no official source</div>
+      <div class="dont-trust-item">Exact reward claims for any code</div>
+      <div class="dont-trust-item">Redemption steps copied from other sites</div>
+      <div class="dont-trust-item">Same code listed as active on one site and expired on another</div>
+    </div>
+
+    <!-- Source status — player language -->
+    <h2>How we check code sources</h2>
+    <p style="color: var(--color-text-muted); font-size: 0.9375rem; margin-bottom: var(--space-5)">
+      Last checked: {EVIDENCE_REVIEW_DATE}. We check these places so you do not have to guess.
+    </p>
     <div class="status-grid">
       <div class="status-card status-unknown">
         <div class="status-icon" aria-hidden="true">
           <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M7 2v5M7 9v.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><circle cx="7" cy="7" r="6" stroke="currentColor" stroke-width="1.2"/></svg>
         </div>
         <div>
-          <div class="status-label">Official Feed</div>
+          <div class="status-label">Official code source</div>
           <div class="status-desc">Not confirmed — no official channel verified</div>
         </div>
       </div>
@@ -64,8 +76,8 @@ const pageSourceIds = ['DB-SERP-002', 'DB-LEAD-005', 'DB-LEAD-006', 'DB-LEAD-007
           <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 2l10 10M12 2L2 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
         </div>
         <div>
-          <div class="status-label">Social Endpoints</div>
-          <div class="status-desc">Blocked / Empty — no public URL confirmed</div>
+          <div class="status-label">Public creator links</div>
+          <div class="status-desc">Not publicly visible — no URL confirmed from official Roblox links</div>
         </div>
       </div>
       <div class="status-card status-unknown">
@@ -73,7 +85,7 @@ const pageSourceIds = ['DB-SERP-002', 'DB-LEAD-005', 'DB-LEAD-006', 'DB-LEAD-007
           <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><rect x="2" y="3" width="10" height="8" rx="1.5" stroke="currentColor" stroke-width="1.2"/><path d="M5 6h4M5 8.5h2" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
         </div>
         <div>
-          <div class="status-label">In-game UI</div>
+          <div class="status-label">In-game code menu</div>
           <div class="status-desc">Needs hands-on testing — menu path unverified</div>
         </div>
       </div>
@@ -82,37 +94,37 @@ const pageSourceIds = ['DB-SERP-002', 'DB-LEAD-005', 'DB-LEAD-006', 'DB-LEAD-007
           <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M7 1.5L12.5 11.5H1.5L7 1.5Z" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round"/><path d="M7 5.5v3M7 10v.5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
         </div>
         <div>
-          <div class="status-label">Third-party Lists</div>
+          <div class="status-label">Other code websites</div>
           <div class="status-desc">Conflicting — active/expired codes disagree across sources</div>
         </div>
       </div>
     </div>
 
     <!-- Decision panel -->
-    <h2 style="margin-top: var(--space-8)">Can we publish codes?</h2>
+    <h2>Can we publish codes?</h2>
     <div class="decision-panel">
       <div class="decision-header">Publishing readiness check</div>
       <div class="decision-row">
         <span class="decision-label">Active code list</span>
-        <span class="decision-value val-hold">HOLD</span>
+        <span class="decision-value val-hold">Not safe yet</span>
       </div>
       <div class="decision-row">
         <span class="decision-label">Redemption steps</span>
-        <span class="decision-value val-hold">HOLD</span>
+        <span class="decision-value val-hold">Not safe yet</span>
       </div>
       <div class="decision-row">
         <span class="decision-label">Official source link</span>
-        <span class="decision-value val-source">NEEDS_SOURCE</span>
+        <span class="decision-value val-source">None confirmed</span>
       </div>
     </div>
 
     <!-- Conflict cards -->
-    <h2>Known conflicts with third-party sources</h2>
+    <h2>Why we do not copy code lists</h2>
     <div class="conflict-cards">
       <div class="conflict-card">
         <div class="conflict-card-title">
           <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M6 1.5L10.5 9.5H1.5L6 1.5Z" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round"/></svg>
-          Different active code lists
+          Different active code lists across sites
         </div>
         <div class="conflict-card-body">Multiple aggregator pages (June 2026) include different codes, disagree on which are expired, and list different rewards. No single authoritative list exists.</div>
       </div>
@@ -132,7 +144,7 @@ const pageSourceIds = ['DB-SERP-002', 'DB-LEAD-005', 'DB-LEAD-006', 'DB-LEAD-007
       </div>
     </div>
 
-    <!-- Safe checklist — now as cards -->
+    <!-- Safe checklist — player language -->
     <h2>Safe code-checking checklist</h2>
     <div class="checklist-cards">
       <div class="checklist-card">
@@ -161,9 +173,20 @@ const pageSourceIds = ['DB-SERP-002', 'DB-LEAD-005', 'DB-LEAD-006', 'DB-LEAD-007
       </div>
     </div>
 
+    <!-- How we checked this — evidence detail -->
+    <div class="how-we-checked">
+      <div class="how-we-checked-title">How we checked this</div>
+      <p style="font-size: 0.875rem; color: var(--color-text-muted); margin: 0 0 var(--space-4) 0">
+        We checked the official Roblox game page, creator social endpoints, and community links APIs.
+        All social link endpoints returned 401 (authentication required) or empty string.
+        Third-party code aggregators were found to conflict on active/expired status.
+        No official code source has been publicly confirmed by SoraExp.
+      </p>
+    </div>
+
     <!-- What would unlock this page -->
     <div class="unlock-panel">
-      <div class="unlock-heading">What would unlock this page?</div>
+      <div class="unlock-heading">What would change this page?</div>
       <div class="unlock-items">
         <div class="unlock-item">
           <div class="unlock-dot" style="background: #4caf50"></div>
@@ -191,46 +214,6 @@ const pageSourceIds = ['DB-SERP-002', 'DB-LEAD-005', 'DB-LEAD-006', 'DB-LEAD-007
 </ContentLayout>
 
 <style>
-  .verdict-card {
-    display: flex;
-    align-items: flex-start;
-    gap: var(--space-4);
-    padding: var(--space-5);
-    border-radius: 8px;
-    margin-bottom: var(--space-5);
-    border: 1px solid;
-  }
-  .verdict-warn {
-    background: var(--color-warning-bg);
-    border-color: var(--color-warning-border);
-    color: var(--color-text);
-  }
-  .verdict-icon {
-    color: var(--color-warning-text);
-    flex-shrink: 0;
-    margin-top: 1px;
-  }
-  .verdict-body {
-    font-size: 0.9375rem;
-    line-height: 1.55;
-  }
-
-  .last-checked-strip {
-    display: flex;
-    align-items: center;
-    gap: var(--space-3);
-    font-size: 0.8125rem;
-    color: var(--color-text-muted);
-    margin-bottom: var(--space-6);
-    flex-wrap: wrap;
-  }
-  .strip-item {
-    display: flex;
-    align-items: center;
-    gap: 5px;
-  }
-  .strip-sep { opacity: 0.5; }
-
   h2 {
     margin-top: 0;
   }

@@ -1,19 +1,19 @@
 ---
 import ContentLayout from '../layouts/ContentLayout.astro';
-import { GAME_NAME, CURRENT_VERSION, EVIDENCE_REVIEW_DATE } from '../data/site';
+import { CURRENT_VERSION, EVIDENCE_REVIEW_DATE } from '../data/site';
 
 const pageSourceIds = ['DB-API-001', 'DB-API-005'];
 
 const controls = [
-  { key: 'Left Click', action: 'Attack', group: 'Combat', confirmed: 'Key label', unverified: 'Behavior (cooldown, stamina) not verified' },
-  { key: 'Q', action: 'Dash', group: 'Combat', confirmed: 'Key label', unverified: 'Cooldown, stamina cost, i-frames not verified' },
-  { key: 'F', action: 'Defense', group: 'Combat', confirmed: 'Key label', unverified: 'Effect and duration not verified' },
-  { key: 'B', action: 'Finish', group: 'Combat', confirmed: 'Key label', unverified: 'Trigger conditions not verified' },
-  { key: 'ALT', action: 'Lock', group: 'Combat', confirmed: 'Key label', unverified: 'Lock behavior and target-switching not verified' },
-  { key: 'H', action: 'Breathing', group: 'Combat', confirmed: 'Key label', unverified: 'Breathing system details (styles, upgrades, effects) not verified' },
-  { key: 'SHIFT', action: 'Run', group: 'Movement', confirmed: 'Key label', unverified: 'Stamina cost and speed not verified' },
-  { key: 'U', action: 'Quest Indicators', group: 'Navigation', confirmed: 'Key label', unverified: 'Indicator behavior not verified' },
-  { key: 'M', action: 'Menu', group: 'Navigation', confirmed: 'Key label', unverified: 'Menu structure not verified' },
+  { key: 'Left Click', action: 'Attack', group: 'Combat', confirmed: 'Key label confirmed', unverified: 'We know the key label, but not exactly how the move works yet — cooldowns, stamina, damage unverified' },
+  { key: 'Q', action: 'Dash', group: 'Combat', confirmed: 'Key label confirmed', unverified: 'Cooldown, stamina cost, i-frames not verified' },
+  { key: 'F', action: 'Defense', group: 'Combat', confirmed: 'Key label confirmed', unverified: 'Effect and duration not verified' },
+  { key: 'B', action: 'Finish', group: 'Combat', confirmed: 'Key label confirmed', unverified: 'Trigger conditions not verified' },
+  { key: 'ALT', action: 'Lock', group: 'Combat', confirmed: 'Key label confirmed', unverified: 'Lock behavior and target-switching not verified' },
+  { key: 'H', action: 'Breathing', group: 'Combat', confirmed: 'Key label confirmed', unverified: 'Breathing system details (styles, upgrades, effects) not verified' },
+  { key: 'SHIFT', action: 'Run', group: 'Movement', confirmed: 'Key label confirmed', unverified: 'Stamina cost and speed not verified' },
+  { key: 'U', action: 'Quest Indicators', group: 'Navigation', confirmed: 'Key label confirmed', unverified: 'Indicator behavior not verified' },
+  { key: 'M', action: 'Menu', group: 'Navigation', confirmed: 'Key label confirmed', unverified: 'Menu structure not verified' },
 ];
 
 const groups = ['Combat', 'Movement', 'Navigation'];
@@ -22,27 +22,40 @@ const unverifiedCount = controls.length;
 ---
 
 <ContentLayout
-  title="Controls"
-  description="Official controls for Demon Born Roblox — key labels confirmed from Roblox game description; mechanics not verified."
+  title="Demon Born Controls"
+  description="Official controls for Demon Born Roblox — 9 key labels confirmed from Roblox game description; mechanics not verified."
   canonicalUrl="/controls/"
   breadcrumb={[{ label: 'Controls', url: '/controls/' }]}
   evidenceNotes="Keys confirmed official; mechanics unverified — no cooldowns, iframes, style effects, or route-specific controls published"
   sourceIds={pageSourceIds}
 >
   <div class="workstation-container">
-    <h1>{GAME_NAME} Controls</h1>
+    <h1>Demon Born Controls</h1>
 
-    <!-- Verdict card -->
-    <div class="verdict-card verdict-confirmed">
-      <div class="verdict-icon" aria-hidden="true">
-        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <circle cx="10" cy="10" r="8.5" stroke="currentColor" stroke-width="1.5"/>
-          <path d="M6.5 10l2.5 2.5 5-5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    <!-- Quick Answer Panel -->
+    <div class="quick-answer-panel">
+      <div class="qap-label">
+        <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true">
+          <circle cx="6" cy="6" r="5" stroke="currentColor" stroke-width="1.2"/>
+          <path d="M6 3.5v2.5l1.5 1" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
         </svg>
+        Quick Answer
       </div>
-      <div class="verdict-body">
-        <strong>Key labels are official-confirmed. Mechanics are not verified.</strong>
-        All 9 keys listed here come from the official Roblox game description. Behaviors, cooldowns, stamina costs, style effects, and class-specific controls have not been confirmed from official sources.
+      <p class="qap-body">
+        These 9 Demon Born key labels are confirmed from the official Roblox game description. We know what key does what by name — but not exactly how the move works yet.
+      </p>
+    </div>
+
+    <!-- What you should do now -->
+    <h2>What you should do now</h2>
+    <div class="step-cards">
+      <div class="step-card">
+        <div class="step-num">1</div>
+        <div class="step-body">Use the <strong>key grid below</strong> while playing — key labels are confirmed.</div>
+      </div>
+      <div class="step-card">
+        <div class="step-num">2</div>
+        <div class="step-body">Treat mechanics like <strong>cooldowns, stamina cost, damage, and effects</strong> as unverified until we can test them in-game.</div>
       </div>
     </div>
 
@@ -78,11 +91,11 @@ const unverifiedCount = controls.length;
         {CURRENT_VERSION}
       </span>
       <span class="source-ref">
-        Sourced from official Roblox game description · DB-API-001 · Refreshed {EVIDENCE_REVIEW_DATE}
+        Sourced from official Roblox game description · Refreshed {EVIDENCE_REVIEW_DATE}
       </span>
     </div>
 
-    <!-- Keycap grid — primary component -->
+    <!-- Keycap grid — primary component, near top -->
     <h2>Controls key grid</h2>
     <div class="keycap-grid">
       {controls.map(c => (
@@ -108,7 +121,7 @@ const unverifiedCount = controls.length;
                 <th>Key</th>
                 <th>Action</th>
                 <th>Confirmed</th>
-                <th>Unverified</th>
+                <th>What we do not know yet</th>
               </tr>
             </thead>
             <tbody>
@@ -138,8 +151,17 @@ const unverifiedCount = controls.length;
       <div class="not-confirmed-item">Any class-specific, clan-specific, or route-specific controls</div>
     </div>
 
+    <!-- How we checked this -->
+    <div class="how-we-checked">
+      <div class="how-we-checked-title">How we checked this</div>
+      <p style="font-size: 0.875rem; color: var(--color-text-muted); margin: 0 0 var(--space-4) 0">
+        We confirmed these 9 key labels from the official Roblox Games API (DB-API-001) and again on refresh (DB-API-005).
+        Mechanics, cooldowns, stamina, style effects, and class-specific controls are not published because they have not been confirmed from official sources or hands-on testing.
+      </p>
+    </div>
+
     <!-- Evidence history -->
-    <h2>Evidence and update history</h2>
+    <h2>Update history</h2>
     <div class="table-wrapper">
       <table>
         <thead>
@@ -167,30 +189,6 @@ const unverifiedCount = controls.length;
 </ContentLayout>
 
 <style>
-  .verdict-card {
-    display: flex;
-    align-items: flex-start;
-    gap: var(--space-4);
-    padding: var(--space-5);
-    border-radius: 8px;
-    margin-bottom: var(--space-5);
-    border: 1px solid;
-  }
-  .verdict-confirmed {
-    background: rgba(76, 175, 80, 0.1);
-    border-color: rgba(76, 175, 80, 0.3);
-    color: var(--color-text);
-  }
-  .verdict-icon {
-    color: #4caf50;
-    flex-shrink: 0;
-    margin-top: 1px;
-  }
-  .verdict-body {
-    font-size: 0.9375rem;
-    line-height: 1.55;
-  }
-
   .controls-intro {
     display: flex;
     align-items: center;

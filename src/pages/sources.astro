@@ -1,13 +1,12 @@
 ---
 import ContentLayout from '../layouts/ContentLayout.astro';
-import { SITE_TITLE, EVIDENCE_REVIEW_DATE } from '../data/site';
+import { EVIDENCE_REVIEW_DATE } from '../data/site';
 
 const lastChecked = EVIDENCE_REVIEW_DATE;
 
-// Source type categories with badge color
 const sourceGroups = [
   {
-    type: 'Official / API',
+    type: 'Official sources',
     badgeClass: 'badge-official',
     badgeIcon: '✓',
     count: 11,
@@ -26,7 +25,7 @@ const sourceGroups = [
     ],
   },
   {
-    type: 'Search / SERP',
+    type: 'Search signals',
     badgeClass: 'badge-serp',
     badgeIcon: '◉',
     count: 3,
@@ -37,7 +36,7 @@ const sourceGroups = [
     ],
   },
   {
-    type: 'Third-party Leads',
+    type: 'Unverified sites/videos',
     badgeClass: 'badge-lead',
     badgeIcon: '→',
     count: 12,
@@ -57,13 +56,13 @@ const sourceGroups = [
     ],
   },
   {
-    type: 'Blocked Endpoints',
+    type: 'Not publicly visible checks',
     badgeClass: 'badge-blocked',
     badgeIcon: '✗',
     count: 2,
     sources: [
-      { id: 'DB-API-009', title: 'SoraExp group social links endpoint', url: 'groups.roblox.com/v1/groups/34709042/social-links', use: '401 — Authentication token missing. Do not bypass login. Cannot confirm Discord/Trello/wiki.', access: 'BLOCKED' },
-      { id: 'DB-API-010', title: 'Demon Born game social links endpoint', url: 'games.roblox.com/v1/games/7326773869/social-links/list', use: '401 — Authentication token missing. Do not bypass login. Cannot confirm Discord/Trello/wiki.', access: 'BLOCKED' },
+      { id: 'DB-API-009', title: 'SoraExp group social links endpoint', url: 'groups.roblox.com/v1/groups/34709042/social-links', use: 'Authentication required — cannot confirm Discord/Trello/wiki. Do not bypass login.', access: 'BLOCKED' },
+      { id: 'DB-API-010', title: 'Demon Born game social links endpoint', url: 'games.roblox.com/v1/games/7326773869/social-links/list', use: 'Authentication required — cannot confirm Discord/Trello/wiki. Do not bypass login.', access: 'BLOCKED' },
     ],
   },
 ];
@@ -71,7 +70,7 @@ const sourceGroups = [
 const timeline = [
   { date: '2026-06-27', event: 'Initial evidence pack assembled', detail: 'DB-API-001 through DB-API-004, DB-ROBLOX-001, DB-TRENDS-001, DB-SERP-001, DB-LEAD-001, DB-LEAD-002 confirmed.', type: 'evidence' },
   { date: '2026-06-29', event: 'Roblox API refresh', detail: 'DB-API-005 through DB-API-008 confirmed same controls list and metadata; votes and member count updated.', type: 'api_refresh' },
-  { date: '2026-06-29', event: 'Social endpoints checked — blocked/empty', detail: 'DB-API-009 (group social links) and DB-API-010 (game social links) returned 401. DB-API-011 (community endpoint) returned empty string. No bypass attempted.', type: 'blocked' },
+  { date: '2026-06-29', event: 'Social endpoints checked — not publicly visible', detail: 'DB-API-009 (group social links) and DB-API-010 (game social links) require authentication. DB-API-011 (community endpoint) returned empty string. No bypass attempted.', type: 'blocked' },
   { date: '2026-06-29', event: 'Code SERP conflict observed', detail: 'DB-SERP-002 confirmed multiple third-party code pages with differing active/expired lists and redemption-flow descriptions. Active codes remain unpublished.', type: 'conflict' },
   { date: '2026-06-29', event: 'Google Autocomplete probes', detail: 'DB-AUTO-001: root query returned "demon born roblox"; codes/wiki/trello modifier probes did not expand in this run.', type: 'serp' },
 ];
@@ -79,45 +78,54 @@ const timeline = [
 ---
 
 <ContentLayout
-  title="Sources & Corrections"
-  description="Public source matrix, blocked endpoints, and update timeline for Demon Born Compass."
+  title="How We Check Demon Born Info"
+  description="How we check Demon Born info — evidence methods, official sources, search signals, and blocked checks."
   canonicalUrl="/sources/"
 >
   <div class="workstation-container">
-    <h1>Sources &amp; Corrections</h1>
+    <h1>How We Check Demon Born Info</h1>
 
-    <p>
-      Every factual claim on <strong>{SITE_TITLE}</strong> traces to a registered source ID.
-      This page shows the public source matrix, update timeline, and how to submit corrections.
-      Full research notes, screenshots, and project methodology are not published publicly.
-    </p>
+    <!-- Quick Answer Panel -->
+    <div class="quick-answer-panel">
+      <div class="qap-label">
+        <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true">
+          <circle cx="6" cy="6" r="5" stroke="currentColor" stroke-width="1.2"/>
+          <path d="M6 3.5v2.5l1.5 1" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
+        </svg>
+        Quick Answer
+      </div>
+      <p class="qap-body">
+        We only publish Demon Born facts when they come from official Roblox sources, public creator links, or clearly marked unverified leads. Third-party sites are used for gap awareness only — never as fact sources.
+      </p>
+    </div>
 
     <!-- Source counts dashboard -->
+    <h2>Source categories at a glance</h2>
     <div class="source-counts">
       <div class="count-chip">
         <span class="count-num">11</span>
-        <span class="count-label">Official / API</span>
+        <span class="count-label">Official sources</span>
       </div>
       <div class="count-chip">
         <span class="count-num">3</span>
-        <span class="count-label">Search / SERP</span>
+        <span class="count-label">Search signals</span>
       </div>
       <div class="count-chip">
         <span class="count-num">12</span>
-        <span class="count-label">Third-party Leads</span>
+        <span class="count-label">Unverified sites/videos</span>
       </div>
       <div class="count-chip">
         <span class="count-num">2</span>
-        <span class="count-label">Blocked Endpoints</span>
+        <span class="count-label">Not publicly visible</span>
       </div>
     </div>
 
     <!-- Legend -->
     <div class="matrix-legend">
-      <span class="legend-item"><span class="badge badge-official">✓ Official/API</span> Confirmed from Roblox platform or official creator channel.</span>
-      <span class="legend-item"><span class="badge badge-serp">◉ Search/SERP</span> Google signals used for demand/supply awareness only.</span>
-      <span class="legend-item"><span class="badge badge-lead">→ Third-party Lead</span> C-level leads — not published as facts; used for gap analysis.</span>
-      <span class="legend-item"><span class="badge badge-blocked">✗ Blocked</span> Endpoint inaccessible — no bypass attempted; auth required.</span>
+      <span class="legend-item"><span class="badge badge-official">✓ Official sources</span> Confirmed from Roblox platform or official creator channel.</span>
+      <span class="legend-item"><span class="badge badge-serp">◉ Search signals</span> Google signals used for demand/supply awareness only.</span>
+      <span class="legend-item"><span class="badge badge-lead">→ Unverified sites/videos</span> Not used as facts — for gap awareness only.</span>
+      <span class="legend-item"><span class="badge badge-blocked">✗ Not publicly visible</span> Authentication required — no bypass attempted.</span>
     </div>
 
     <!-- Update timeline -->
@@ -135,7 +143,7 @@ const timeline = [
     </div>
 
     <!-- Public Source Matrix — group cards -->
-    <h2>Public source matrix — {lastChecked}</h2>
+    <h2>Source check detail — {lastChecked}</h2>
 
     {sourceGroups.map(group => (
       <div class="source-group">

@@ -15,38 +15,70 @@ const checklist = [
 ];
 
 const assetMap = [
-  { name: 'Play platform', status: 'NOW', badgeClass: 'as-now', note: 'Available on Roblox now' },
-  { name: 'Controls', status: 'NOW', badgeClass: 'as-now', note: '9 key labels confirmed' },
-  { name: 'Route premise', status: 'LIMITED', badgeClass: 'as-limited', note: 'Two routes confirmed; details not yet' },
-  { name: 'Codes', status: 'HOLD', badgeClass: 'as-hold', note: 'No official source confirmed' },
-  { name: 'Builds', status: 'REJECT', badgeClass: 'as-reject', note: 'Tier lists and best builds not published' },
-  { name: 'First quest', status: 'NEEDS_TESTING', badgeClass: 'as-limited', note: 'Requires hands-on play to document' },
+  { name: 'Play platform', status: 'Can use now', pillClass: 'pill-now', note: 'Available on Roblox now' },
+  { name: 'Controls', status: 'Can use now', pillClass: 'pill-now', note: '9 key labels confirmed' },
+  { name: 'Route premise', status: 'Limited', pillClass: 'pill-hold', note: 'Two routes confirmed; details not yet' },
+  { name: 'Codes', status: 'Do not trust yet', pillClass: 'pill-blocked', note: 'No official source confirmed' },
+  { name: 'Builds', status: 'Do not trust yet', pillClass: 'pill-blocked', note: 'Tier lists and best builds not published' },
+  { name: 'First quest', status: 'Do not trust yet', pillClass: 'pill-blocked', note: 'Requires hands-on play to document' },
 ];
 ---
 
 <ContentLayout
-  title="Beginner Guide"
-  description="Demon Born starter facts and pre-play checklist — official facts only, no full walkthrough."
+  title="Demon Born Starter Checklist"
+  description="Demon Born starter checklist — safe facts before you play, not a full walkthrough."
   canonicalUrl="/beginner-guide/"
-  breadcrumb={[{ label: 'Beginner Guide', url: '/beginner-guide/' }]}
+  breadcrumb={[{ label: 'Starter Checklist', url: '/beginner-guide/' }]}
   evidenceNotes="Official confirmed limited — starter facts only; no first quest, stat allocation, or route unlock method published"
   sourceIds={pageSourceIds}
 >
   <div class="workstation-container">
-    <h1>Starter Facts &amp; Pre-Play Checklist</h1>
+    <h1>Demon Born Starter Checklist</h1>
 
-    <!-- Verdict card -->
-    <div class="verdict-card verdict-limited">
-      <div class="verdict-icon" aria-hidden="true">
-        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <circle cx="10" cy="10" r="8.5" stroke="currentColor" stroke-width="1.5"/>
-          <path d="M10 6v5M10 13.5v.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+    <!-- Quick Answer Panel -->
+    <div class="quick-answer-panel">
+      <div class="qap-label">
+        <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true">
+          <circle cx="6" cy="6" r="5" stroke="currentColor" stroke-width="1.2"/>
+          <path d="M6 3.5v2.5l1.5 1" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
         </svg>
+        Quick Answer
       </div>
-      <div class="verdict-body">
-        <strong>Starter facts only. No full walkthrough, no first quest, no stat allocation, no route unlock method.</strong>
-        All confirmed facts come from the official Roblox game description. Detailed gameplay steps, progression systems, and route-specific mechanics are not published until hands-on testing or official documentation is available.
+      <p class="qap-body">
+        This is not a full walkthrough yet. It is a safe starter checklist based only on confirmed public information. Use it to know what is safe to trust before or during your first session.
+      </p>
+    </div>
+
+    <!-- What you should do now -->
+    <h2>What you should do now</h2>
+    <div class="step-cards">
+      <div class="step-card">
+        <div class="step-num">1</div>
+        <div class="step-body">Open the <strong>official Roblox game page</strong> and check the description for any pinned codes or updates.</div>
       </div>
+      <div class="step-card">
+        <div class="step-num">2</div>
+        <div class="step-body">Learn the <strong>9 confirmed control keys</strong> — labels are official, mechanics are not verified yet. <a href="/controls/">See Controls page</a>.</div>
+      </div>
+      <div class="step-card">
+        <div class="step-num">3</div>
+        <div class="step-body">Choose <strong>Slayer or Demon</strong> as a broad route idea — do not commit to detailed builds or tier choices yet.</div>
+      </div>
+      <div class="step-card">
+        <div class="step-num">4</div>
+        <div class="step-body">Avoid <strong>tier lists and build claims</strong> from third-party sites until we can verify them from official sources.</div>
+      </div>
+    </div>
+
+    <!-- What not to trust yet -->
+    <h2>What not to trust yet</h2>
+    <div class="dont-trust-grid">
+      <div class="dont-trust-item">First quest or tutorial step-by-step guides</div>
+      <div class="dont-trust-item">Stat allocation recommendations</div>
+      <div class="dont-trust-item">Route unlock methods</div>
+      <div class="dont-trust-item">Best clan, best build, or tier list</div>
+      <div class="dont-trust-item">Clan or class system details</div>
+      <div class="dont-trust-item">Active codes from third-party sites</div>
     </div>
 
     <!-- Quick status -->
@@ -75,21 +107,21 @@ const assetMap = [
     </div>
 
     <!-- Ready now / Do not trust yet — two column cards -->
-    <h2>What is ready and what is not</h2>
+    <h2>Can I use this info right now?</h2>
     <div class="can-cannot">
       <div class="can-col">
-        <div class="col-heading">Ready now</div>
+        <div class="col-heading">Yes — safe to use</div>
         <ul class="col-list">
           <li>Identity, title, creator</li>
-          <li>Official control keys</li>
+          <li>Official control key labels</li>
           <li>Genre and setting (open world)</li>
-          <li>Two-route premise (slayer / demon)</li>
-          <li>Wiki and Trello status verification</li>
+          <li>Two-route premise (Slayer / Demon)</li>
+          <li>Wiki and Trello status check</li>
           <li>Codes source checker</li>
         </ul>
       </div>
       <div class="cannot-col">
-        <div class="col-heading">Do not trust yet</div>
+        <div class="col-heading">No — do not trust yet</div>
         <ul class="col-list">
           <li>First quest or tutorial steps</li>
           <li>Stat allocation system</li>
@@ -104,23 +136,25 @@ const assetMap = [
       </div>
     </div>
 
-    <!-- Mini asset map -->
-    <h2>Page asset readiness map</h2>
+    <!-- Mini asset map — player language -->
+    <h2>Can I use this info? (status map)</h2>
     <div class="asset-map">
       {assetMap.map(a => (
-        <div class={`asset-item ${a.name === 'Play platform' || a.name === 'Controls' ? 'asset-now' : a.name === 'Codes' || a.name === 'Builds' ? 'asset-hold' : 'asset-limited'}`}>
+        <div class="asset-item">
           <div>
             <div class="asset-name">{a.name}</div>
             <div style="font-size: 0.75rem; color: var(--color-text-muted);">{a.note}</div>
           </div>
-          <span class={`asset-status ${a.badgeClass}`}>{a.status}</span>
+          <span class={`simple-status-pill ${a.pillClass}`}>{a.status}</span>
         </div>
       ))}
     </div>
 
     <!-- Pre-play checklist — step cards -->
-    <h2>Pre-play checklist — confirmed facts</h2>
-    <p>Use this checklist before or during your first session. Each item is confirmed from official sources.</p>
+    <h2>Confirmed facts before you play</h2>
+    <p style="color: var(--color-text-muted); font-size: 0.9375rem; margin-bottom: var(--space-5)">
+      Each item below is confirmed from official Roblox sources. Items marked incomplete need hands-on testing before they are complete.
+    </p>
     <div class="step-cards">
       {checklist.map(item => (
         <div class={`step-card ${item.partial ? 'step-card-partial' : ''}`}>
@@ -165,30 +199,6 @@ const assetMap = [
 </ContentLayout>
 
 <style>
-  .verdict-card {
-    display: flex;
-    align-items: flex-start;
-    gap: var(--space-4);
-    padding: var(--space-5);
-    border-radius: 8px;
-    margin-bottom: var(--space-5);
-    border: 1px solid;
-  }
-  .verdict-limited {
-    background: var(--color-warning-bg);
-    border-color: var(--color-warning-border);
-    color: var(--color-text);
-  }
-  .verdict-icon {
-    color: var(--color-warning-text);
-    flex-shrink: 0;
-    margin-top: 1px;
-  }
-  .verdict-body {
-    font-size: 0.9375rem;
-    line-height: 1.55;
-  }
-
   .guide-meta {
     display: flex;
     align-items: center;
